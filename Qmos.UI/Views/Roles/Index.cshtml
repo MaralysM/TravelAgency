@@ -1,0 +1,79 @@
+﻿
+@{
+    @model IEnumerable<KCI_SecureModuleCL.Models.SM_ROLE>
+    ViewData["Title"] = "Roles";
+    ViewData["Root"] = "Administración";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert.css">
+<link rel="stylesheet" href="~/css/plugins/dataTables/datatables.min.css" />
+<link rel="stylesheet" href="~/css/plugins/toastr/toastr.min.css" />
+<partial name="_HeaderDetailPartial" view-data="ViewData" />
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8">
+            <div class="ibox">
+                <div class="ibox-content text-center p-md">
+                    <div class="row">
+                        <div class="col-lg-offset-10">
+                            <a asp-controller="Roles" asp-action="Get" class="btn btn-success"><i class="fa fa-plus"></i> Nuevo</a>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-bordered table-hover dataTables" id="table">
+                        <thead>
+                            <tr>
+                                <th>Rol</th>
+                                <th>Aplicación</th>
+                                <th>Descripción</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.TX_Role
+                                        </td>
+                                        <td>
+                                            @item.ID_ElementNavigation.TX_Name
+                                        </td>
+                                        <td>
+                                            @item.TX_Description
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a asp-controller="Roles" asp-action="GetUpdate" asp-route-id="@item.ID_Role" class="btn btn-primary"><i class="fa fa-edit"></i> Actualizar</a>
+                                                <a data-id="@item.ID_Role" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="~/js/plugins/dataTables/dataTablesCustom.js"></script>
+    <script src="~/js/plugins/toastr/toastr.min.js"></script>
+
+    <script>
+    $(document).ready(function ()
+    {
+        formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 1], null);
+        $('#table tbody').on('click', '.delete', function () {
+            eliminarRegistro(".delete", "data-id", "@Url.Action("Delete", "Roles")", '#table', $(this));
+        });
+    });
+    </script>
+}
