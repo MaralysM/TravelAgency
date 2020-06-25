@@ -6,11 +6,6 @@
 
 
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Qmos.UI' ">
-    <StartAction>Project</StartAction>
-    <ExternalConsole>true</ExternalConsole>
-    <ApplicationURL>https://localhost:5003;http://localhost:5002</ApplicationURL>
-  </PropertyGroup>
   <ItemGroup>
     <Content Remove="Properties\launchSettings.json" />
     <Content Remove="wwwroot\css\site.css" />
