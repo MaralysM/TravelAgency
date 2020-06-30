@@ -28,13 +28,25 @@ namespace Qmos.UI.Controllers
         public DashboardController(IUserManager manager)
         {
             Manager = manager;
-
         }
-
         public IActionResult Index()
         {
             return View();
         }
+        public IActionResult MTDMissedHeats()
+        {
+            return View("MTDMissedHeats");
+        }
 
+        public IActionResult MTDDelays()
+        {
+            return View("MTDDelays");
+        }
+
+        public IActionResult MTDTapTempand02PPM()
+        {
+            return View("MTDTapTempand02PPM");
+        }
+        
     }
 }
