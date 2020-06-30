@@ -1,0 +1,33 @@
+﻿
+@using Microsoft.AspNetCore.Mvc;
+@{
+    ViewData["Title"] = "Main Dashboard";
+    ViewData["Root"] = "Dashboards";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/plugins/chartjs/Chart.min.css" rel="stylesheet" />
+<link href="~/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/css/plugins/daterangepicker/daterangepicker.css" />
+<link href="~/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-chosen.css" />
+
+<div class="col-md-3">
+Hola estoy aqui
+</div>
+
+    @section Scripts {
+        <script src="~/js/plugins/toastr/toastr.min.js"></script>
+        <script src="~/js/plugins/chartjs/Chart.bundle.min.js"></script>
+        <script src="~/js/plugins/chartjs/Chart.min.js"></script>
+        <script src="~/js/plugins/chartjs/chartjs-plugin-labels.js"></script>
+        <script src="~/js/plugins/moment/moment.min.js"></script>
+        <script src="~/js/plugins/daterangepicker/daterangepicker.min.js"></script>
+        <script src="~/js/TimeSheet/dashboard.js"></script>
+        <script src="~/lib/plugins/chosen/chosen.jquery.js"></script>
+
+        <script>
+            $(document).ready(function () {
+            });
+        </script>
+    }
