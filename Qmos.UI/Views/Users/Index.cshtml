@@ -1,8 +1,8 @@
 ﻿
 @{
     @model IEnumerable<KCI_SecureModuleCL.Models.SM_USER>
-    ViewData["Title"] = "Usuarios" + ViewData["Customer"];
-    ViewData["Root"] = "Administración";
+    ViewData["Title"] = "User list" + ViewData["Customer"];
+    ViewData["Root"] = "Mangement ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,16 +19,16 @@
                 <div class="ibox-content text-center p-md">
                     <div class="row">
                         <div class="col-lg-offset-10">
-                            <a asp-controller="Users" asp-action="Get" class="btn btn-success"><i class="fa fa-plus"></i> Nuevo</a>
+                            <a asp-controller="Users" asp-action="Get" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
                         </div>
                     </div>
                     <table class="table table-striped table-bordered table-hover dataTables" id="table">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Correo Electrónico</th>
+                                <th>Name</th>
+                                <th>Email</th>
                                 <th>Estatus</th>
-                                <th class="text-center">Acciones</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,8 +46,8 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a asp-controller="Users" asp-action="GetUpdate" asp-route-id="@item.ID_User" class="btn btn-primary"><i class="fa fa-edit"></i> Actualizar</a>
-                                            <a data-id="@item.ID_User" class="btn btn-danger delete"><i class="fa fa-remove"></i> Eliminar</a>
+                                            <a asp-controller="Users" asp-action="GetUpdate" asp-route-id="@item.ID_User" class="btn btn-primary"><i class="fa fa-edit"></i> Update</a>
+                                            <a data-id="@item.ID_User" class="btn btn-danger delete"><i class="fa fa-remove"></i> Remove</a>
                                         </div>
                                     </td>
                                 </tr>

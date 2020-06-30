@@ -37,21 +37,21 @@
                         <img width="100" src="../images/profile_small.jpg" />
                     </div>*@
                     <div class="wrap-input100 validate-input m-b-10" data-validate="useremail is required">
-                        <input class="input100" type="text" name="useremail" id="useremail" placeholder="Correo Electrónico">
+                        <input class="input100" type="text" name="useremail" id="useremail" placeholder="Email">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user"></i>
                         </span>
                     </div>
                     <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
-                        <input class="input100" type="password" name="password" id="password" placeholder="Contraseña">
+                        <input class="input100" type="password" name="password" id="password" placeholder="Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock"></i>
                         </span>
                     </div>
                     <div class="container-login100-form-btn p-t-10">
-                        <input type="submit" value="Inicio de Sesión" id="btnSend" class="login100-form-btn">
+                        <input type="submit" value="Login" id="btnSend" class="login100-form-btn">
                     </div>
                     @if (ViewBag.ErrorMessage != null)
                     {
@@ -63,7 +63,7 @@
                     }
                     <div class="text-center w-full p-t-25 p-b-20">
                         <a href="#" class="txt1" data-toggle="modal" data-target="#myForgetPassword" style="color:#999999">
-                            ¿Olvidaste la contraseña?
+                            Forgot Username / Password?
                         </a>
                     </div>
                     <!--<div class="text-center ">
@@ -81,12 +81,12 @@
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title myLabelForgetPassword font-bold">¿Olvidaste la contraseña?</h4>
+                    <h4 class="modal-title myLabelForgetPassword font-bold">Recover password</h4>
                 </div>
                 <form asp-action="ForgotPasswordeEmail" role="form" method="post">
                     <div class="modal-body" style="background-image: url('../images/background.png'); ">
-                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff">Ingrese el correo con el que accede al sistema.</font></font></p>
-                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff"> En unos minutos recibirá una notificación para restablecerla.</font></font></p><br />
+                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff">Enter the registered email in the system.</font></font></p>
+                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff"> In a few minutes you will receive a notification to reset it.</font></font></p><br />
 
                         <div class="wrap-input100 validate-input m-b-10" data-validate="email is required">
                             <input class="input100" type="text" name="useremail" id="useremail" placeholder="Correo Electrónico">
@@ -115,12 +115,12 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title myLabelForgetPassword font-bold">Actualización de contraseña</h4>
+                    <h4 class="modal-title myLabelForgetPassword font-bold">Password update</h4>
                 </div>
                 <form asp-action="ForgotPasswordeEmail" role="form" method="post">
                     <div class="modal-body" style="background-image: url('../images/background.png'); ">
-                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff">El enlace para recuperar su contraseña ha sido enviado con éxito a su correo electrónico.</font></font></p>
-                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff">Por favor, revise su bandeja de entrada en unos minutos para restablecerla.</font></font></p><br />
+                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff">The link to recover your password has been successfully sent to your email.</font></font></p>
+                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff">Please check your inbox in a few minutes to reset it.</font></font></p><br />
                     </div>
                 </form>
                 <div class="modal-footer" style="padding:8px">
@@ -138,16 +138,16 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title myLabelForgetPassword font-bold text-danger">Actualización fallida</h4>
+                    <h4 class="modal-title myLabelForgetPassword font-bold text-danger">Update failed</h4>
                 </div>
                 <form asp-action="ForgotPasswordeEmail" role="form" method="post">
                     <div class="modal-body" style="background-image: url('../images/background.png'); ">
-                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff">¡Ocurrió un error!</font></font></p>
-                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff">Ingrese el correo registrado en el sistema.</font></font></p><br />
+                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff">An error occurred</font></font></p>
+                        <p class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:#ffffff">Enter the registered email in the system.</font></font></p><br />
                     </div>
                 </form>
                 <div class="modal-footer" style="padding:8px">
-                    <button class="btn btn-primary btn-ok" type="button" id="" data-dismiss="modal">Aceptar</button>
+                    <button class="btn btn-primary btn-ok" type="button" id="" data-dismiss="modal">Ok</button>
                 </div>
             </div>
         </div>
