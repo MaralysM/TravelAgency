@@ -1,216 +1,54 @@
-﻿$(document).ready(function () {
-    GetPayTypeGraphData(1);
-    GetActivesEmployeesByDeparmentData();
-    GetCostByDeparmentData(1);
-});
+﻿let canvasDistributionHoursArea = document.getElementById("chartDistributionHoursArea").getContext("2d");
+var doughnutChartDistributionHoursArea = new Chart(canvasDistributionHoursArea,
+    { type: 'doughnut', data: {}, options: {} });
 
-function GetPayTypeGraphData(range) {
-    $.ajax({
-        url: "/Dashboard/GetPayTypeDashboardAsync/",
-        method: "GET",
-        data : null,
-        beforeSend: function () {
-            $('.ajax-loader').css("visibility", "visible");
-        },
-        success: function (retorno) {
-            var grafico = retorno.grafico;
-            var dataGraficoPayTypePercent = {
-                labels: grafico.labels,
-                datasets:
-                    $.map(grafico.dataSets, function (item, i) {
-                        var ds = new Object();
-                        ds.backgroundColor = item.listaColores;
-                        //ds.borderColor = item.ListaColoresBordercolor;
-                        ds.data = item.dataDouble;
-                        return ds;
-                    }),
+function GetDistributionHours(source, rangeDate, typeLevel) {
+
+            debugger
+            let data = {
+                labels: ["A", "B", "C", "D"],
+                datasets: [{ data: [2, 2, 4, 4], backgroundColor: ["rgba(163,225,211,1)", "rgba(222,222,222,1)", "rgba(156,195,218,1)", "rgba(181,184,207,0.5)"] }]
             };
-
-            var optionsGraficoPayTypePercent = {
-                animation: {
-                    animateScale: true
-                },
-                legend: {
-                    //position: 'top',
-                    display: true
-                },
+            //let index = 9;
+            //$.each(retorno, function () {
+            //    data.labels.push(this.description);
+            //    data.datasets[0].data.push(this.total);
+            //    data.datasets[0].backgroundColor.push(colorList[index]);
+            //    index++;
+            //});
+            let options = {
+                animation: { animateScale: true },
+                legend: { display: true, position: 'right'},
                 plugins: {
-                    labels: [
-                        {
-                            render: 'label',
-                            position: 'outside',
-                            //arc: true,
-                        },
-                        {
-                            render: 'percentage',
-                            fontSize: 9,
-                            precision: 2                        }
-                    ]
+                    labels: [{ render: 'label', position: 'outside' },
+                        { render: 'percentage', fontSize: 9, precision: 2 }]
                 },
                 tooltips: {
                     callbacks: {
                         label: function (t, d) {
-                            console.log(t);
-                            var xLabel = d.labels[t.index];
-                            var yLabel = d.datasets[0].data[t.index] >= 1000 ? '$ ' + d.datasets[0].data[t.index].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '$ ' + t.yLabel;
+                            let xLabel = d.labels[t.index];
+                            let yLabel = d.datasets[0].data[t.index];
                             return xLabel + ': ' + yLabel;
                         }
                     }
                 }
             };
-
-            var canvasGraficoPayTypePercent = document.getElementById("graficoPayTypePercent").getContext("2d");
-
-            var objDoughnutCantidadEstatusSolicitudesXAnho = new Chart(canvasGraficoPayTypePercent, {
-                type: 'doughnut',
-                data: dataGraficoPayTypePercent,
-                options: optionsGraficoPayTypePercent
-            });
-        },
-        error: function (response) {
-            bootbox.alert("Hay un problema: " + response.responseText);
-        }
-    });
+                doughnutChartDistributionHoursArea = new Chart(canvasDistributionHoursArea,
+                    { type: 'doughnut', data: data, options: options });
 }
 
-function GetActivesEmployeesByDeparmentData() {
-    $.ajax({
-        url: "/Dashboard/GetDashboardActivesEmployeesByDeparment/",
-        method: "GET",
-        beforeSend: function () {
-            $('.ajax-loader').css("visibility", "visible");
-        },
-        success: function (retorno) {
-            var grafico = retorno.grafico;
-            var dataActivesEmployeesByDeparment =
-
-            {
-                labels: grafico.labels,
-                datasets:
-                    $.map(grafico.dataSets, function (item, i) {
-                        var ds = new Object();
-                        ds.label = item.label;
-                        ds.backgroundColor = item.backgroundColor;
-                        ds.borderColor = item.borderColor;
-                        ds.data = item.dataInt;
-                        ds.borderWidth = 2;
-                        return ds;
-                    }),
-            }
-            var optionsActivesEmployeesByDeparment = {
-                responsive: true,
-                legend: {
-                    display:false
-                },
-                
-                scales: {
-                    
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                            
-                        }
-                    }]
-                },
-
-                plugins: {
-                    labels: [
-                        {
-                            render: 'value',
-                            position: 'outside',
-                            //arc: true,
-                        }
-                    ]
-                },
-            }
-            var canvasActivesEmployeesByDeparment = document.getElementById("graficoActiveEmployeesByDepartment").getContext("2d");
-            //------------ CONDICIONES RESPONSIVAS ---------------
-            //if ($(window).width() < 321)
-            //    canvasActivesEmployeesByDeparment.canvas.height = 600;
-            //else if ($(window).width() < 769)
-            //    canvasActivesEmployeesByDeparment.canvas.height = 400;
-            //else
-            //    canvasActivesEmployeesByDeparment.canvas.height = 400;
-            //------------ CONDICIONES RESPONSIVAS ---------------
-            var objActivesEmployeesByDeparment = new Chart(canvasActivesEmployeesByDeparment, {
-                type: 'bar',
-                data: dataActivesEmployeesByDeparment,
-                options: optionsActivesEmployeesByDeparment
-            });
-        },
-        error: function (response) {
-            bootbox.alert("Hay un problema: " + response.responseText);
-        }
-    });
-}
-
-function GetCostByDeparmentData(range) {
-    $.ajax({
-        url: "/Dashboard/GetDashboardCostByDeparment/",
-        method: "GET",
-        beforeSend: function () {
-            $('.ajax-loader').css("visibility", "visible");
-        },
-        success: function (retorno) {
-            var grafico = retorno.grafico;
-            var dataActivesEmployeesByDeparment =
-
-            {
-                labels: grafico.labels,
-                datasets:
-                    $.map(grafico.dataSets, function (item, i) {
-                        var ds = new Object();
-                        ds.label = item.label;
-                        ds.backgroundColor = item.backgroundColor;
-                        ds.borderColor = item.borderColor;
-                        ds.data = item.dataDouble;
-                        ds.borderWidth = 2;
-                        return ds;
-                    }),
-            }
-            var optionsActivesEmployeesByDeparment = {
-                responsive: true,
-                legend: {
-                    display: false
-                },
-
-                scales: {
-
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-
-                        }
-                    }]
-                },
-
-                plugins: {
-                    labels: [
-                        {
-                            render: 'value',
-                            position: 'outside',
-                            //arc: true,
-                        }
-                    ]
-                },
-            }
-            var canvasActivesEmployeesByDeparment = document.getElementById("graficoCostByDepartment").getContext("2d");
-            //------------ CONDICIONES RESPONSIVAS ---------------
-            //if ($(window).width() < 321)
-            //    canvasActivesEmployeesByDeparment.canvas.height = 600;
-            //else if ($(window).width() < 769)
-            //    canvasActivesEmployeesByDeparment.canvas.height = 400;
-            //else
-            //    canvasActivesEmployeesByDeparment.canvas.height = 400;
-            //------------ CONDICIONES RESPONSIVAS ---------------
-            var objActivesEmployeesByDeparment = new Chart(canvasActivesEmployeesByDeparment, {
-                type: 'horizontalBar',
-                data: dataActivesEmployeesByDeparment,
-                options: optionsActivesEmployeesByDeparment
-            });
-        },
-        error: function (response) {
-            bootbox.alert("Hay un problema: " + response.responseText);
-        }
-    });
+var colorList = [];
+for (var i = 0; i < 5; i++) {
+    colorList.push("rgba(237,85,101,0.5)");  // Red
+    colorList.push("rgba(26,123,185,0.5)");  // Blue
+    colorList.push("rgba(247,165,74,0.5)");  // Yellow
+    colorList.push("rgba(33,185,187,0.5)");  // Turquesa
+    colorList.push("rgba(181,184,207,0.5)"); // Purple
+    colorList.push("rgba(131,208,192,0.5)"); // Light Green
+    colorList.push("rgba(241,116,34,0.5)");  // Orange
+    colorList.push("rgba(35,198,200,0.5)");  // Dark Green
+    colorList.push("rgba(237,237,237,0.5)"); // Gray
+    colorList.push("rgba(163,225,211,1)"); // Light Green
+    colorList.push("rgba(222,222,222,1)"); // Light Gray
+    colorList.push("rgba(156,195,218,1)"); // Light Blue
 }

@@ -64,4 +64,5 @@
   <ItemGroup>
     <Reference Include="KCI_ApiRequester, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
