@@ -58,7 +58,7 @@ function GetMTDDelays() {
             let options = {
                 responsive: true,
                 legend: { position: 'bottom' },
-                title: { display: true, text: "" },
+                title: { display: true, text: ""},
                 plugins: { labels: [{ render: 'value', position: 'outside' }] },
                 scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
             };
@@ -107,7 +107,7 @@ function GetKWhPerScrapTon() {
     var data = {
         labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798","53158800"],
         datasets: [{
-            label: "Heat",
+            label: "Average of KwhTon",
             data: [338,358,318,349,350,368,330,358,371,356,368,425,340,344],
             lineTension: 0,
             borderColor: "rgba(75,192,192,1)",
@@ -137,7 +137,7 @@ function GetScrapTonPerHour() {
     var data = {
         labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
         datasets: [{
-            label: "Heat",
+            label: "TonHour(Pon)",
             data: [167, 157, 185, 165, 163, 159, 177, 162, 155, 159, 157, 135, 170, 159],
             lineTension: 0,
             borderColor: "rgba(75,192,192,1)",
@@ -166,7 +166,7 @@ function GetIronYield() {
     var data = {
         labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
         datasets: [{
-            label: "Heat",
+            label: "Yield",
             data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
             lineTension: 0,
             borderColor: "rgba(75,192,192,1)",
@@ -196,7 +196,7 @@ function GetTargetPPM() {
     var data = {
         labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
         datasets: [{
-            label: "Heat",
+            label: "02AimDiff",
             steppedLine: true,
             data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
             borderColor: "rgba(75,192,192,1)",
@@ -225,7 +225,7 @@ function GetTargetTemp() {
     var data = {
         labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
         datasets: [{
-            label: "Heat",
+            label: "TempAimDiff",
             steppedLine: true,
             data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
             borderColor: "rgba(75,192,192,1)",
@@ -254,7 +254,7 @@ function GetTapWtTarget() {
     var data = {
         labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
         datasets: [{
-            label: "Heat",
+            label: "Average of TapWtDiff",
             steppedLine: true,
             data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
             borderColor: "rgba(75,192,192,1)",
