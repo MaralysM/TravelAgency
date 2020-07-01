@@ -121,7 +121,9 @@ function GetKWhPerScrapTon() {
         responsive: true,
         legend: {
             display: false
-        }
+        },
+        title: { display: true, text: "Average of KwhTon", position: "left", fontSize: 10 }
+
     };
 
     barChartKWhPerScrapTon = new Chart(canvaschartKWhPerScrapTon,
@@ -149,7 +151,8 @@ function GetScrapTonPerHour() {
         responsive: true,
         legend: {
             display: false
-        }
+        },
+        title: { display: true, text: "TonHour(Pon)", position: "left", fontSize: 10 }
     };
 
     barChartKWhPerScrapTon = new Chart(canvaschartScrapTonPerHour,
@@ -177,10 +180,100 @@ function GetIronYield() {
         responsive: true,
         legend: {
             display: false
-        }
+        },
+        title: { display: true, text: "Yield", position: "left", fontSize: 10 }
     };
 
     barChartIronYield = new Chart(canvaschartIronYield,
+        { type: 'line', data: data, options: options });
+}
+
+
+function GetTargetPPM() {
+
+    let canvaschartTargetPPM = document.getElementById("chartTargetPPM").getContext("2d");
+
+    var data = {
+        labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+        datasets: [{
+            label: "Heat",
+            steppedLine: true,
+            data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
+            borderColor: "rgba(75,192,192,1)",
+            backgroundColor: 'transparent',
+            pointBackgroundColor: "rgba(75,192,192,1)",
+            pointBorderWidth: 1
+        }]
+    };
+
+    let options = {
+        responsive: true,
+        legend: {
+            display: false
+        },
+        title: { display: true, text: "02AimDiff", position: "left", fontSize: 10 }
+    };
+
+    barChartTargetPPM = new Chart(canvaschartTargetPPM,
+        { type: 'line', data: data, options: options });
+}
+
+function GetTargetTemp() {
+
+    let canvaschartTargetTemp= document.getElementById("chartTargetTemp").getContext("2d");
+
+    var data = {
+        labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+        datasets: [{
+            label: "Heat",
+            steppedLine: true,
+            data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
+            borderColor: "rgba(75,192,192,1)",
+            backgroundColor: 'transparent',
+            pointBackgroundColor: "rgba(75,192,192,1)",
+            pointBorderWidth: 1
+        }]
+    };
+
+    let options = {
+        responsive: true,
+        legend: {
+            display: false
+        },
+        title: { display: true, text: "TempAimDiff", position: "left", fontSize: 10 }
+    };
+
+    barChartTargetTemp = new Chart(canvaschartTargetTemp,
+        { type: 'line', data: data, options: options });
+}
+
+function GetTapWtTarget() {
+
+    let canvaschartTapWtTarget = document.getElementById("chartTapWtTarget").getContext("2d");
+
+    var data = {
+        labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+        datasets: [{
+            label: "Heat",
+            steppedLine: true,
+            data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
+            borderColor: "rgba(75,192,192,1)",
+            backgroundColor: 'transparent',
+            pointBackgroundColor: "rgba(75,192,192,1)",
+            pointBorderWidth: 1
+        }]
+    };
+
+    let options = {
+        responsive: true,
+        legend: {
+            display: false
+        },
+        title: { display: true, text: "Average of TapWtDiff", position: "left", fontSize: 10 }
+
+    };
+
+    barChartTargetTemp = new Chart(canvaschartTapWtTarget,
         { type: 'line', data: data, options: options });
 }
 var colorList = [];

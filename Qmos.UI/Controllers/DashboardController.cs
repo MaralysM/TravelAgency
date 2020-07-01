@@ -61,7 +61,17 @@ namespace Qmos.UI.Controllers
         {
             return View("IronYield");
         }
-        
-
+        public IActionResult TargetPPM()
+        {
+            return View("TargetPPM");
+        }
+        public IActionResult TargetTemp()
+        {
+            return View("TargetTemp");
+        }
+        public IActionResult TapWtTarget()
+        {
+            return View("TapWtTarget");
+        }       
     }
 }
