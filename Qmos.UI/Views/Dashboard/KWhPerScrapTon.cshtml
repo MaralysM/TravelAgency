@@ -1,7 +1,7 @@
 ﻿
 @using Microsoft.AspNetCore.Mvc;
 @{
-    ViewData["Title"] = "MTD Tap Temp and 02 PPM";
+    ViewData["Title"] = "KWh PerScrap Ton";
     ViewData["Root"] = "Dashboards";
 }
 
@@ -13,14 +13,14 @@
 
 
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
+    <div class="col-sm-6">
 
         <h2>@(!string.IsNullOrEmpty((string)ViewData["Root"]) ? @ViewData["Title"].ToString() : "")</h2>
-        <p> @ViewData["Root"].ToString() / <b>@ViewData["Title"].ToString()</b></p>
+        <p> @ViewData["Root"].ToString() / <b>@ViewData["Title"].ToString()  (min per heat)</b></p>
     </div>
 </div>
 
-<div class="col-lg-12" data-rolable-url="dash-MTDTapTempand02PPM" data-rolable-name="Crew">
+<div class="col-lg-12" data-rolable-url="dash-KWhPerScrapTon" data-rolable-name="Crew">
     <div class="ibox float-e-margins">
         <div class="ibox-title text-center">
             <h5>Crew</h5>
@@ -28,7 +28,7 @@
         <div class="ibox-content">
             <div class="row">
                 <div class="col-lg-12">
-                    <canvas id="chartMTDTapTempand02PPM" height="157" width="500"></canvas>
+                    <canvas id="chartKWhPerScrapTon" height="157" width="500"></canvas>
                 </div>
             </div>
         </div>
@@ -46,8 +46,8 @@
     <script src="~/lib/plugins/chosen/chosen.jquery.js"></script>
 
     <script>
-        $(document).ready(function () {
-            GetMTDTapTempand02PPM();
-        });
+            $(document).ready(function () {
+              GetKWhPerScrapTon();
+            });
     </script>
 }

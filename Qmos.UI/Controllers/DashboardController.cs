@@ -47,6 +47,11 @@ namespace Qmos.UI.Controllers
         {
             return View("MTDTapTempand02PPM");
         }
+        public IActionResult KWhPerScrapTon()
+        {
+            return View("KWhPerScrapTon");
+        }
         
+
     }
 }

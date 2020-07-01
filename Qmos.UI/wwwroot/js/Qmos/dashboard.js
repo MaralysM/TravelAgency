@@ -70,15 +70,13 @@ function GetMTDDelays() {
 
 function GetMTDTapTempand02PPM() {
 
-    let canvaschartMTDDelays = document.getElementById("chartMTDTapTempand02PPM").getContext("2d");
+    let canvaschartMTDTapTempand02PPM = document.getElementById("chartMTDTapTempand02PPM").getContext("2d");
 
     let data = {
         labels: [],
         datasets: [
-            { barPercentage: 0.5, data: [], label: 'C', backgroundColor: colorList[1] },
-            { barPercentage: 0.5, data: [], label: 'A', backgroundColor: colorList[0] },
-            { barPercentage: 0.5, data: [], label: 'B', backgroundColor: colorList[0] },
-            { barPercentage: 0.5, data: [], label: 'D', backgroundColor: colorList[0] }]
+            { barPercentage: 0.5, data: [], label: 'Average of TempInSpec', backgroundColor: "rgba(156,195,218,1)" },
+            { barPercentage: 0.5, data: [], label: 'Average of O2InSpec', backgroundColor: "rgba(26,123,185,0.5)"}]
     };
 
     data = {
@@ -97,9 +95,53 @@ function GetMTDTapTempand02PPM() {
         scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
     };
 
-    barChartMTDDelays= new Chart(canvaschartMTDDelays,
+    barChartMTDTapTempand02PPM = new Chart(canvaschartMTDTapTempand02PPM,
         { type: 'bar', data: data, options: options });
 }
+
+
+function GetKWhPerScrapTon() {
+
+    let canvaschartKWhPerScrapTon = document.getElementById("chartKWhPerScrapTon").getContext("2d");
+
+    var data = {
+        labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798","53158800"],
+        datasets: [{
+            label: "Car Speed",
+            data: [338,358,318,349,350,368,330,358,371,356,368,425,340,344],
+            lineTension: 0,
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            backgroundColor: 'transparent',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10
+        }]
+    };
+
+    let options = {
+        responsive: true,
+        legend: {
+            display: false
+        },
+        plugins: { labels: [{ render: 'value', position: 'outside' }] }
+       // scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
+    };
+
+    barChartKWhPerScrapTon = new Chart(canvaschartKWhPerScrapTon,
+        { type: 'line', data: data, options: options });
+}
+
+
 
 
 
