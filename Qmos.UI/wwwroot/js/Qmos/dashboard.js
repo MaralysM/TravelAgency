@@ -107,24 +107,13 @@ function GetKWhPerScrapTon() {
     var data = {
         labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798","53158800"],
         datasets: [{
-            label: "Car Speed",
+            label: "Heat",
             data: [338,358,318,349,350,368,330,358,371,356,368,425,340,344],
             lineTension: 0,
             borderColor: "rgba(75,192,192,1)",
-            borderCapStyle: 'butt',
             backgroundColor: 'transparent',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10
+            pointBackgroundColor: "rgba(75,192,192,1)",
+            pointBorderWidth: 1
         }]
     };
 
@@ -132,20 +121,68 @@ function GetKWhPerScrapTon() {
         responsive: true,
         legend: {
             display: false
-        },
-        plugins: { labels: [{ render: 'value', position: 'outside' }] }
-       // scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
+        }
     };
 
     barChartKWhPerScrapTon = new Chart(canvaschartKWhPerScrapTon,
         { type: 'line', data: data, options: options });
 }
 
+function GetScrapTonPerHour() {
 
+    let canvaschartScrapTonPerHour = document.getElementById("chartScrapTonPerHour").getContext("2d");
 
+    var data = {
+        labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+        datasets: [{
+            label: "Heat",
+            data: [167, 157, 185, 165, 163, 159, 177, 162, 155, 159, 157, 135, 170, 159],
+            lineTension: 0,
+            borderColor: "rgba(75,192,192,1)",
+            backgroundColor: 'transparent',
+            pointBackgroundColor: "rgba(75,192,192,1)",
+            pointBorderWidth: 1
+        }]
+    };
 
+    let options = {
+        responsive: true,
+        legend: {
+            display: false
+        }
+    };
 
+    barChartKWhPerScrapTon = new Chart(canvaschartScrapTonPerHour,
+        { type: 'line', data: data, options: options });
+}
 
+function GetIronYield() {
+
+    let canvaschartIronYield = document.getElementById("chartIronYield").getContext("2d");
+
+    var data = {
+        labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+        datasets: [{
+            label: "Heat",
+            data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
+            lineTension: 0,
+            borderColor: "rgba(75,192,192,1)",
+            backgroundColor: 'transparent',
+            pointBackgroundColor: "rgba(75,192,192,1)",
+            pointBorderWidth: 1
+        }]
+    };
+
+    let options = {
+        responsive: true,
+        legend: {
+            display: false
+        }
+    };
+
+    barChartIronYield = new Chart(canvaschartIronYield,
+        { type: 'line', data: data, options: options });
+}
 var colorList = [];
 for (var i = 0; i < 5; i++) {
     colorList.push("rgba(237,85,101,0.5)");  // Red

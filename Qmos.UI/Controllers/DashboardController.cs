@@ -51,6 +51,16 @@ namespace Qmos.UI.Controllers
         {
             return View("KWhPerScrapTon");
         }
+
+        public IActionResult ScrapTonPerHour()
+        {
+            return View("ScrapTonPerHour");
+        }
+
+        public IActionResult IronYield()
+        {
+            return View("IronYield");
+        }
         
 
     }
