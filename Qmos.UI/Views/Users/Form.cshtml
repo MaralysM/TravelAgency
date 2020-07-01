@@ -136,79 +136,7 @@ Second name" class="form-control">
             </div>
         </div>
     </div>
-    @if (Model.ID_User != 0)
-    {
-        <div class="row justify-content-md-center">
-            <div class="col-lg-offset-2 col-lg-8">
-                <div class="ibox ">
-                    <div class="ibox-title">
-                        <h5>Roles</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row">
-                            <form>
-                                <input id="ID_UserR" type="hidden" value="@Model.ID_User" />
-                                <div class="col-md-4 form-group">
-                                    <label>Application</label>
-                                    <select id="ID_Application" asp-items="@(new SelectList(Model.ListAplications, "Value", "Text"))" class="form-control"><option value="">Select an application</option></select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label>Roles</label>
-                                    <select id="ID_Role" class="form-control"><option value="">Select a role</option></select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <a id="btn-save-role" class="btn btn-success"><i class="fa fa-plus"></i> Add</a>
-                                </div>
-                            </form>
-                        </div>
-                        @if (Model.RolesUser != null)
-                        {
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-striped table-bordered table-hover dataTables" id="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Rol</th>
-                                                <th>Applicacion</th>
 
-                                                <th class="text-center">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{ foreach (var item in Model.RolesUser)
-                                                {
-                                                    <tr>
-                                                        <td>
-                                                            @item.ID_RoleNavigation.TX_Role
-                                                        </td>
-                                                        <td>
-                                                            @item.ID_RoleNavigation.ID_ElementNavigation.TX_Name
-                                                        </td>
-
-                                                        <td class="text-center">
-                                                            <div class="btn-group">
-                                                                <a data-id="@item.ID_UserRoleApplication" class="btn btn-sm btn-danger delete"><i class="fa fa-remove"></i> Eliminar</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            }
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
 </div>
 
 @section Scripts{
