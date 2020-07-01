@@ -575,12 +575,12 @@ function eliminarRegistro(btnclass, valor, ruta, tabla, btn) {
         id: link.attr(valor)
     };
     swal({
-        title: "Eliminar",
-        text: "¿Está seguro que desea eliminar?",
+        title: "Delete",
+        text: "Are you sure delete?",
         type: "warning",
         showCancelButton: true,
         closeOnConfirm: true,
-        confirmButtonText: "Sí",
+        confirmButtonText: "Yes",
         CancelButtonText: "No",
         confirmButtonColor: "#f05050"
     },
@@ -599,14 +599,14 @@ function eliminarRegistro(btnclass, valor, ruta, tabla, btn) {
                             else
                                 $(tabla).DataTable().row($(`${btnclass}[${valor}="${link.attr(valor)}"]`).parents("tr")).remove().draw(false)
                         });
-                        toastr.success('Registro Eliminado');
+                        toastr.success('Register deleted');
                     }
                     else {
-                        toastr.error(`Un error ocurrió mientras eliminamos. ${retorno.error}`, "Error", { timeOut: 6000 });
+                        toastr.error(`An error occurred while deleting. ${retorno.error}`, "Error", { timeOut: 6000 });
                     }
                 },
                 error: function (response) {
-                    toastr.error("Error", `Un error ocurrió mientras eliminamos. ${response.responseText}`, "Error", { timeOut: 6000 });
+                    toastr.error("Error", `An error occurred while deleting. ${response.responseText}`, "Error", { timeOut: 6000 });
                 }
             });
         });
