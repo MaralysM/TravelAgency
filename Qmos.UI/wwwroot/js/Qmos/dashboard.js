@@ -140,21 +140,29 @@ function GetMTDTapTempand02PPM() {
 
 
 function GetKWhPerScrapTon() {
-
+    $.ajax({
+        url: "http://localhost:8002/api/Q775Delay",
+        method: "GET",
+        success: function (retorno) {
+   
             let canvaschartKWhPerScrapTon = document.getElementById("chartKWhPerScrapTon").getContext("2d");
 
-            var data = {
-                labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
-                datasets: [{
-                    label: "Average of KwhTon",
-                    data: [338, 358, 318, 349, 350, 368, 330, 358, 371, 356, 368, 425, 340, 344],
-                    lineTension: 0,
-                    borderColor: "rgba(75,192,192,1)",
-                    backgroundColor: 'transparent',
-                    pointBackgroundColor: "rgba(75,192,192,1)",
-                    pointBorderWidth: 1
-                }]
-            };
+            //var data = {
+            //    labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+            //    datasets: [{
+            //        label: "Average of KwhTon",
+            //        data: [338, 358, 318, 349, 350, 368, 330, 358, 371, 356, 368, 425, 340, 344],
+            //        lineTension: 0,
+            //        borderColor: "rgba(75,192,192,1)",
+            //        backgroundColor: 'transparent',
+            //        pointBackgroundColor: "rgba(75,192,192,1)",
+            //        pointBorderWidth: 1
+            //    }]
+            //};
+            $.each(retorno, function () {
+                data.labels.push(this.MLH_HEAT_NO);
+                data.datasets[0].data.push(this.TAPPING_PREP);
+            });
 
             let options = {
                 responsive: true,
@@ -168,23 +176,33 @@ function GetKWhPerScrapTon() {
             barChartKWhPerScrapTon = new Chart(canvaschartKWhPerScrapTon,
                 { type: 'line', data: data, options: options });
         }
+    });
+}
 
 function GetScrapTonPerHour() {
-
+    $.ajax({
+        url: "http://localhost:8002/api/Q775Delay",
+        method: "GET",
+        success: function (retorno) {
             let canvaschartScrapTonPerHour = document.getElementById("chartScrapTonPerHour").getContext("2d");
 
-            var data = {
-                labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
-                datasets: [{
-                    label: "TonHour(Pon)",
-                    data: [167, 157, 185, 165, 163, 159, 177, 162, 155, 159, 157, 135, 170, 159],
-                    lineTension: 0,
-                    borderColor: "rgba(75,192,192,1)",
-                    backgroundColor: 'transparent',
-                    pointBackgroundColor: "rgba(75,192,192,1)",
-                    pointBorderWidth: 1
-                }]
-            };
+            //var data = {
+            //    labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+            //    datasets: [{
+            //        label: "TonHour(Pon)",
+            //        data: [167, 157, 185, 165, 163, 159, 177, 162, 155, 159, 157, 135, 170, 159],
+            //        lineTension: 0,
+            //        borderColor: "rgba(75,192,192,1)",
+            //        backgroundColor: 'transparent',
+            //        pointBackgroundColor: "rgba(75,192,192,1)",
+            //        pointBorderWidth: 1
+            //    }]
+            //};
+
+            $.each(retorno, function () {
+                data.labels.push(this.MLH_HEAT_NO);
+                data.datasets[0].data.push(this.TAPPING_PREP);
+            });
 
             let options = {
                 responsive: true,
@@ -197,23 +215,33 @@ function GetScrapTonPerHour() {
             barChartKWhPerScrapTon = new Chart(canvaschartScrapTonPerHour,
                 { type: 'line', data: data, options: options });
         }
+    });
+}
 
 function GetIronYield() {
-
+    $.ajax({
+        url: "http://localhost:8002/api/Q775Delay",
+        method: "GET",
+        success: function (retorno) {
             let canvaschartIronYield = document.getElementById("chartIronYield").getContext("2d");
 
-            var data = {
-                labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
-                datasets: [{
-                    label: "Yield",
-                    data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
-                    lineTension: 0,
-                    borderColor: "rgba(75,192,192,1)",
-                    backgroundColor: 'transparent',
-                    pointBackgroundColor: "rgba(75,192,192,1)",
-                    pointBorderWidth: 1
-                }]
-            };
+            //var data = {
+            //    labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+            //    datasets: [{
+            //        label: "Yield",
+            //        data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
+            //        lineTension: 0,
+            //        borderColor: "rgba(75,192,192,1)",
+            //        backgroundColor: 'transparent',
+            //        pointBackgroundColor: "rgba(75,192,192,1)",
+            //        pointBorderWidth: 1
+            //    }]
+            //};
+
+            $.each(retorno, function () {
+                data.labels.push(this.MLH_HEAT_NO);
+                data.datasets[0].data.push(this.TAPPING_PREP);
+            });
 
             let options = {
                 responsive: true,
@@ -226,25 +254,34 @@ function GetIronYield() {
             barChartIronYield = new Chart(canvaschartIronYield,
                 { type: 'line', data: data, options: options });
         }
+    });
+}
 
 
 function GetTargetPPM() {
-
+    $.ajax({
+        url: "http://localhost:8002/api/Q775Delay",
+        method: "GET",
+        success: function (retorno) {
             let canvaschartTargetPPM = document.getElementById("chartTargetPPM").getContext("2d");
 
-            var data = {
-                labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
-                datasets: [{
-                    label: "02AimDiff",
-                    steppedLine: true,
-                    data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
-                    borderColor: "rgba(75,192,192,1)",
-                    backgroundColor: 'transparent',
-                    pointBackgroundColor: "rgba(75,192,192,1)",
-                    pointBorderWidth: 1
-                }]
-            };
+            //var data = {
+            //    labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+            //    datasets: [{
+            //        label: "02AimDiff",
+            //        steppedLine: true,
+            //        data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
+            //        borderColor: "rgba(75,192,192,1)",
+            //        backgroundColor: 'transparent',
+            //        pointBackgroundColor: "rgba(75,192,192,1)",
+            //        pointBorderWidth: 1
+            //    }]
+            //};
 
+            $.each(retorno, function () {
+                data.labels.push(this.MLH_HEAT_NO);
+                data.datasets[0].data.push(this.TAPPING_PREP);
+            });
             let options = {
                 responsive: true,
                 legend: {
@@ -256,24 +293,32 @@ function GetTargetPPM() {
             barChartTargetPPM = new Chart(canvaschartTargetPPM,
                 { type: 'line', data: data, options: options });
         }
+    });
+}
 
 function GetTargetTemp() {
-
+    $.ajax({
+        url: "http://localhost:8002/api/Q775Delay",
+        method: "GET",
+        success: function (retorno) {
             let canvaschartTargetTemp = document.getElementById("chartTargetTemp").getContext("2d");
 
-            var data = {
-                labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
-                datasets: [{
-                    label: "TempAimDiff",
-                    steppedLine: true,
-                    data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
-                    borderColor: "rgba(75,192,192,1)",
-                    backgroundColor: 'transparent',
-                    pointBackgroundColor: "rgba(75,192,192,1)",
-                    pointBorderWidth: 1
-                }]
-            };
-
+            //var data = {
+            //    labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+            //    datasets: [{
+            //        label: "TempAimDiff",
+            //        steppedLine: true,
+            //        data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
+            //        borderColor: "rgba(75,192,192,1)",
+            //        backgroundColor: 'transparent',
+            //        pointBackgroundColor: "rgba(75,192,192,1)",
+            //        pointBorderWidth: 1
+            //    }]
+            //};
+            $.each(retorno, function () {
+                data.labels.push(this.MLH_HEAT_NO);
+                data.datasets[0].data.push(this.TAPPING_PREP);
+            });
             let options = {
                 responsive: true,
                 legend: {
@@ -285,24 +330,31 @@ function GetTargetTemp() {
             barChartTargetTemp = new Chart(canvaschartTargetTemp,
                 { type: 'line', data: data, options: options });
         }
-
+    });
+}
 function GetTapWtTarget() {
-
+    $.ajax({
+        url: "http://localhost:8002/api/Q775Delay",
+        method: "GET",
+        success: function (retorno) {
             let canvaschartTapWtTarget = document.getElementById("chartTapWtTarget").getContext("2d");
 
-            var data = {
-                labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
-                datasets: [{
-                    label: "Average of TapWtDiff",
-                    steppedLine: true,
-                    data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
-                    borderColor: "rgba(75,192,192,1)",
-                    backgroundColor: 'transparent',
-                    pointBackgroundColor: "rgba(75,192,192,1)",
-                    pointBorderWidth: 1
-                }]
-            };
-
+            //var data = {
+            //    labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+            //    datasets: [{
+            //        label: "Average of TapWtDiff",
+            //        steppedLine: true,
+            //        data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
+            //        borderColor: "rgba(75,192,192,1)",
+            //        backgroundColor: 'transparent',
+            //        pointBackgroundColor: "rgba(75,192,192,1)",
+            //        pointBorderWidth: 1
+            //    }]
+            //};
+            $.each(retorno, function () {
+                data.labels.push(this.MLH_HEAT_NO);
+                data.datasets[0].data.push(this.TAPPING_PREP);
+            });
             let options = {
                 responsive: true,
                 legend: {
@@ -315,6 +367,8 @@ function GetTapWtTarget() {
             barChartTargetTemp = new Chart(canvaschartTapWtTarget,
                 { type: 'line', data: data, options: options });
         }
+    });
+}
 
 var colorList = [];
 for (var i = 0; i < 5; i++) {
