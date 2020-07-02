@@ -72,6 +72,12 @@ namespace Qmos.UI.Controllers
         public IActionResult TapWtTarget()
         {
             return View("TapWtTarget");
-        }       
+        }
+        public IActionResult MTDProduction()
+        {
+            return View("MTDProduction");
+        }      
+        
+
     }
 }

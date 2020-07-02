@@ -237,3 +237,68 @@ INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
            (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Production'))
 END
 
+
+
+/*******************************************************
+           Update   [Security].[SM_ELEMENT] 
+********************************************************/
+
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/MTDProduction'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Production')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/MTDAverage'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/MTDTapTempand02PPM'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and 02 PPM')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/MTDMissedHeats'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Missed Heats')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/MTDDelays'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Delays')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/IronYield'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Iron Yield')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/ScrapTonPerHour'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Scrap Ton per Hour')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/KWhPerScrapTon'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'KWh per Scrap Ton')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/TapWtTarget'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/TargetTemp'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Url] = 'Dashboard/TargetPPM'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM')
+GO
+
+
+
+
