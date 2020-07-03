@@ -76,8 +76,11 @@ namespace Qmos.UI.Controllers
         public IActionResult MTDProduction()
         {
             return View("MTDProduction");
-        }      
-        
+        }
+        public IActionResult MTDAverage()
+        {
+            return View("MTDAverage");
+        }
 
     }
 }

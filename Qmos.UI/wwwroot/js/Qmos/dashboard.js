@@ -428,6 +428,327 @@ function GetMTDProduction() {
     }
 
 
+function GetMTDAverage() {
+
+    EafKWht();
+    EafLrfKwht();
+    TonPerHour();
+    IronYield();
+    FoamyCarbon();
+    NG();
+    Aluminum();
+    ChargeCarbon();
+}
+
+function EafKWht() {
+    var EafKWht = c3.generate({
+        bindto: '#EafKWht',
+        data: {
+            columns: [
+                ['EAF KWht', 91.4]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+            //        label: {
+            //            format: function(value, ratio) {
+            //                return value;
+            //            },
+            //            show: false // to turn off the min/max labels.
+            //        },
+            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            //    max: 100, // 100 is default
+            //    units: ' %',
+            //    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });
+
+
+
+}
+
+function EafLrfKwht() {
+    var EafKWht = c3.generate({
+        bindto: '#EafLrfKwht',
+        data: {
+            columns: [
+                ['EAF + LRF KWht', 91.4]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+            //        label: {
+            //            format: function(value, ratio) {
+            //                return value;
+            //            },
+            //            show: false // to turn off the min/max labels.
+            //        },
+            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            //    max: 100, // 100 is default
+            //    units: ' %',
+            //    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });
+
+
+
+}
+
+function TonPerHour() {
+
+    var TonPerHour = c3.generate({
+        bindto: '#TonPerHour',
+        data: {
+            columns: [
+                ['Ton Per Hour (POn)', 91.4]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+            //        label: {
+            //            format: function(value, ratio) {
+            //                return value;
+            //            },
+            //            show: false // to turn off the min/max labels.
+            //        },
+            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            //    max: 100, // 100 is default
+            //    units: ' %',
+            //    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });
+}
+
+function IronYield() {
+    var IronYield = c3.generate({
+    bindto: '#IronYield',
+    data: {
+        columns: [
+            ['Iron Yield', 91.4]
+        ],
+        type: 'gauge',
+        onclick: function (d, i) { console.log("onclick", d, i); },
+        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+    },
+    gauge: {
+        //        label: {
+        //            format: function(value, ratio) {
+        //                return value;
+        //            },
+        //            show: false // to turn off the min/max labels.
+        //        },
+        //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+        //    max: 100, // 100 is default
+        //    units: ' %',
+        //    width: 39 // for adjusting arc thickness
+    },
+    color: {
+        pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+        threshold: {
+            //            unit: 'value', // percentage is default
+            //            max: 200, // 100 is default
+            values: [30, 60, 90, 100]
+        }
+    },
+    size: {
+        height: 180
+    }
+});
+}
+
+function FoamyCarbon() {
+    var FoamyCarbon = c3.generate({
+        bindto: '#FoamyCarbon',
+        data: {
+            columns: [
+                ['Foamy Carbon', 91.4]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+            //        label: {
+            //            format: function(value, ratio) {
+            //                return value;
+            //            },
+            //            show: false // to turn off the min/max labels.
+            //        },
+            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            //    max: 100, // 100 is default
+            //    units: ' %',
+            //    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });
+}
+
+function NG() {
+    var NG = c3.generate({
+        bindto: '#NG',
+        data: {
+            columns: [
+                ['NG', 91.4]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+            //        label: {
+            //            format: function(value, ratio) {
+            //                return value;
+            //            },
+            //            show: false // to turn off the min/max labels.
+            //        },
+            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            //    max: 100, // 100 is default
+            //    units: ' %',
+            //    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });
+}
+
+function Aluminum() {
+    var Aluminum = c3.generate({
+        bindto: '#Aluminum',
+        data: {
+            columns: [
+                ['Aluminum', 91.4]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+            //        label: {
+            //            format: function(value, ratio) {
+            //                return value;
+            //            },
+            //            show: false // to turn off the min/max labels.
+            //        },
+            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            //    max: 100, // 100 is default
+            //    units: ' %',
+            //    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });
+}
+
+function ChargeCarbon() {
+    var ChargeCarbon = c3.generate({
+        bindto: '#ChargeCarbon',
+        data: {
+            columns: [
+                ['Charge Carbon', 91.4]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+            //        label: {
+            //            format: function(value, ratio) {
+            //                return value;
+            //            },
+            //            show: false // to turn off the min/max labels.
+            //        },
+            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            //    max: 100, // 100 is default
+            //    units: ' %',
+            //    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });}
 
 
 
