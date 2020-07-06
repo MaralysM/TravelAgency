@@ -133,22 +133,22 @@ function GetMTDTapTempand02PPM() {
 
 
 function GetKWhPerScrapTon() {
-    //$.ajax({
-    //    url: "http://localhost:8002/api/Q775Delay",
-    //    method: "GET",
-    //    success: function (retorno) {
-   
+    $.ajax({
+        url: "http://localhost:3000/ejemplo4Lineas",
+        method: "GET",
+        success: function (retorno) {
+            $('#Average').html(retorno[0].AvgKwhTon);
             let canvaschartKWhPerScrapTon = document.getElementById("chartKWhPerScrapTon").getContext("2d");
 
             var data = {
-                labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+                labels: retorno[0].AxeX,
                 datasets: [{
                     label: "Average of KwhTon",
-                    data: [338, 358, 318, 349, 350, 368, 330, 358, 371, 356, 368, 425, 340, 344],
+                    data: retorno[0].AxeY,
                     lineTension: 0,
-                    borderColor: "rgba(75,192,192,1)",
+                    borderColor: "#2791ee",
                     backgroundColor: 'transparent',
-                    pointBackgroundColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#2791ee",
                     pointBorderWidth: 1
                 }]
             };
@@ -168,8 +168,8 @@ function GetKWhPerScrapTon() {
 
             barChartKWhPerScrapTon = new Chart(canvaschartKWhPerScrapTon,
                 { type: 'line', data: data, options: options });
-    //    }
-    //});
+        }
+    });
 }
 
 function GetScrapTonPerHour() {
