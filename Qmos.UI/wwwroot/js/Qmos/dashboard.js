@@ -297,7 +297,7 @@ function GetTargetPPM() {
 
 function GetTargetTemp() {
     $.ajax({
-        url: "http://localhost:3000/ejemplo2Lineas",
+        url: "http://localhost:8002/api/TapTempTargetTemp",
         method: "GET",
         success: function (retorno) {
             $('#Average').html(retorno[0].AvgTempInSpec);
@@ -329,28 +329,25 @@ function GetTargetTemp() {
     });
 }
 function GetTapWtTarget() {
-    //$.ajax({
-    //    url: "http://localhost:8002/api/Q775Delay",
-    //    method: "GET",
-    //    success: function (retorno) {
+    $.ajax({
+        url: "http://localhost:8002/api/TapWtTapWtTarget",
+        method: "GET",
+        success: function (retorno) {
+            $('#Average').html(retorno[0].AvgTapWtDiff);
             let canvaschartTapWtTarget = document.getElementById("chartTapWtTarget").getContext("2d");
 
             var data = {
-                labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+                labels: retorno[0].AxeX,
                 datasets: [{
                     label: "Average of TapWtDiff",
                     steppedLine: true,
-                    data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
-                    borderColor: "rgba(75,192,192,1)",
+                    data: retorno[0].AxeY,
+                    borderColor: "#2791ee",
                     backgroundColor: 'transparent',
-                    pointBackgroundColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#2791ee",
                     pointBorderWidth: 1
                 }]
             };
-            //$.each(retorno, function () {
-            //    data.labels.push(this.MLH_HEAT_NO);
-            //    data.datasets[0].data.push(this.TAPPING_PREP);
-            //});
             let options = {
                 responsive: true,
                 legend: {
@@ -363,8 +360,8 @@ function GetTapWtTarget() {
             barChartTargetTemp = new Chart(canvaschartTapWtTarget,
                 { type: 'line', data: data, options: options });
         }
-//    });
-//}
+    });
+}
 
 
 
