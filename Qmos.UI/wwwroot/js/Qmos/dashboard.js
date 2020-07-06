@@ -173,17 +173,18 @@ function GetKWhPerScrapTon() {
 }
 
 function GetScrapTonPerHour() {
-    //$.ajax({
-    //    url: "http://localhost:8002/api/Q775Delay",
-    //    method: "GET",
-    //    success: function (retorno) {
+    $.ajax({
+        url: "http://localhost:8002/api/ScrapTonPerHour",
+        method: "GET",
+        success: function (retorno) {
+            $('#Average').html(retorno[0].AvgTonHourPon);
             let canvaschartScrapTonPerHour = document.getElementById("chartScrapTonPerHour").getContext("2d");
 
             var data = {
-                labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+                labels: retorno[0].AxeX,
                 datasets: [{
                     label: "TonHour(Pon)",
-                    data: [167, 157, 185, 165, 163, 159, 177, 162, 155, 159, 157, 135, 170, 159],
+                    data: retorno[0].AxeY,
                     lineTension: 0,
                     borderColor: "rgba(75,192,192,1)",
                     backgroundColor: 'transparent',
@@ -207,8 +208,8 @@ function GetScrapTonPerHour() {
 
             barChartKWhPerScrapTon = new Chart(canvaschartScrapTonPerHour,
                 { type: 'line', data: data, options: options });
-    //    }
-    //});
+        }
+    });
 }
 
 function GetIronYield() {
