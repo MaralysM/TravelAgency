@@ -2,7 +2,7 @@
 
 function GetMTDMissedHeats() {       
     //$.ajax({
-    //    url: "http://localhost:8002/api/Q727",
+    //    url: "http://localhost:3000/ejemploMTDMissedHeats",
     //    method: "GET",
     //    success: function (retorno) {
             let canvasMTDMissedHeats = document.getElementById("chartMTDMissedHeats").getContext("2d");
@@ -10,16 +10,9 @@ function GetMTDMissedHeats() {
                 labels: [],
                 datasets: [{ data: [], backgroundColor: [] }]
             };
-            //let index = 1;
-            //$.each(retorno, function () {
-            //    data.labels.push(this.CREW);
-            //    data.datasets[0].data.push(this.AMOUNT);
-            //    data.datasets[0].backgroundColor.push(colorList[index]);
-            //    index++;
-            //});
              data = {
-                labels: ["A", "B", "C", "D"],
-                datasets: [{ data: [2, 2, 4, 4], backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
+                 labels: retorno[0].Crew,
+                 datasets: [{ data: retorno[0].Value, backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
             };
 
             let options = {
@@ -41,9 +34,9 @@ function GetMTDMissedHeats() {
             };
             doughnutMTDMissedHeats = new Chart(canvasMTDMissedHeats,
                 { type: 'doughnut', data: data, options: options });
-        }
+    //    }
     //});
-   // }
+    }
 
 
 
@@ -134,7 +127,7 @@ function GetMTDTapTempand02PPM() {
 
 function GetKWhPerScrapTon() {
     $.ajax({
-        url: "http://localhost:3000/ejemplo4Lineas",
+        url: "http://localhost:8002/api/KwhPerScrapTon",
         method: "GET",
         success: function (retorno) {
             $('#Average').html(retorno[0].AvgKwhTon);
@@ -152,10 +145,6 @@ function GetKWhPerScrapTon() {
                     pointBorderWidth: 1
                 }]
             };
-            //$.each(retorno, function () {
-            //    data.labels.push(this.MLH_HEAT_NO);
-            //    data.datasets[0].data.push(this.TAPPING_PREP);
-            //});
 
             let options = {
                 responsive: true,
@@ -186,17 +175,12 @@ function GetScrapTonPerHour() {
                     label: "TonHour(Pon)",
                     data: retorno[0].AxeY,
                     lineTension: 0,
-                    borderColor: "rgba(75,192,192,1)",
+                    borderColor: "#2791ee",
                     backgroundColor: 'transparent',
-                    pointBackgroundColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#2791ee",
                     pointBorderWidth: 1
                 }]
             };
-
-            //$.each(retorno, function () {
-            //    data.labels.push(this.MLH_HEAT_NO);
-            //    data.datasets[0].data.push(this.TAPPING_PREP);
-            //});
 
             let options = {
                 responsive: true,
@@ -212,32 +196,26 @@ function GetScrapTonPerHour() {
     });
 }
 
-function GetIronYield() {
-    debugger
+function GetIronYield() {    
     $.ajax({
-        url: "http://localhost:3000/prueba",
+        url: "http://localhost:8002/api/IronYield",
         method: "GET",
-        success: function (retorno) {
-            debugger
+        success: function (retorno) {            
+            $('#Average').html(retorno[0].AvYield);
             let canvaschartIronYield = document.getElementById("chartIronYield").getContext("2d");
 
             var data = {
-                labels: ["53158786", "53158788", "53158790", "53158792", "53158794", "53158796", "53158798", "53158800"],
+                labels: retorno[0].AxeX,
                 datasets: [{
                     label: "Yield",
-                    data: [0.90, 0.946, 0.870, 0.836, 0.896, 1.001, 0.924, 0.881, 1.028, 0.920, 0.832, 1.133, 0.953, 0.900],
+                    data: retorno[0].AxeY,
                     lineTension: 0,
-                    borderColor: "rgba(75,192,192,1)",
+                    borderColor: "#2791ee",
                     backgroundColor: 'transparent',
-                    pointBackgroundColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#2791ee",
                     pointBorderWidth: 1
                 }]
             };
-
-            $.each(retorno, function () {
-                data.labels.push(this.MLH_HEAT_NO);
-                data.datasets[0].data.push(this.TAPPING_PREP);
-            });
 
             let options = {
                 responsive: true,
@@ -254,13 +232,11 @@ function GetIronYield() {
 }
 
 
-function GetTargetPPM() {
-    debugger
+function GetTargetPPM() {    
     $.ajax({
         url: "http://localhost:8002/api/TapPPMTargetPPM",
         method: "GET",
-        success: function (retorno) {
-            debugger
+        success: function (retorno) {           
             $('#Average').html(retorno[0].AvgO2InSpec);
             let canvaschartTargetPPM = document.getElementById("chartTargetPPM").getContext("2d");
 
@@ -277,10 +253,6 @@ function GetTargetPPM() {
                 }]
             };
 
-            //$.each(retorno, function () {
-            //    data.labels.push(this.MLH_HEAT_NO);
-            //    data.datasets[0].data.push(this.TAPPING_PREP);
-            //});
             let options = {
                 responsive: true,
                 legend: {
@@ -365,16 +337,15 @@ function GetTapWtTarget() {
 }
 
 
-
 function GetMTDProduction() {
 
     let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
 
     var barChartData = {
-        labels: [1,2,3,4,5,6,'Total'],
+        labels: [1, 2, 3, 4, 5, 6, 'Total'],
         datasets: [{
             label: 'Increase',
-            backgroundColor: "rgba(131,208,192,0.5)" ,
+            backgroundColor: "rgba(131,208,192,0.5)",
             borderColor: "rgba(131,208,192,0.5)",
             borderWidth: 1,
             data: [
@@ -387,11 +358,11 @@ function GetMTDProduction() {
                 [0, 0]
             ]
         },
-            {
+        {
             label: 'Total',
-                backgroundColor: "rgba(156,195,218,1)",
-                borderColor: "rgba(156,195,218,1)",
-                borderWidth: 1,
+            backgroundColor: "rgba(156,195,218,1)",
+            borderColor: "rgba(156,195,218,1)",
+            borderWidth: 1,
 
             data: [
                 [0, 0],
@@ -402,7 +373,7 @@ function GetMTDProduction() {
                 [0, 0],
                 [0, 7]
             ]
-            }
+        }
         ]
 
     };
@@ -414,31 +385,38 @@ function GetMTDProduction() {
         plugins: { labels: [{ render: 'value', position: 'outside' }] },
         scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
     };
-  
+
 
     barChartMTDProduction = new Chart(canvaschartMTDProduction,
         { type: 'bar', data: barChartData, options: options });
-    }
+}
+
+
 
 
 function GetMTDAverage() {
-
-    EafKWht();
-    EafLrfKwht();
-    TonPerHour();
-    IronYield();
-    FoamyCarbon();
-    NG();
-    Aluminum();
-    ChargeCarbon();
+    $.ajax({
+        url: "http://localhost:8002/api/MTDAverage",
+        method: "GET",
+        success: function (retorno) {
+            EafKWht(retorno);
+            EafLrfKwht(retorno);
+            TonPerHour(retorno);
+            IronYield(retorno);
+            FoamyCarbon(retorno);
+            NG(retorno);
+            Aluminum(retorno);
+            ChargeCarbon(retorno);
+        }
+    });
 }
 
-function EafKWht() {
+function EafKWht(retorno) {
     var EafKWht = c3.generate({
         bindto: '#EafKWht',
         data: {
             columns: [
-                ['EAF KWht', 91.4]
+                ['EAF KWht', retorno[0].EAFkWhValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -452,13 +430,13 @@ function EafKWht() {
             //            },
             //            show: false // to turn off the min/max labels.
             //        },
-            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            //    max: 100, // 100 is default
+                min: retorno[0].EAFkWhMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+                max: retorno[0].EAFkWhMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
@@ -474,7 +452,7 @@ function EafKWht() {
 
 }
 
-function EafLrfKwht() {
+function EafLrfKwht(retorno) {
     var EafKWht = c3.generate({
         bindto: '#EafLrfKwht',
         data: {
@@ -515,13 +493,13 @@ function EafLrfKwht() {
 
 }
 
-function TonPerHour() {
+function TonPerHour(retorno) {
 
     var TonPerHour = c3.generate({
         bindto: '#TonPerHour',
         data: {
             columns: [
-                ['Ton Per Hour (POn)', 91.4]
+                ['Ton Per Hour (POn)', retorno[0].TonHourPonValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -535,13 +513,13 @@ function TonPerHour() {
             //            },
             //            show: false // to turn off the min/max labels.
             //        },
-            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            //    max: 100, // 100 is default
+                min: retorno[0].TonHourPonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+                max: retorno[0].TonHourPonMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
@@ -554,12 +532,12 @@ function TonPerHour() {
     });
 }
 
-function IronYield() {
+function IronYield(retorno) {
     var IronYield = c3.generate({
     bindto: '#IronYield',
     data: {
         columns: [
-            ['Iron Yield', 91.4]
+            ['Iron Yield', retorno[0].IronYieldValue]
         ],
         type: 'gauge',
         onclick: function (d, i) { console.log("onclick", d, i); },
@@ -572,14 +550,14 @@ function IronYield() {
         //                return value;
         //            },
         //            show: false // to turn off the min/max labels.
-        //        },
-        //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-        //    max: 100, // 100 is default
+            //    },
+        min: retorno[0].IronYieldMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+        max: retorno[0].IronYieldMax // 100 is default
         //    units: ' %',
         //    width: 39 // for adjusting arc thickness
     },
-    color: {
-        pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+        color: {
+        pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
         threshold: {
             //            unit: 'value', // percentage is default
             //            max: 200, // 100 is default
@@ -592,7 +570,7 @@ function IronYield() {
 });
 }
 
-function FoamyCarbon() {
+function FoamyCarbon(retorno) {
     var FoamyCarbon = c3.generate({
         bindto: '#FoamyCarbon',
         data: {
@@ -630,12 +608,12 @@ function FoamyCarbon() {
     });
 }
 
-function NG() {
+function NG(retorno) {
     var NG = c3.generate({
         bindto: '#NG',
         data: {
             columns: [
-                ['NG', 91.4]
+                ['NG', retorno[0].NGTonValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -649,13 +627,13 @@ function NG() {
             //            },
             //            show: false // to turn off the min/max labels.
             //        },
-            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            //    max: 100, // 100 is default
+            min: retorno[0].NGTonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno[0].NGTonMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
