@@ -96,33 +96,26 @@ function GetMTDDelays() {
     }
 
 function GetMTDTapTempand02PPM() {
-    //$.ajax({
-    //    url: "http://localhost:8002/api/Q727",
-    //    method: "GET",
-    //    success: function (retorno) {
+    
+    $.ajax({
+        url: "http://localhost:8002/api/MTDTapTempAndO2PPM",
+        method: "GET",
+        success: function (retorno) {
+            
             let canvaschartMTDTapTempand02PPM = document.getElementById("chartMTDTapTempand02PPM").getContext("2d");
 
             let data = {
                 labels: [],
                 datasets: [
-                    { barPercentage: 0.5, data: [], label: 'Average of TempInSpec', backgroundColor: "rgba(156,195,218,1)" },
-                    { barPercentage: 0.5, data: [], label: 'Average of O2InSpec', backgroundColor: "rgba(26,123,185,0.5)" }]
+                    { barPercentage: 1, data: [], label: 'Average of TempInSpec', backgroundColor: "#138cfc" },
+                    { barPercentage: 1, data: [], label: 'Average of O2InSpec', backgroundColor: "#13239c" }]
             };
 
-            //for (var i = 0; i < retorno; i++) {
-            //    $.each(retorno, function () {
-            //        data.labels.push(this.CREW);
-            //        data.datasets[i].data.push(this.AMOUNT);
-            //    });
-            //}
-
-            data = {
-                labels: ["C", "A", "B", "D"],
-                datasets: [
-                    { barPercentage: 1, data: [0.08, 0.06, 0.06, 0.06], label: "Average of TempInSpec", backgroundColor: "rgba(156,195,218,1)" },
-                    { barPercentage: 1, data: [0.08, 0.04, 0.09, 0.12], label: "Average of O2InSpec", backgroundColor: "rgba(26,123,185,0.5)" }
-                ]
-            };
+                $.each(retorno, function () {
+                    data.labels.push(this.Crew);
+                    data.datasets[0].data.push(this.TempInSpec);
+                    data.datasets[1].data.push(this.O2InSpec);
+                });
 
             let options = {
                 responsive: true,
@@ -134,8 +127,8 @@ function GetMTDTapTempand02PPM() {
 
             barChartMTDTapTempand02PPM = new Chart(canvaschartMTDTapTempand02PPM,
                 { type: 'bar', data: data, options: options });
-    //    }
-    //});
+        }
+    });
  }
 
 
@@ -219,10 +212,12 @@ function GetScrapTonPerHour() {
 }
 
 function GetIronYield() {
-    //$.ajax({
-    //    url: "http://localhost:8002/api/Q775Delay",
-    //    method: "GET",
-    //    success: function (retorno) {
+    debugger
+    $.ajax({
+        url: "http://localhost:3000/prueba",
+        method: "GET",
+        success: function (retorno) {
+            debugger
             let canvaschartIronYield = document.getElementById("chartIronYield").getContext("2d");
 
             var data = {
@@ -238,10 +233,10 @@ function GetIronYield() {
                 }]
             };
 
-            //$.each(retorno, function () {
-            //    data.labels.push(this.MLH_HEAT_NO);
-            //    data.datasets[0].data.push(this.TAPPING_PREP);
-            //});
+            $.each(retorno, function () {
+                data.labels.push(this.MLH_HEAT_NO);
+                data.datasets[0].data.push(this.TAPPING_PREP);
+            });
 
             let options = {
                 responsive: true,
@@ -254,8 +249,8 @@ function GetIronYield() {
             barChartIronYield = new Chart(canvaschartIronYield,
                 { type: 'line', data: data, options: options });
         }
-//    });
-//}
+    });
+}
 
 
 function GetTargetPPM() {
