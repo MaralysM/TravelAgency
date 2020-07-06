@@ -1,44 +1,49 @@
 ﻿
 
-function GetMTDMissedHeats() {       
+function GetMTDMissedHeats() {
     //$.ajax({
-    //    url: "http://localhost:3000/ejemploMTDMissedHeats",
+    //    url: "http://localhost:8002/api/Q727",
     //    method: "GET",
     //    success: function (retorno) {
-            let canvasMTDMissedHeats = document.getElementById("chartMTDMissedHeats").getContext("2d");
-            let data = {
-                labels: [],
-                datasets: [{ data: [], backgroundColor: [] }]
-            };
-             data = {
-                 labels: retorno[0].Crew,
-                 datasets: [{ data: retorno[0].Value, backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
-            };
-
-            let options = {
-                animation: { animateScale: true },
-                legend: { display: true, position: 'right' },
-                plugins: {
-                    labels: [{ render: 'label', position: 'outside' },
-                    { render: 'percentage', fontSize: 9, precision: 2 }]
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function (t, d) {
-                            let xLabel = d.labels[t.index];
-                            let yLabel = d.datasets[0].data[t.index];
-                            return xLabel + ': ' + yLabel;
-                        }
-                    }
-                }
-            };
-            doughnutMTDMissedHeats = new Chart(canvasMTDMissedHeats,
-                { type: 'doughnut', data: data, options: options });
-    //    }
+    let canvasMTDMissedHeats = document.getElementById("chartMTDMissedHeats").getContext("2d");
+    let data = {
+        labels: [],
+        datasets: [{ data: [], backgroundColor: [] }]
+    };
+    //let index = 1;
+    //$.each(retorno, function () {
+    //    data.labels.push(this.CREW);
+    //    data.datasets[0].data.push(this.AMOUNT);
+    //    data.datasets[0].backgroundColor.push(colorList[index]);
+    //    index++;
     //});
-    }
+    data = {
+        labels: ["A", "B", "C", "D"],
+        datasets: [{ data: [2, 2, 4, 4], backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
+    };
 
-
+    let options = {
+        animation: { animateScale: true },
+        legend: { display: true, position: 'right' },
+        plugins: {
+            labels: [{ render: 'label', position: 'outside' },
+            { render: 'percentage', fontSize: 9, precision: 2 }]
+        },
+        tooltips: {
+            callbacks: {
+                label: function (t, d) {
+                    let xLabel = d.labels[t.index];
+                    let yLabel = d.datasets[0].data[t.index];
+                    return xLabel + ': ' + yLabel;
+                }
+            }
+        }
+    };
+    doughnutMTDMissedHeats = new Chart(canvasMTDMissedHeats,
+        { type: 'doughnut', data: data, options: options });
+}
+    //});
+   // }
 
 
 function GetMTDDelays() {
