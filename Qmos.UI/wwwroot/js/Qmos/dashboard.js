@@ -96,7 +96,7 @@ function GetMTDDelays() {
 function GetMTDTapTempand02PPM() {
     
     $.ajax({
-        url: "http://localhost:8002/api/MTDTapTempAndO2PPM",
+        url: "http://sapwebbeap03:8003/api/MTDTapTempAndO2PPM",
         method: "GET",
         success: function (retorno) {
             var myobject = JSON.parse(retorno);
@@ -132,7 +132,7 @@ function GetMTDTapTempand02PPM() {
 
 function GetKWhPerScrapTon() {
     $.ajax({
-        url: "http://localhost:8002/api/KwhPerScrapTon",
+        url: "http://sapwebbeap03:8003/api/KwhPerScrapTon",
         method: "GET",
         success: function (retorno) {
             var myobject = JSON.parse(retorno);
@@ -169,7 +169,7 @@ function GetKWhPerScrapTon() {
 
 function GetScrapTonPerHour() {
     $.ajax({
-        url: "http://localhost:8002/api/ScrapTonPerHour",
+        url: "http://sapwebbeap03:8003/api/ScrapTonPerHour",
         method: "GET",
         success: function (retorno) {
             var myobject = JSON.parse(retorno);
@@ -205,7 +205,7 @@ function GetScrapTonPerHour() {
 
 function GetIronYield() {    
     $.ajax({
-        url: "http://localhost:8002/api/IronYield",
+        url: "http://sapwebbeap03:8003/api/IronYield",
         method: "GET",
         success: function (retorno) {
             var myobject = JSON.parse(retorno);
@@ -242,7 +242,7 @@ function GetIronYield() {
 
 function GetTargetPPM() {    
     $.ajax({
-        url: "http://localhost:8002/api/TapPPMTargetPPM",
+        url: "http://sapwebbeap03:8003/api/TapPPMTargetPPM",
         method: "GET",
         success: function (retorno) {   
             var myobject = JSON.parse(retorno);
@@ -279,7 +279,7 @@ function GetTargetPPM() {
 
 function GetTargetTemp() {
     $.ajax({
-        url: "http://localhost:8002/api/TapTempTargetTemp",
+        url: "http://sapwebbeap03:8003/api/TapTempTargetTemp",
         method: "GET",
         success: function (retorno) {
             var myobject = JSON.parse(retorno);
@@ -313,7 +313,7 @@ function GetTargetTemp() {
 }
 function GetTapWtTarget() {
     $.ajax({
-        url: "http://localhost:8002/api/TapWtTapWtTarget",
+        url: "http://sapwebbeap03:8003/api/TapWtTapWtTarget",
         method: "GET",
         success: function (retorno) {
             var myobject = JSON.parse(retorno);
@@ -407,7 +407,7 @@ function GetMTDProduction() {
 
 function GetMTDAverage() {
     $.ajax({
-        url: "http://localhost:8002/api/MTDAverage",
+        url: "http://sapwebbeap03:8003/api/MTDAverage",
         method: "GET",
         success: function (retorno) {
             var myobject = JSON.parse(retorno);
