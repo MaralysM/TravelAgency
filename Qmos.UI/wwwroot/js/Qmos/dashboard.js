@@ -135,14 +135,15 @@ function GetKWhPerScrapTon() {
         url: "http://localhost:8002/api/KwhPerScrapTon",
         method: "GET",
         success: function (retorno) {
-            $('#Average').html(retorno[0].AvgKwhTon);
+            var myobject = JSON.parse(retorno);
+            $('#Average').html(myobject.AvgKwhTon);
             let canvaschartKWhPerScrapTon = document.getElementById("chartKWhPerScrapTon").getContext("2d");
 
             var data = {
-                labels: retorno[0].AxeX,
+                labels: myobject.AxeX,
                 datasets: [{
                     label: "Average of KwhTon",
-                    data: retorno[0].AxeY,
+                    data: myobject.AxeY,
                     lineTension: 0,
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
