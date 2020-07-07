@@ -1,0 +1,414 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    @model Qmos.UI.ViewModels.UserViewModel
+    @if (Model.ID_User != 0)
+    {
+        ViewData["Title"] = "Modify User" +  ViewData["Customer"];
+    }
+    else
+    {
+        ViewData["Title"] = "Create User" +  ViewData["Customer"];
+    }
+
+    ViewData["Root"] = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert.css">
+<link rel="stylesheet" href="~/css/plugins/dataTables/datatables.min.css" />
+<link rel="stylesheet" href="~/css/plugins/toastr/toastr.min.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-chosen.css" />
+<partial name="_HeaderDetailPartial" view-data="ViewData" />
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-offset-2 col-lg-8">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group row text-left">
+                                <div class="col-lg-12">
+                                    <span class="text-danger"> *</span><span>
+    Required fields
+</span>
+                                </div>
+                            </div>
+                            <form asp-action="Post" role="form" method="post">
+                                <input type="hidden" asp-for="@Model.ID_User" />
+                                <input type="hidden" asp-for="@Model.BO_Active" />
+                                <input type="hidden" asp-for="@Model.BO_PasswordExpired" />
+                                <input type="hidden" asp-for="@Model.BO_UpdateStatus" />
+                                <input type="hidden" asp-for="@Model.TX_Link" />
+
+                                <div class="row">
+                                    <div class="form-group col-lg-3 col-md-3">
+                                        <label>
+                                            First name
+                                        </label><span class="text-danger"> *</span>
+                                        <input asp-for="@Model.TX_FirstName" type="text" placeholder="
+First name" class="form-control">
+                                    </div>
+                                    <div class="form-group col-lg-3 col-md-3">
+                                        <label>
+                                            Second name
+                                        </label>
+                                        <input asp-for="@Model.TX_SecondName" type="text" placeholder="
+Second name" class="form-control">
+                                    </div>
+                                    <div class="form-group col-lg-3 col-md-3">
+                                        <label>
+                                            Surname
+                                        </label><span class="text-danger"> *</span>
+                                        <input asp-for="@Model.TX_LastName" type="text" placeholder="Surname" class="form-control">
+                                    </div>
+                                    <div class="form-group col-lg-3 col-md-3">
+                                        <label>
+                                            Second surname
+                                        </label>
+                                        <input asp-for="@Model.TX_SecondLastName" type="text" placeholder="Second surname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6 col-md-6">
+                                        <label> Email</label><span class="text-danger"> *</span>
+                                        <input asp-for="@Model.TX_Email" type="email" placeholder="Email" class="form-control">
+                                        <span hidden id="label-useremail" class="text-danger">The mail already exists! </span>
+                                        <span class="text-danger email-error-message" hidden>Please enter a valid email!</span>
+                                    </div>
+                                    <div class="form-group col-lg-6 col-md-6">
+                                        <label>Phone number</label>
+                                        <input asp-for="@Model.TX_Phone" type="text" placeholder="Phone number" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Password</label><span class="text-danger"> *</span>
+                                    <input asp-for="@Model.TX_Password" type="password" placeholder="Password" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label><span class="text-danger"> *</span>
+                                    <input type="password" placeholder="Confirm Password" class="form-control confirm">
+                                    <span class="text-danger password-error-message" hidden>Passwords do not match! </span>
+                                </div>
+
+
+                                <div class="row">
+                                    @if ((string)ViewData["Customer"] == "" || ViewData["Customer"] == null) { // Es SuperAdministrador
+                                    <div class="form-group col-lg-6 col-md-6 LinkAdministrator">
+                                        <div class="form-group">
+                                            <label>Client</label>
+                                            <select asp-for="TX_LinkAdministrator" asp-items="Model.ListCustomers" class="chosen-select Customers" data-placeholder="Select">
+                                                <option value="0">Select </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    }
+                                    <div class="form-group col-lg-6 col-md-6">
+                                        <label>Default Price List</label>
+                                        <select class="form-control m-b chosen-select" asp-for="DfPriceList" asp-items="Model.PriceLists" data-placeholder="Select ">
+                                            <option value="0">Select </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group justify-content-md-center" align="left">
+                                    <label class="text-bold">Active </label>
+                                    <input style="height: 20px; width: 20px; margin-top:10px" id="CB_Active" name="CB_Active" asp-for="BO_Active" type="checkbox">
+                                    <span hidden id="label-active" class="text-danger">The quota for active users is full</span>
+                                    <br>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group row text-center">
+                                    <div class="col-lg-12">
+                                        <a asp-action="Index" class="btn btn-white"><i class="fa fa-arrow-left"></i> Back</a>
+                                        <button id="btn-save" class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+
+    <script src="~/js/jquery-3.1.1.min.js"></script>
+    <script src="~/js/plugins/nestable/jquery.nestable.js"></script>
+    <script src="~/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="~/js/plugins/dataTables/dataTablesCustom.js"></script>
+    <script src="~/js/plugins/toastr/toastr.min.js"></script>
+    <script src="~/lib/plugins/chosen/chosen.jquery.js"></script>
+    <script>
+        formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 1], null);
+        $('#table tbody').on('click', '.delete', function () {
+            eliminarRegistro(".delete", "data-id", "@Url.Action("DeleteRoleByUser", "Users")", '#table', $(this));
+        });
+
+        $(document).ready(function () {
+
+
+
+            $('.chosen-select').chosen({ width: "100%", no_results_text: "Oops, no hay coincidencias!" });
+            if ('@Model.ID_User' == '0') {
+                $('.chosen-select').val("").trigger('chosen:updated');
+            }
+
+            $(".confirm").change(function () {
+                ValidatePassword();
+            });
+            $("#TX_Password").change(function () {
+                ValidatePassword();
+            });
+            $("#ID_Application").change(function () {
+                var url = "";
+                if ('@ViewData["Customer"]' == "" || '@ViewData["Customer"]' == null) {
+                    url = "@Url.Action("GetRolesByApplication", "Users")";
+                } else {
+                    url = "@Url.Action("GetRolesByApplicationAndValisibleByCliente", "Users")";
+                }
+
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: { id: $("#ID_Application").val() },
+                    success: function (retorno) {
+                        $("#ID_Role").empty();
+                        $("#ID_Role").append("<option value=''>Seleccione un rol</option>");
+
+                        var valores = retorno.result.result;
+                        $(valores).each(function (index, item) {
+                            var option = $("<option />");
+
+                            //Set Customer Name in Text part.
+                            option.html(item.tX_Role);
+
+                            //Set Customer CustomerId in Value part.
+
+                            option.val(item.iD_Role);
+
+                            //Add the Option element to DropDownList.
+
+                            if (item.tX_Role == "Administrador de Clientes" && $("#TX_LinkAdministrator").val() == 0) {
+                                option.prop("disabled", true)
+                            }
+
+                            $("#ID_Role").append(option);
+                        });
+                    },
+                    error: function (response) {
+                        toastr.error("Error", `An error occurred. ${response.responseText}`, "Error", { timeOut: 6000 });
+                    }
+                });
+            });
+
+            $('form').submit(function () {
+                debugger
+                if ($('#BO_UpdateStatus').val() === "true" || @Model.ID_User == 0) {
+                    let Create = @Model.ID_User == 0 ? true : false;
+                    let Active = document.querySelector('#CB_Active').checked;
+                    let destinatario = Create ? " usuario" : "";
+                    if (Active && !Create) {
+                        destinatario = " usuario y vendedor";
+                    } else if (!Active && !Create) {
+                        destinatario = " vendedor";
+                    }
+
+                    swal({
+                        title: "Gestión de usuario",
+                        text: "Al ser correcta la información ingresada, se enviará un email confirmando el registro, con destino al" + destinatario + ".",
+                        type: "warning",
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        confirmButtonColor: "#23c6c8",
+                        confirmButtonText: "Aceptar",
+                        closeOnConfirm: false
+                    }, function (isConfirm) {
+                        if (isConfirm)
+                            return true;
+                        else
+                            return false;
+                    });
+                }
+            });
+
+            $('#btn-save-role').on('click', function () {
+                if ($("#ID_Role").val() == "") {
+                    return false;
+                }
+                $.ajax({
+                    url: "@Url.Action("AddRole", "Users")",
+                    method: "POST",
+                    data: {
+                        ID_UserR: $("#ID_UserR").val(),
+                        ID_Role: $("#ID_Role").val()
+                    },
+                    success: function (retorno) {
+                        location.reload(true);
+                    },
+                    error: function (response) {
+                        toastr.error("Error", `An error occurred. ${response.responseText}`, "Error", { timeOut: 6000 });
+                    }
+                });
+            });
+
+            $('#btn-save').on('click', function () {
+                if ($("#TX_Email").val() == "") {
+                    alert("Debe escribir un correo electrónico");
+                    return false;
+                }
+                if ('@Model.ID_User' == '0') {
+                    if ($("#TX_Password").val() == "") {
+                        alert("Debe escribir un Password");
+                        return false;
+                    } else {
+                        ValidatePassword();
+                    }
+                }
+                if ('@ViewData["Customer"]' != "" && '@ViewData["Customer"]' != null) {
+                    if ($(`#DfPriceList`).val() == "0") {
+                        alert("Debe seleccionar una lista de precios");
+                        return false;
+                    }
+
+                }
+                //$.ajax({
+                //    url: "@Url.Action("AddRole", "Users")",
+                //    method: "POST",
+                //    data:  {
+                //        ID_UserR: $("#ID_UserR").val(),
+                //        ID_Role: $("#ID_Role").val()
+                //    },
+                //    success: function (retorno) {
+                //       location.reload(true);
+                //    },
+                //    error: function (response) {
+                //        toastr.error("Error", `An error occurred. ${response.responseText}`, "Error", { timeOut: 6000 });
+                //    }
+                //});
+            });
+
+
+            $('#TX_Email').on('change', function () {
+                if ($("#TX_Email").val() == "") {
+                    return false;
+                }
+                $.ajax({
+                    url: "@Url.Action("CheckUserEmail", "Users")",
+                    method: "POST",
+                    data: {
+                        useremail: $("#TX_Email").val()
+
+                    },
+                    success: function (retorno) {
+                        if (retorno) {
+                            $("#btn-save").attr("disabled", "disabled");
+
+                            $("#label-useremail").show();
+                        }
+                        else {
+                            $("#btn-save").removeAttr("disabled");
+                            $("#label-useremail").hide();
+                        }
+                    },
+                    error: function (response) {
+                        toastr.error("Error", `An error occurred. ${response.responseText}`, "Error", { timeOut: 6000 });
+                    }
+                });
+            });
+
+            $('#CB_Active').on('change', async function () {
+                debugger
+                $('#BO_Active').val(document.querySelector('#CB_Active').checked);
+                $('#BO_UpdateStatus').val(true);
+                await SearchActiveUsers();
+            });
+
+
+            $('#TX_LinkAdministrator').on('change', async function () {
+                    await $.ajax({
+                        url: "@Url.Action("GetPriceByCustomer", "Users")",
+                        data: { LinkAdministrator: $(`#TX_LinkAdministrator`).val() },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            debugger
+                            $list = $(`#DfPriceList`);
+                            $list.empty();
+                            if (data.length > 0) {
+                                $.each(data, function (i, item) {
+                                    $list.append(`<option value="${item["ListNum1"]}"> ${item["ListName1"].toUpperCase()} </option>`);
+                                });
+                                $(`#DfPriceList`).chosen({ width: '100%' });
+                                $(`#DfPriceList`).trigger("chosen:updated");
+                            } else {
+                                $list.val('').trigger("chosen:updated");
+                            }
+
+                        },
+                        error: function (data) {
+
+                        }
+                    })
+
+                SearchActiveUsers();
+
+
+            });
+
+            if ('@Model.ShowClient' == 'False') {
+                $(".LinkAdministrator").hide();
+            }
+        });
+
+        function ValidatePassword() {
+            if ($("#TX_Password").val() != $(".confirm").val()) {
+                $(".password-error-message").show();
+                $("#btn-save").attr("disabled", "disabled");
+
+            } else {
+                $(".password-error-message").hide();
+                $("#btn-save").removeAttr("disabled");
+            }
+        }
+
+        async function SearchActiveUsers() {
+            if ($(`#TX_LinkAdministrator`).val() != "0" && $(`#TX_LinkAdministrator`).val() != null) {
+                await $.ajax({
+                    url: "@Url.Action("CheckUserActive", "Users")",
+                    type: "POST",
+                    data: {
+                        CbActive: document.querySelector('#CB_Active').checked, IdCustomer: $(`#TX_LinkAdministrator`).val()
+
+                    },
+                    success: function (retorno) {
+                        if (!retorno) {
+                            $("#btn-save").attr("disabled", "disabled");
+                            $('#BO_Active').val(false);
+                            $("#label-active").show();
+                        }
+                        else {
+                            $("#btn-save").removeAttr("disabled");
+                            $("#label-active").hide();
+                        }
+                    },
+                    error: function (response) {
+                        toastr.error("Error", `An error occurred. ${response.responseText}`, "Error", { timeOut: 6000 });
+                    }
+                });
+            }
+        }
+
+    </script>
+}
