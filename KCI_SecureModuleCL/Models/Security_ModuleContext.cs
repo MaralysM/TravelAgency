@@ -158,9 +158,6 @@ namespace KCI_SecureModuleCL.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.TX_Link)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.TX_Password)
                     .IsRequired()

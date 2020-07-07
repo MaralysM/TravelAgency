@@ -20,8 +20,7 @@ namespace KCI_SecureModuleCL.Models
         public string TX_Password { get; set; }
         public bool BO_Active { get; set; }
         public bool BO_PasswordExpired { get; set; }
-        public string TX_Link { get; set; }
-        public int? ID_PriceList { get; set; }
+
         public DateTime? DT_ValidDatePasswordRecoveryLink { get; set; }
 
         public virtual ICollection<SM_ROLE_USER> SM_ROLE_USER { get; set; }

@@ -41,14 +41,14 @@ namespace Qmos.UI.Controllers
             {
                 if (DateTime.Now > User.DT_ValidDatePasswordRecoveryLink) {
                     ViewBag.SucessMessage = false;
-                    ViewBag.ErrorMessage = "El enlace utilizado ya no es válido para cambiar su contraseña. Por favor, solicite un nuevo enlace.";
+                    ViewBag.ErrorMessage = "The link used is no longer valid to change your password.Please request a new link.";
                     return View();
                 }
             }
             else
             {
                 ViewBag.SucessMessage = false;
-                ViewBag.ErrorMessage = "Verifique que el enlace enviado vía correo electrónio para cambiar su contraseña sea el correcto";
+                ViewBag.ErrorMessage = "Verify that the link sent via email to change your password is correct";
                 return View();
             }
             return View();
@@ -61,7 +61,7 @@ namespace Qmos.UI.Controllers
             {
                 if (Autentication.Password == null || Autentication.Password.Equals("")) {
                     ViewBag.SucessMessage = false;
-                    ViewBag.ErrorMessage = "Por favor, introduzca una contraseña válida";
+                    ViewBag.ErrorMessage = "Please enter a valid password";
                     return View();
                 }
 
@@ -83,7 +83,6 @@ namespace Qmos.UI.Controllers
                         TX_Password = Autentication.Password,
                         BO_PasswordExpired = false,
                         PasswordChanged = true,
-                        TX_Link = User.TX_Link,
                         DT_ValidDatePasswordRecoveryLink = DateTime.Now
                     });
                     ViewBag.SucessMessage = true;
@@ -92,14 +91,14 @@ namespace Qmos.UI.Controllers
                 else
                 {
                     ViewBag.SucessMessage = false;
-                    ViewBag.ErrorMessage = "Verifique que el enlace enviado vía correo electrónio para cambiar su contraseña sea el correcto";
+                    ViewBag.ErrorMessage = "Verify that the link sent via email to change your password is correct";
                     return View();
                 }
             }
             catch (Exception e)
             {
                 ViewBag.SucessMessage = false;
-                ViewBag.ErrorMessage = "Ha ocurrido un error: Verifique que se encuentre en el enlace correcto";
+                ViewBag.ErrorMessage = "An error has occurred: Verify that you are at the correct link";
                 return View();
             }
         }

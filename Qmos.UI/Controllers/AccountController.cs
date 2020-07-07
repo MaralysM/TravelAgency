@@ -51,7 +51,7 @@ namespace Qmos.UI.Controllers
                     if (!User.BO_Active)
                     {
                         ViewBag.SendEmailPassword = "";
-                        ViewBag.ErrorMessage = "El usuario se encuentra inactivo";
+                        ViewBag.ErrorMessage = "The user is inactive";
                         return View();
                     }
                     else
@@ -68,8 +68,6 @@ namespace Qmos.UI.Controllers
                         HttpContext.Session.SetString("Menu", Menu.Menu);
                         HttpContext.Session.Set("ID_User", User.ID_User);
                         UserManager.CurrentUserId = User.ID_User;
-                        HttpContext.Session.SetString("CardCode", User.TX_Link == null ? "" : User.TX_Link);
-                        HttpContext.Session.Set<long>("Id_PriceList", User.ID_PriceList == null ?  1 : (long) User.ID_PriceList);
                         return Redirect(DefaultUrl);
 
                     }
@@ -77,14 +75,14 @@ namespace Qmos.UI.Controllers
                 else
                 {
                     ViewBag.SendEmailPassword = "";
-                    ViewBag.ErrorMessage = "El correo o contraseña son incorrectos";
+                    ViewBag.ErrorMessage = "The email or password is incorrect";
                     return View();
                 }
             }
             catch (Exception e)
             {
                 ViewBag.SendEmailPassword = "";
-                ViewBag.ErrorMessage = "Ha ocurrido un error: " + e.Message;
+                ViewBag.ErrorMessage = "An error has occurred: " + e.Message;
                 return View();
             }
 
@@ -113,7 +111,7 @@ namespace Qmos.UI.Controllers
             catch (Exception e)
             {
                 ViewBag.SendEmailPassword = "";
-                ViewBag.ErrorMessage = "Ha ocurrido un error: " + e.Message;
+                ViewBag.ErrorMessage = "An error has occurred: " + e.Message;
                 return View("Login");
             }
 

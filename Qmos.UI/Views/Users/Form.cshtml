@@ -96,25 +96,6 @@ Second name" class="form-control">
                                 </div>
 
 
-                                <div class="row">
-                                    @if ((string)ViewData["Customer"] == "" || ViewData["Customer"] == null) { // Es SuperAdministrador
-                                    <div class="form-group col-lg-6 col-md-6 LinkAdministrator">
-                                        <div class="form-group">
-                                            <label>Client</label>
-                                            <select asp-for="TX_LinkAdministrator" asp-items="Model.ListCustomers" class="chosen-select Customers" data-placeholder="Select">
-                                                <option value="0">Select </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    }
-                                    <div class="form-group col-lg-6 col-md-6">
-                                        <label>Default Price List</label>
-                                        <select class="form-control m-b chosen-select" asp-for="DfPriceList" asp-items="Model.PriceLists" data-placeholder="Select ">
-                                            <option value="0">Select </option>
-                                        </select>
-                                    </div>
-                                </div>
-
 
                                 <div class="form-group justify-content-md-center" align="left">
                                     <label class="text-bold">Active </label>
@@ -213,35 +194,7 @@ Second name" class="form-control">
                 });
             });
 
-            $('form').submit(function () {
-                debugger
-                if ($('#BO_UpdateStatus').val() === "true" || @Model.ID_User == 0) {
-                    let Create = @Model.ID_User == 0 ? true : false;
-                    let Active = document.querySelector('#CB_Active').checked;
-                    let destinatario = Create ? " usuario" : "";
-                    if (Active && !Create) {
-                        destinatario = " usuario y vendedor";
-                    } else if (!Active && !Create) {
-                        destinatario = " vendedor";
-                    }
 
-                    swal({
-                        title: "Gestión de usuario",
-                        text: "Al ser correcta la información ingresada, se enviará un email confirmando el registro, con destino al" + destinatario + ".",
-                        type: "warning",
-                        showCancelButton: false,
-                        showConfirmButton: false,
-                        confirmButtonColor: "#23c6c8",
-                        confirmButtonText: "Aceptar",
-                        closeOnConfirm: false
-                    }, function (isConfirm) {
-                        if (isConfirm)
-                            return true;
-                        else
-                            return false;
-                    });
-                }
-            });
 
             $('#btn-save-role').on('click', function () {
                 if ($("#ID_Role").val() == "") {

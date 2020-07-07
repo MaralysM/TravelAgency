@@ -33,9 +33,7 @@ namespace Qmos.UI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var (rol, user) = await SearchUser();
-              ViewData["Customer"] = "";
-            return View(await Manager.All(rol, user));
+            return View(await Manager.All());
         }
         public async Task<IActionResult> Post(UserViewModel viewModel)
         {
@@ -45,11 +43,9 @@ namespace Qmos.UI.Controllers
                 viewModel.ListAplications = SelectListItemHelper.ToSelectList(Manager.AllApplications().Result.ToList(),
                 nameof(SM_ELEMENT.ID_Element), nameof(SM_ELEMENT.TX_Name));
                 
-
                 ValidateViewModel(viewModel);
                 if (!ModelState.IsValid)
                 {
-                    var (rol, userLogueado) = await SearchUser();
                     return View("Form", viewModel);
                 }
                 bool passWordChanged = (viewModel.TX_Password != null);
@@ -67,16 +63,11 @@ namespace Qmos.UI.Controllers
                     TX_Password = viewModel.TX_Password,
                     BO_PasswordExpired = false,
                     PasswordChanged = passWordChanged,
-                    TX_Link = HttpContext.Session.GetString("UserRole").Contains("Administrador de Clientes") ? viewModel.TX_Link : viewModel.TX_LinkAdministrator == "0" ? null : viewModel.TX_LinkAdministrator,
-                    ID_PriceList = viewModel.DfPriceList
                 });
-
-
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                var (rol, userLogueado) = await SearchUser();
                 ModelState.AddModelError("Error", ex.Message);
                 return View("Form", viewModel);
             }
@@ -128,7 +119,6 @@ namespace Qmos.UI.Controllers
                 var (rol, user) = await SearchUser();
                 var data = await Manager.FindById(id);
 
-                ViewData["Customer"] = "";
 
                 UserViewModel viewModel = new UserViewModel
                 {
@@ -141,13 +131,9 @@ namespace Qmos.UI.Controllers
                     TX_LastName = data.TX_LastName,
                     TX_SecondLastName = data.TX_SecondLastName,
                     TX_Phone = data.TX_Phone,
-                    TX_LinkAdministrator = data.TX_Link,
-                    TX_Link = data.TX_Link,
-                    DfPriceList = data.ID_PriceList,
                     BO_UpdateStatus = false,
-                    //ListAplications = SelectListItemHelper.ToSelectList(Manager.AllApplications().Result.ToList(),
-                    //nameof(SM_ELEMENT.ID_Element), nameof(SM_ELEMENT.TX_Name)),
-                    //ListCustomers = CustomerSelectList(CustomerManager.GetAll()),
+                    ListAplications = SelectListItemHelper.ToSelectList(Manager.AllApplications().Result.ToList(),
+                    nameof(SM_ELEMENT.ID_Element), nameof(SM_ELEMENT.TX_Name)),
                     RolesUser = Manager.GetRolesByUser(data.ID_User)
                 };
 

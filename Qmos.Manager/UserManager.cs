@@ -67,13 +67,10 @@ namespace Qmos.Manager
 
 
 
-        public async Task<IEnumerable<SM_USER>> All(string rol, SM_USER user)
+        public async Task<IEnumerable<SM_USER>> All()
         {
             try
             {
-                if (rol.Contains("Administrador de Clientes"))
-                    return UserService.GetByCustormer(user);
-                else
                     return UserService.GetAll();
             }
             catch (Exception ex)
@@ -143,13 +140,11 @@ namespace Qmos.Manager
                 if (user.ID_User == 0)
                 {
                     var userSuccessfully = UserService.Create(user);
-                    LoggerActionsManager.Add(new LoggerActions { TypeAction = TypeActions.Insert, Message = "Register has inserted succesfull-User", UserId = 0 });
                     return userSuccessfully;
                 }
                 else
                 {
                     UserService.Edit(user);
-                    LoggerActionsManager.Add(new LoggerActions { TypeAction = TypeActions.Update, Message = "Register has modify succesfull-User", UserId = 0 });
                     return user;
                 }
             }

@@ -13,7 +13,7 @@ namespace Qmos.Manager
     {
         SM_USER UserCurrent { get; }
         Task<SM_USER> Save(SM_USER user);
-        Task<IEnumerable<SM_USER>> All(string rol, SM_USER user);
+        Task<IEnumerable<SM_USER>> All();
         Task Delete(int id);
         Task<SM_USER> FindById(object id);
         Task<IEnumerable<SM_ELEMENT>> AllApplications();

@@ -16,7 +16,6 @@ namespace KCI_SecureModuleCL.Services
         SM_USER Authenticate(string username, string password, int application, string link);
 
         IEnumerable<SM_USER> GetAll();
-        IEnumerable<SM_USER> GetByCustormer(SM_USER user);
 
         SM_USER GetById(int id);
 
@@ -29,7 +28,7 @@ namespace KCI_SecureModuleCL.Services
         IEnumerable<SM_ROLE_USER> GetAllRolesByUser(int ID_User);
         bool DeleteRoleByUser(int iD_UserRoleAplication);
         bool CheckUserEmail(string useremail);
-        int GetActiveUsers(string customer);
+
     }
 
     public class UserService : IUserService
@@ -60,25 +59,7 @@ namespace KCI_SecureModuleCL.Services
 
             return Rol.First();
         }
-        private SM_USER AuthenticateWithLink(string link, int application)
-        {
-            try
-            {
-                var user = DB.SM_USER.SingleOrDefault(x => x.TX_Link.Equals(link));
-                // return null if user not found
-                if (user == null)
-                    return null;
 
-                user.CurrentRole = GetRoleByUserIdAndApplication(user.ID_User, application);
-
-                return user.WithoutPassword();
-
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
         private SM_USER AuthenticateWithUserAndPassword(string useremail, string password, int application)
         {
             try
@@ -109,20 +90,11 @@ namespace KCI_SecureModuleCL.Services
         {
             return DB.SM_USER.WithoutPasswords();
         }
-        public IEnumerable<SM_USER> GetByCustormer(SM_USER user)
-        {
-            return DB.SM_USER.Where(x => x.TX_Link == user.TX_Link);
-        }
 
         public SM_USER GetById(int id)
         {
             var user = DB.SM_USER.FirstOrDefault(x => x.ID_User == id);
             return user.WithoutPassword();
-        }
-
-        public int GetActiveUsers(string customer)
-        {
-            return DB.SM_USER.Where(x => x.BO_Active && x.TX_Link == customer).Count();
         }
 
         public SM_USER Create(SM_USER user)
@@ -157,9 +129,7 @@ namespace KCI_SecureModuleCL.Services
                 editedUser.TX_LastName = user.TX_LastName;
                 editedUser.TX_SecondLastName = user.TX_SecondLastName;
                 editedUser.TX_Phone = user.TX_Phone;
-                editedUser.TX_Link = user.TX_Link;
                 editedUser.BO_Active = user.BO_Active;
-                editedUser.ID_PriceList = user.ID_PriceList;
 
                 if (user.DT_ValidDatePasswordRecoveryLink != null)
                     editedUser.DT_ValidDatePasswordRecoveryLink = user.DT_ValidDatePasswordRecoveryLink;
@@ -227,14 +197,7 @@ namespace KCI_SecureModuleCL.Services
 
         public SM_USER Authenticate(string useremail, string password, int application, string link)
         {
-            if (link == null)
-            {
                 return AuthenticateWithUserAndPassword(useremail, password, application);
-            }
-            else
-            {
-                return AuthenticateWithLink(link, application);
-            }
         }
 
         public bool CheckUserEmail(string useremail)
