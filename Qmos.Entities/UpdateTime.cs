@@ -2,7 +2,7 @@
 
 namespace Qmos.Entities
 {
-    public class update_time : EntityBase<short>
+    public class UpdateTime : EntityBase<short>
     {
         public string time_refresh { get; set; }
     }

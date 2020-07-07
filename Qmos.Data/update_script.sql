@@ -300,17 +300,17 @@ GO
 
 
 
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'update_time' )
---DROP SCHEMA IF EXISTS [Qmos] 
+--IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'update_time' )
+----DROP SCHEMA IF EXISTS [Qmos] 
+----GO
+--USE [QMOS]
 --GO
-USE [QMOS]
-GO
-CREATE SCHEMA [Qmos]
-GO
+--CREATE SCHEMA [Qmos]
+--GO
 
-CREATE TABLE [Qmos].[update_time]
-	(
-	  id SMALLINT NOT NULL IDENTITY(1,1),
-      time_refresh TIME(2) NULL
-	)
-GO
+--CREATE TABLE [Qmos].[update_time]
+--	(
+--	  id SMALLINT NOT NULL IDENTITY(1,1),
+--      time_refresh TIME(2) NULL
+--	)
+--GO

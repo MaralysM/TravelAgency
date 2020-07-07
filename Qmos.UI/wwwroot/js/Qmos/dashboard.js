@@ -93,8 +93,7 @@ function GetMTDDelays() {
         //});
     }
 
-function GetMTDTapTempand02PPM() {
-    
+function GetMTDTapTempand02PPM() {    
     $.ajax({
         url: "http://sapwebbeap03:8003/api/MTDTapTempAndO2PPM",
         method: "GET",

@@ -1,12 +1,9 @@
-﻿
-@{
-    @model IEnumerable<KCI_SecureModuleCL.Models.SM_USER>
-    ViewData["Title"] = "User list" + ViewData["Customer"];
-    ViewData["Root"] = "Mangement ";
+﻿@{
+    @model IList<Qmos.Entities.UpdateTime>
+    ViewData["Title"] = "Update Time list";
+    ViewData["Root"] = "Mangement";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 <link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert.css">
 <link rel="stylesheet" href="~/css/plugins/dataTables/datatables.min.css" />
 <link rel="stylesheet" href="~/css/plugins/toastr/toastr.min.css" />
@@ -19,7 +16,7 @@
                 <div class="ibox-content text-center p-md">
                     <div class="row">
                         <div class="col-lg-offset-10">
-                            <a asp-controller="Users" asp-action="Get" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
+                            <a asp-controller="UpdateTime" asp-action="Get" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
                         </div>
                     </div>
                     <table class="table table-striped table-bordered table-hover dataTables" id="table">
@@ -30,27 +27,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @*@{ foreach (var item in Model)
-                                {
-                                <tr>
-                                    <td>
-                                        @(string.Concat(item.TX_FirstName, " ", item.TX_LastName).ToUpper())
-                                    </td>
-                                    <td>
-                                        @item.TX_Email
-                                    </td>
-                                    <td>
-                                        @(item.BO_Active ? "Activo" : "Inactivo") 
-                                    </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a asp-controller="Users" asp-action="GetUpdate" asp-route-id="@item.ID_User" class="btn btn-primary"><i class="fa fa-edit"></i> Update</a>
-                                            <a data-id="@item.ID_User" class="btn btn-danger delete"><i class="fa fa-remove"></i> Remove</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                 }
-                            }*@
+                            @{ foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>
+                                            @item.time_refresh
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a asp-controller="Users" asp-action="GetUpdate" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-edit"></i> Update</a>
+                                                <a data-id="@item.Id" class="btn btn-danger delete"><i class="fa fa-remove"></i> Remove</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                     }
+                                }
                         </tbody>
                     </table>
                 </div>
@@ -70,7 +61,7 @@
     {
         formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 1], null);
         $('#table tbody').on('click', '.delete', function () {
-            eliminarRegistro(".delete", "data-id", "@Url.Action("Delete", "Users")", '#table', $(this));
+            eliminarRegistro(".delete", "data-id", "@Url.Action("Delete", "UpdateTime")", '#table', $(this));
         });
     });
     </script>

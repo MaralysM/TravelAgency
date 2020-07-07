@@ -11,6 +11,7 @@ namespace Qmos.Data.Extensions
             services.AddSingleton<ILoggerErrorRepository, LoggerErrorRepository>();
             
             services.AddTransient<ILogger_actionsRepository, LoggerActionsRepository>();
+            services.AddTransient<IUpdateTimeRepository, UpdateTimeRepository>();
             
             return services;
         }

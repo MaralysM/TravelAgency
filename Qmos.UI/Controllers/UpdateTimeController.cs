@@ -1,23 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Qmos.Manager;
 using Qmos.UI.Filters;
+using System;
+using System.Threading.Tasks;
 
 namespace Qmos.UI.Controllers
 {
     [SessionTimeoutAttribute]
     public class UpdateTimeController : Controller
     {
-        public IUserManager Manager { get; }
+        public IUpdateTimeManager Manager { get; }
 
 
-        public UpdateTimeController(IUserManager manager)
+        public UpdateTimeController(IUpdateTimeManager manager)
         {
             Manager = manager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            try
+            {
+                return View(await Manager.All(false));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+                return View();
+            }
         }
     }
 }
