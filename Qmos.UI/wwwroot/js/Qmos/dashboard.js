@@ -205,15 +205,16 @@ function GetIronYield() {
     $.ajax({
         url: "http://localhost:8002/api/IronYield",
         method: "GET",
-        success: function (retorno) {            
-            $('#Average').html(retorno[0].AvYield);
+        success: function (retorno) {
+            var myobject = JSON.parse(retorno);
+            $('#Average').html(myobject.AvYield);
             let canvaschartIronYield = document.getElementById("chartIronYield").getContext("2d");
 
             var data = {
-                labels: retorno[0].AxeX,
+                labels: myobject.AxeX,
                 datasets: [{
                     label: "Yield",
-                    data: retorno[0].AxeY,
+                    data: myobject.AxeY,
                     lineTension: 0,
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
