@@ -99,7 +99,7 @@ function GetMTDTapTempand02PPM() {
         url: "http://localhost:8002/api/MTDTapTempAndO2PPM",
         method: "GET",
         success: function (retorno) {
-            
+            var myobject = JSON.parse(retorno);
             let canvaschartMTDTapTempand02PPM = document.getElementById("chartMTDTapTempand02PPM").getContext("2d");
 
             let data = {
@@ -109,7 +109,7 @@ function GetMTDTapTempand02PPM() {
                     { barPercentage: 1, data: [], label: 'Average of O2InSpec', backgroundColor: "#13239c" }]
             };
 
-                $.each(retorno, function () {
+            $.each(myobject, function () {
                     data.labels.push(this.Crew);
                     data.datasets[0].data.push(this.TempInSpec);
                     data.datasets[1].data.push(this.O2InSpec);
@@ -172,14 +172,15 @@ function GetScrapTonPerHour() {
         url: "http://localhost:8002/api/ScrapTonPerHour",
         method: "GET",
         success: function (retorno) {
-            $('#Average').html(retorno[0].AvgTonHourPon);
+            var myobject = JSON.parse(retorno);
+            $('#Average').html(myobject.AvgTonHourPon);
             let canvaschartScrapTonPerHour = document.getElementById("chartScrapTonPerHour").getContext("2d");
 
             var data = {
-                labels: retorno[0].AxeX,
+                labels: myobject.AxeX,
                 datasets: [{
                     label: "TonHour(Pon)",
-                    data: retorno[0].AxeY,
+                    data: myobject.AxeY,
                     lineTension: 0,
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
@@ -243,16 +244,17 @@ function GetTargetPPM() {
     $.ajax({
         url: "http://localhost:8002/api/TapPPMTargetPPM",
         method: "GET",
-        success: function (retorno) {           
-            $('#Average').html(retorno[0].AvgO2InSpec);
+        success: function (retorno) {   
+            var myobject = JSON.parse(retorno);
+            $('#Average').html(myobject.AvgO2InSpec);
             let canvaschartTargetPPM = document.getElementById("chartTargetPPM").getContext("2d");
 
             var data = {
-                labels: retorno[0].AxeX,
+                labels: myobject.AxeX,
                 datasets: [{
                     label: "02AimDiff",
                     steppedLine: true,
-                    data: retorno[0].AxeY,
+                    data: myobject.AxeY,
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
@@ -280,15 +282,16 @@ function GetTargetTemp() {
         url: "http://localhost:8002/api/TapTempTargetTemp",
         method: "GET",
         success: function (retorno) {
-            $('#Average').html(retorno[0].AvgTempInSpec);
+            var myobject = JSON.parse(retorno);
+            $('#Average').html(myobject.AvgTempInSpec);
             let canvaschartTargetTemp = document.getElementById("chartTargetTemp").getContext("2d");
 
             var data = {
-                labels: retorno[0].AxeX,
+                labels: myobject.AxeX,
                 datasets: [{
                     label: "TempAimDiff",
                     steppedLine: true,
-                    data: retorno[0].AxeY,
+                    data: myobject.AxeY,
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
@@ -313,15 +316,16 @@ function GetTapWtTarget() {
         url: "http://localhost:8002/api/TapWtTapWtTarget",
         method: "GET",
         success: function (retorno) {
-            $('#Average').html(retorno[0].AvgTapWtDiff);
+            var myobject = JSON.parse(retorno);
+            $('#Average').html(myobject.AvgTapWtDiff);
             let canvaschartTapWtTarget = document.getElementById("chartTapWtTarget").getContext("2d");
 
             var data = {
-                labels: retorno[0].AxeX,
+                labels: myobject.AxeX,
                 datasets: [{
                     label: "Average of TapWtDiff",
                     steppedLine: true,
-                    data: retorno[0].AxeY,
+                    data: myobject.AxeY,
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
@@ -406,14 +410,15 @@ function GetMTDAverage() {
         url: "http://localhost:8002/api/MTDAverage",
         method: "GET",
         success: function (retorno) {
-            EafKWht(retorno);
-            EafLrfKwht(retorno);
-            TonPerHour(retorno);
-            IronYield(retorno);
-            FoamyCarbon(retorno);
-            NG(retorno);
-            Aluminum(retorno);
-            ChargeCarbon(retorno);
+            var myobject = JSON.parse(retorno);
+            EafKWht(myobject);
+            EafLrfKwht(myobject);
+            TonPerHour(myobject);
+            IronYield(myobject);
+            FoamyCarbon(myobject);
+            NG(myobject);
+            Aluminum(myobject);
+            ChargeCarbon(myobject);
         }
     });
 }
@@ -423,7 +428,7 @@ function EafKWht(retorno) {
         bindto: '#EafKWht',
         data: {
             columns: [
-                ['EAF KWht', retorno[0].EAFkWhValue]
+                ['EAF KWht', retorno.EAFkWhValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -437,8 +442,8 @@ function EafKWht(retorno) {
             //            },
             //            show: false // to turn off the min/max labels.
             //        },
-                min: retorno[0].EAFkWhMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-                max: retorno[0].EAFkWhMax // 100 is default
+                min: retorno.EAFkWhMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+                max: retorno.EAFkWhMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -506,7 +511,7 @@ function TonPerHour(retorno) {
         bindto: '#TonPerHour',
         data: {
             columns: [
-                ['Ton Per Hour (POn)', retorno[0].TonHourPonValue]
+                ['Ton Per Hour (POn)', retorno.TonHourPonValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -520,8 +525,8 @@ function TonPerHour(retorno) {
             //            },
             //            show: false // to turn off the min/max labels.
             //        },
-                min: retorno[0].TonHourPonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-                max: retorno[0].TonHourPonMax // 100 is default
+                min: retorno.TonHourPonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+                max: retorno.TonHourPonMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -544,7 +549,7 @@ function IronYield(retorno) {
     bindto: '#IronYield',
     data: {
         columns: [
-            ['Iron Yield', retorno[0].IronYieldValue]
+            ['Iron Yield', retorno.IronYieldValue]
         ],
         type: 'gauge',
         onclick: function (d, i) { console.log("onclick", d, i); },
@@ -558,8 +563,8 @@ function IronYield(retorno) {
         //            },
         //            show: false // to turn off the min/max labels.
             //    },
-        min: retorno[0].IronYieldMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-        max: retorno[0].IronYieldMax // 100 is default
+        min: retorno.IronYieldMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+        max: retorno.IronYieldMax // 100 is default
         //    units: ' %',
         //    width: 39 // for adjusting arc thickness
     },
@@ -620,7 +625,7 @@ function NG(retorno) {
         bindto: '#NG',
         data: {
             columns: [
-                ['NG', retorno[0].NGTonValue]
+                ['NG', retorno.NGTonValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -634,8 +639,8 @@ function NG(retorno) {
             //            },
             //            show: false // to turn off the min/max labels.
             //        },
-            min: retorno[0].NGTonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno[0].NGTonMax // 100 is default
+            min: retorno.NGTonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.NGTonMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
