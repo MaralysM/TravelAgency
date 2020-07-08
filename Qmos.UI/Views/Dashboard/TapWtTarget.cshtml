@@ -1,4 +1,4 @@
-﻿
+﻿@model Qmos.UI.ViewModels.UpdateTimeViewModel
 @using Microsoft.AspNetCore.Mvc;
 @{
     ViewData["Title"] = "TapWt - TapWtTarget";
@@ -24,10 +24,10 @@
         <div class="ibox-title">
             <h5>Date 07-07-2020 13:10:00</h5>
             @*<div class="ibox-tools">
-                <a class="" href="">
-                    <span class="text-color" style="color:#000000">Date 2020-06-01 T06:00:00</span>
-                </a>
-            </div>*@
+                    <a class="" href="">
+                        <span class="text-color" style="color:#000000">Date 2020-06-01 T06:00:00</span>
+                    </a>
+                </div>*@
         </div>
         <div class="ibox-content">
             <div class="row">
@@ -60,8 +60,15 @@
     <script src="~/lib/plugins/chosen/chosen.jquery.js"></script>
 
     <script>
-            $(document).ready(function () {
-              GetTapWtTarget();
-            });
+        $(document).ready(function () {
+            GetTapWtTarget();
+            //Every X seconds (XXXX milliseconds) the refresh function will be executed
+            var milliseconds = '@Model.TIMEMILLISECONDS';
+            setTimeout(refresh, milliseconds);
+        });
+        function refresh() {
+            //Refresh the page
+            location.reload();
+        }
     </script>
 }

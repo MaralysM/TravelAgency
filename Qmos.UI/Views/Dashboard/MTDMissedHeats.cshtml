@@ -52,8 +52,6 @@
             $(document).ready(function () {
                 GetMTDMissedHeats();
                 //Every X seconds (XXXX milliseconds) the refresh function will be executed
-               // var a = GetTime();
-                debugger
                 var milliseconds = '@Model.TIMEMILLISECONDS';
                 setTimeout(refresh, milliseconds);
 
@@ -62,19 +60,6 @@
         function refresh() {
             //Refresh the page
             location.reload();
-        }
-
-      async  function GetTime() {
-          await  $.ajax({
-                url: '@Url.Action("GetTime", "UpdateTime")',
-                method: "GET",
-                success: function (retorno) {
-                    debugger
-                    console.log(retorno);
-                   // return retorno.entity[0].time_refresh;
-                    return 10000;
-                }
-             });
         }
     </script>
 }
