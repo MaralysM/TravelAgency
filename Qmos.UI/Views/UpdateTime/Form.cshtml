@@ -14,14 +14,13 @@
     }
 }
 <link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert.css">
-<link rel="stylesheet" href="~/css/plugins/dataTables/datatables.min.css" />
 <link rel="stylesheet" href="~/css/plugins/toastr/toastr.min.css" />
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-chosen.css" />
+<link rel="stylesheet" href="~/css/plugins/clockpicker/clockpicker.css" />
 <partial name="_HeaderDetailPartial" view-data="ViewData" />
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row justify-content-md-center">
-        <div class="col-lg-offset-2 col-lg-8">
+        <div class="col-lg-12">
             <div class="ibox ">
                 <div class="ibox-content">
                     <div class="row">
@@ -41,11 +40,14 @@
                                 <input type="hidden" asp-for="@Model.Id" />
 
                                 <div class="row">
-                                    <div class="form-group col-lg-3 col-md-3">
-                                        <label>
-                                            First name
-                                        </label><span class="text-danger"> *</span>
-                                        <input asp-for="@Model.TIME_REFRESH" type="text" placeholder="First name" class="form-control">
+                                    <div class="col-md-4">
+                                        <label>Time Refresh</label><span class="text-danger"> *</span>
+                                        <div class="input-group clockpicker" data-autoclose="true">
+                                            <input type="text" class="form-control" asp-for="TIME_REFRESH" placeholder="Time Refresh">
+                                            <span class="input-group-addon">
+                                                <span class="fa fa-clock-o"></span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
@@ -67,15 +69,8 @@
 
 @section Scripts{
 
-    <script src="~/js/jquery-3.1.1.min.js"></script>
-    <script src="~/js/plugins/nestable/jquery.nestable.js"></script>
-    <script src="~/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="~/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>
-    <script src="~/js/plugins/dataTables/datatables.min.js"></script>
-    <script src="~/js/plugins/dataTables/dataTablesCustom.js"></script>
-    <script src="~/js/plugins/toastr/toastr.min.js"></script>
-    <script src="~/lib/plugins/chosen/chosen.jquery.js"></script>
+    <script src="~/js/plugins/clockpicker/clockpicker.js"></script>
+
     <script>
         formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 1], null);
         $('#table tbody').on('click', '.delete', function () {
@@ -83,6 +78,7 @@
         });
 
         $(document).ready(function () {
+                        $('.clockpicker').clockpicker({ align: 'left', placement: 'top' });
         });
 
     </script>
