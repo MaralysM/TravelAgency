@@ -1,10 +1,9 @@
-﻿
+﻿@model Qmos.UI.ViewModels.UpdateTimeViewModel
 @using Microsoft.AspNetCore.Mvc;
 @{
     ViewData["Title"] = "MTD Missed Heats";
     ViewData["Root"] = "Dashboards";
 }
-
 <link href="~/css/plugins/chartjs/Chart.min.css" rel="stylesheet" />
 <link href="~/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 <link rel="stylesheet" href="~/css/plugins/daterangepicker/daterangepicker.css" />
@@ -23,10 +22,10 @@
         <div class="ibox-title">
             <h5>Date 07-07-2020 13:10:00</h5>
             @*<div class="ibox-tools">
-                <a class="" href="">
-                    <span class="text-color" style="color:#000000">Date 2020-06-01 T06:00:00</span>
-                </a>
-            </div>*@
+                    <a class="" href="">
+                        <span class="text-color" style="color:#000000">Date 2020-06-01 T06:00:00</span>
+                    </a>
+                </div>*@
         </div>
         <div class="ibox-content">
             <div class="row">
@@ -37,7 +36,7 @@
 
         </div>
     </div>
-    </div>
+</div>
 
 @section Scripts {
     <script src="~/js/plugins/toastr/toastr.min.js"></script>
@@ -51,7 +50,31 @@
 
     <script>
             $(document).ready(function () {
-              GetMTDMissedHeats();
+                GetMTDMissedHeats();
+                //Every X seconds (XXXX milliseconds) the refresh function will be executed
+               // var a = GetTime();
+                debugger
+                var milliseconds = '@Model.TIMEMILLISECONDS';
+                setTimeout(refresh, milliseconds);
+
             });
+
+        function refresh() {
+            //Refresh the page
+            location.reload();
+        }
+
+      async  function GetTime() {
+          await  $.ajax({
+                url: '@Url.Action("GetTime", "UpdateTime")',
+                method: "GET",
+                success: function (retorno) {
+                    debugger
+                    console.log(retorno);
+                   // return retorno.entity[0].time_refresh;
+                    return 10000;
+                }
+             });
+        }
     </script>
 }

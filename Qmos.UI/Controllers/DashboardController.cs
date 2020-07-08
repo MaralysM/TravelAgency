@@ -22,10 +22,10 @@ namespace Qmos.UI.Controllers
     [SessionTimeoutAttribute]
     public class DashboardController : Controller
     {
-        public IUserManager Manager { get; }
+        public IDashboardManager Manager { get; }
 
 
-        public DashboardController(IUserManager manager)
+        public DashboardController(IDashboardManager manager)
         {
             Manager = manager;
         }
@@ -35,7 +35,8 @@ namespace Qmos.UI.Controllers
         }
         public IActionResult MTDMissedHeats()
         {
-            return View("MTDMissedHeats");
+  
+            return View("MTDMissedHeats", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result }) ;
         }
 
         public IActionResult MTDDelays()

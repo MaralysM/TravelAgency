@@ -118,6 +118,14 @@ BEGIN
   END
 
 
+
+   IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Update Time')
+BEGIN
+   INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
+ VALUES('Update Time','fas fa-refresh','UpdateTime' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Management'),2 ,0)
+  END
+
+
   /*******************************************************
            Insert   [Security].[SM_ROLE]
 ********************************************************/
@@ -235,7 +243,11 @@ INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
            (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Production'))
 END
 
-
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Update Time') AND ID_Role =1)
+BEGIN 
+INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
+           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Update Time'))
+END
 
 /*******************************************************
            Update   [Security].[SM_ELEMENT] 
@@ -298,11 +310,15 @@ UPDATE [Security].[SM_ELEMENT]
 GO
 
 
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'update_time' )
 
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'update_time' )
 CREATE TABLE [Qmos].[update_time]
 	(
 	  id SMALLINT NOT NULL IDENTITY(1,1),
       time_refresh TIME(2) NULL
 	)
 GO
+
+
+
+

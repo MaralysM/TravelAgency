@@ -4,6 +4,7 @@ using Qmos.Manager;
 using Qmos.UI.Filters;
 using Qmos.UI.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 
@@ -79,6 +80,20 @@ namespace Qmos.UI.Controllers
             catch (Exception ex)
             {
                 return Json(new { success = false, error = ex.Message });
+            }
+        }
+
+        public async Task<IActionResult> GetTime()
+        {
+            try
+            {
+                IList<UpdateTime> Entity = await Manager.All(false);
+                return Json(new { Entity });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+                return View();
             }
         }
 

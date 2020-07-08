@@ -13,6 +13,7 @@ namespace Qmos.UI.ViewModels
     {
         public short Id { get; set; }
         public string TIME_REFRESH { get; set; }
+        public decimal TIMEMILLISECONDS{ get; set; }
         public bool ACTIVE { get; set; }
 
     }
