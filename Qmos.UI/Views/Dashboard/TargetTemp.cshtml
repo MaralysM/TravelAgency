@@ -62,8 +62,10 @@
         $(document).ready(function () {
             GetTargetTemp();
             //Every X seconds (XXXX milliseconds) the refresh function will be executed
+            if (@Model.TIMEMILLISECONDS > 0) {
             var milliseconds = '@Model.TIMEMILLISECONDS';
-            setTimeout(refresh, milliseconds);
+                setTimeout(refresh, milliseconds);
+                }
         });
         function refresh() {
             //Refresh the page

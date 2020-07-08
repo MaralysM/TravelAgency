@@ -52,8 +52,10 @@
             $(document).ready(function () {
                 GetMTDMissedHeats();
                 //Every X seconds (XXXX milliseconds) the refresh function will be executed
-                var milliseconds = '@Model.TIMEMILLISECONDS';
+            if (@Model.TIMEMILLISECONDS > 0) {
+            var milliseconds = '@Model.TIMEMILLISECONDS';
                 setTimeout(refresh, milliseconds);
+                }
 
             });
 

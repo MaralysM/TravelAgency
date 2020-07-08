@@ -30,15 +30,16 @@ namespace Qmos.Manager
         {
             try
             {
-
+                int totalH = 0; int TotalM = 0; int TotalS = 0;
                 var EntityUpdateTime = await Repository.AllAsync();
-
-                string time = EntityUpdateTime.FirstOrDefault().time_refresh;
-                string[] timeArray = time.Split(':');
-                var totalH = int.Parse(timeArray[0]) * 3600000;// Conversion Horas
-                var TotalM = int.Parse(timeArray[1]) * 60000;//Conversion Minutos
-                var TotalS = int.Parse(timeArray[2]) * 1000;// Conversion Segundos
-
+               
+                if (EntityUpdateTime.Count() > 0) { 
+                    string time = EntityUpdateTime.FirstOrDefault().time_refresh;
+                    string[] timeArray = time.Split(':');
+                    totalH = int.Parse(timeArray[0]) * 3600000;// Conversion Horas
+                    TotalM = int.Parse(timeArray[1]) * 60000;//Conversion Minutos
+                    TotalS = int.Parse(timeArray[2]) * 1000;// Conversion Segundos
+                }
                 return (totalH + TotalM + TotalS);
             }
             catch (Exception ex)
