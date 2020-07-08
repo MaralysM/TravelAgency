@@ -35,7 +35,7 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a asp-controller="Users" asp-action="GetUpdate" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-edit"></i> Update</a>
+                                                <a asp-controller="UpdateTime" asp-action="GetUpdate" asp-route-pk="@item.Id" class="btn btn-primary"><i class="fa fa-edit"></i> Update</a>
                                                 <a data-id="@item.Id" class="btn btn-danger delete"><i class="fa fa-remove"></i> Remove</a>
                                             </div>
                                         </td>

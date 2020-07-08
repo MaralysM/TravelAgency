@@ -19,6 +19,7 @@ namespace Qmos.Manager.Extensions
             services.AddTransient<IElementManager, ElementManager>();
 
             services.AddTransient<IAccountManager, AccountManager>();
+            services.AddTransient<IUpdateTimeManager, UpdateTimeManager>();
 
             return services;
         }

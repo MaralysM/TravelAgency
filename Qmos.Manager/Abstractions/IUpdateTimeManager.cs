@@ -11,5 +11,8 @@ namespace Qmos.Manager
     public interface IUpdateTimeManager
     {
         Task<IList<UpdateTime>> All(bool onlyActives = true);
+        Task Save(UpdateTime updateTime);
+        Task<UpdateTime> FindById(object id);
+        Task Delete(short id);
     }
 }
