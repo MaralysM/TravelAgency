@@ -747,13 +747,6 @@ tiempo.horas = document.getElementById('hora');
 window.setInterval(mostrarHoras, 1000);
 
 function mostrarHoras() {
-    if (contador_s == 60) {
-        contador_s = 0;
-        contador_m++;
-        if (contador_m < 10) { contador_m = '0' + contador_m; }
-        tiempo.minutos.innerHTML = contador_m;
-        if (contador_m == 60) { contador_m = 0; }
-    }
     if (contador_m == 60) {
         contador_m = 0;
         contador_h++;
@@ -761,7 +754,13 @@ function mostrarHoras() {
         tiempo.horas.innerHTML = contador_h;
         if (contador_h == 24) { contador_h = 0; }
     }
-
+    if (contador_s == 60) {
+        contador_s = 0;
+        contador_m++;
+        if (contador_m < 10) { contador_m = '0' + contador_m; }
+        tiempo.minutos.innerHTML = contador_m;
+        if (contador_m == 60) { contador_m = 0; }
+    }
     if (contador_s < 10) { contador_s = '0' + contador_s; }
     if (contador_m == 0) { contador_m = '00'; }
     tiempo.segundos.innerHTML = contador_s;
