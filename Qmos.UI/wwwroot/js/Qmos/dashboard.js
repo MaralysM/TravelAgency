@@ -732,7 +732,42 @@ function ChargeCarbon() {
         }
     });}
 
+function refresh() {
+    //Refresh the page
+    location.reload();
+}
 
+var tiempo = {};
+contador_s = 1;
+contador_m = 0;
+contador_h = 0;
+tiempo.minutos = document.getElementById('minuto');
+tiempo.segundos = document.getElementById('segundo');
+tiempo.horas = document.getElementById('hora');
+window.setInterval(mostrarHoras, 1000);
+
+function mostrarHoras() {
+    if (contador_s == 60) {
+        contador_s = 0;
+        contador_m++;
+        if (contador_m < 10) { contador_m = '0' + contador_m; }
+        tiempo.minutos.innerHTML = contador_m;
+        if (contador_m == 60) { contador_m = 0; }
+    }
+    if (contador_m == 60) {
+        contador_m = 0;
+        contador_h++;
+        if (contador_h < 10) { contador_h = '0' + contador_h; }
+        tiempo.horas.innerHTML = contador_h;
+        if (contador_h == 24) { contador_h = 0; }
+    }
+
+    if (contador_s < 10) { contador_s = '0' + contador_s; }
+    if (contador_m == 0) { contador_m = '00'; }
+    tiempo.segundos.innerHTML = contador_s;
+    tiempo.minutos.innerHTML = contador_m;
+    contador_s++;
+}
 
 var colorList = [];
 for (var i = 0; i < 5; i++) {
