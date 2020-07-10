@@ -627,7 +627,7 @@ function EafLrfKwht(retorno) {
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
@@ -745,7 +745,7 @@ function FoamyCarbon(retorno) {
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
@@ -821,7 +821,7 @@ function Aluminum(retorno) {
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
@@ -859,7 +859,7 @@ function ChargeCarbon(retorno) {
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)', 'rgb(121, 149, 233)'], // the three color levels for the percentage values.
+            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
