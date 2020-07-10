@@ -257,8 +257,24 @@ function GetTargetPPM() {
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
+                    pointRadius: 0,
                     pointBorderWidth: 1
-                }]
+                },{
+                        fill: false,
+                        backgroundColor: "#676a6c",
+                        borderColor: "#676a6c",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        data: myobject.Min
+                    }, {
+                        fill: false,
+                        backgroundColor: "#676a6c",
+                        borderColor: "#676a6c",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        data: myobject.Max
+                    }
+                ]
             };
 
             let options = {
@@ -294,8 +310,24 @@ function GetTargetTemp() {
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
+                    pointRadius: 0,
                     pointBorderWidth: 1
-                }]
+                }, {
+                        fill: false,
+                        backgroundColor: "#676a6c",
+                        borderColor: "#676a6c",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        data: myobject.Min
+                    }, {
+                        fill: false,
+                        backgroundColor: "#676a6c",
+                        borderColor: "#676a6c",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        data: myobject.Max
+                    }
+                ]
             };
             let options = {
                 responsive: true,
@@ -328,8 +360,23 @@ function GetTapWtTarget() {
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
+                    pointRadius: 0,
                     pointBorderWidth: 1
-                }]
+                }, {
+                        fill: false,
+                        backgroundColor: "#676a6c",
+                        borderColor: "#676a6c",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        data: myobject.Min
+                    }, {
+                        fill: false,
+                        backgroundColor: "#676a6c",
+                        borderColor: "#676a6c",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        data: myobject.Max
+                    }]
             };
             let options = {
                 responsive: true,
@@ -748,7 +795,9 @@ window.setInterval(mostrarHoras, 1000);
 
 function mostrarHoras() {
     if (contador_m == 60) {
+        debugger
         contador_m = 0;
+        contador_h = 0;
         contador_h++;
         if (contador_h < 10) { contador_h = '0' + contador_h; }
         tiempo.horas.innerHTML = contador_h;
