@@ -148,7 +148,14 @@ function GetKWhPerScrapTon() {
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
                     pointBorderWidth: 1
-                }]
+                }, {
+                        fill: false,
+                        backgroundColor: "#676a6c",
+                        borderColor: "#676a6c",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        data: myobject.Avg
+                    }]
             };
 
             let options = {
@@ -185,7 +192,14 @@ function GetScrapTonPerHour() {
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
                     pointBorderWidth: 1
-                }]
+                }, {
+                        fill: false,
+                        backgroundColor: "#676a6c",
+                        borderColor: "#676a6c",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        data: myobject.Avg
+                    }]
             };
 
             let options = {
@@ -221,7 +235,14 @@ function GetIronYield() {
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
                     pointBorderWidth: 1
-                }]
+                }, {
+                        fill: false,
+                        backgroundColor: "#676a6c",
+                        borderColor: "#676a6c",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        data: myobject.AvYield
+                    }]
             };
 
             let options = {
