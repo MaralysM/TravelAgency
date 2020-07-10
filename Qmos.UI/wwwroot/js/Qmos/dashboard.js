@@ -468,10 +468,9 @@ function GetTapWtTarget() {
 }
 
 
-function GetMTDProduction() {
-    debugger
+function GetMTDProduction() {    
     $.ajax({
-        url: "http://localhost:3000/data",
+        url: "http://sapwebbeap03:8002/api/MTDProduction",
         method: "GET",
         success: function (retorno) {
             let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
