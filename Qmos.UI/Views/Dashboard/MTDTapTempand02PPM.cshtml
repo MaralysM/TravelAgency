@@ -53,13 +53,9 @@
             GetMTDTapTempand02PPM();
             //Every X seconds (XXXX milliseconds) the refresh function will be executed
             if (@Model.TIMEMILLISECONDS > 0) {
-            var milliseconds = '@Model.TIMEMILLISECONDS';
+            var milliseconds = @Model.TIMEMILLISECONDS;
                 setTimeout(refresh, milliseconds);
                 }
         });
-        function refresh() {
-            //Refresh the page
-            location.reload();
-        }
     </script>
 }

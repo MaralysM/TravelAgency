@@ -147,8 +147,16 @@ function GetKWhPerScrapTon() {
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
-                    pointBorderWidth: 1
+                    pointRadius: 0,
+                    datalabels: {
+                        color: 'yellow'
+                    }
                 }, {
+                        datalabels: {
+                            labels: {
+                                title: null
+                            }
+                        },
                         fill: false,
                         backgroundColor: "#676a6c",
                         borderColor: "#676a6c",
@@ -158,20 +166,33 @@ function GetKWhPerScrapTon() {
                     }]
             };
 
-            let options = {
-                responsive: true,
-                legend: {
-                    display: false
+
+    let options = {
+        legend: {
+            display: false
+        },
+        title: { display: true, text: "" },
+        responsive: true,
+        plugins: {
+            datalabels: {
+                color: 'pink',
+                labels: {
+                    title: {
+                        color: 'red'
+                    }
                 },
-                title: { display: true, text: "Average of KwhTon", position: "left", fontSize: 10 }
+                anchor: 'end',
+                align: 'top'
+            }
+        }
 
-            };
-
+    };
             barChartKWhPerScrapTon = new Chart(canvaschartKWhPerScrapTon,
                 { type: 'line', data: data, options: options });
         }
     });
 }
+
 
 function GetScrapTonPerHour() {
     $.ajax({
@@ -191,23 +212,44 @@ function GetScrapTonPerHour() {
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
-                    pointBorderWidth: 1
+                    pointRadius: 0,
+                    datalabels: {
+                        color: 'yellow'
+                    }
                 }, {
-                        fill: false,
-                        backgroundColor: "#676a6c",
-                        borderColor: "#676a6c",
-                        borderDash: [5, 5],
-                        pointRadius: 0,
-                        data: myobject.Avg
-                    }]
+                    datalabels: {
+                        labels: {
+                            title: null
+                        }
+                    },
+                    fill: false,
+                    backgroundColor: "#676a6c",
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    data: myobject.Avg
+                }]
             };
 
             let options = {
-                responsive: true,
                 legend: {
                     display: false
                 },
-                title: { display: true, text: "TonHour(Pon)", position: "left", fontSize: 10 }
+                title: { display: true, text: "" },
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        color: 'pink',
+                        labels: {
+                            title: {
+                                color: 'red'
+                            }
+                        },
+                        anchor: 'end',
+                        align: 'top'
+                    }
+                }
+
             };
 
             barChartKWhPerScrapTon = new Chart(canvaschartScrapTonPerHour,
@@ -216,7 +258,7 @@ function GetScrapTonPerHour() {
     });
 }
 
-function GetIronYield() {    
+function GetIronYield() {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/IronYield",
         method: "GET",
@@ -234,23 +276,41 @@ function GetIronYield() {
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
-                    pointBorderWidth: 1
+                    pointRadius: 0,
                 }, {
-                        fill: false,
-                        backgroundColor: "#676a6c",
-                        borderColor: "#676a6c",
-                        borderDash: [5, 5],
-                        pointRadius: 0,
-                        data: myobject.AvYield
-                    }]
+                    datalabels: {
+                        labels: {
+                            title: null
+                        }
+                    },
+                    fill: false,
+                    backgroundColor: "#676a6c",
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    data: myobject.AvYield
+                }]
             };
 
             let options = {
-                responsive: true,
                 legend: {
                     display: false
                 },
-                title: { display: true, text: "Yield", position: "left", fontSize: 10 }
+                title: { display: true, text: "" },
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        color: 'pink',
+                        labels: {
+                            title: {
+                                color: 'red'
+                            }
+                        },
+                        anchor: 'end',
+                        align: 'top'
+                    }
+                }
+
             };
 
             barChartIronYield = new Chart(canvaschartIronYield,
@@ -258,6 +318,7 @@ function GetIronYield() {
         }
     });
 }
+
 
 
 function GetTargetPPM() {    
@@ -815,21 +876,18 @@ tiempo.horas = document.getElementById('hora');
 window.setInterval(mostrarHoras, 1000);
 
 function mostrarHoras() {
-    if (contador_m == 60) {
-        debugger
-        contador_m = 0;
-        contador_h = 0;
-        contador_h++;
-        if (contador_h < 10) { contador_h = '0' + contador_h; }
-        tiempo.horas.innerHTML = contador_h;
-        if (contador_h == 24) { contador_h = 0; }
-    }
     if (contador_s == 60) {
         contador_s = 0;
         contador_m++;
         if (contador_m < 10) { contador_m = '0' + contador_m; }
         tiempo.minutos.innerHTML = contador_m;
-        if (contador_m == 60) { contador_m = 0; }
+        if (contador_m == 60) {
+            contador_m = 0;
+            contador_h++;
+            if (contador_h < 10) { contador_h = '0' + contador_h; }
+            tiempo.horas.innerHTML = contador_h;
+            if (contador_h == 24) { contador_h = 0; }
+        }
     }
     if (contador_s < 10) { contador_s = '0' + contador_s; }
     if (contador_m == 0) { contador_m = '00'; }
