@@ -1,26 +1,27 @@
 ﻿
 
 function GetMTDMissedHeats() {
-    //$.ajax({
-    //    url: "http://sapwebbeap03:8002/api/Q727",
-    //    method: "GET",
-    //    success: function (retorno) {
+    $.ajax({
+        url: "http://sapwebbeap03:8002/api/MTDMissedHeats",
+        method: "GET",
+        success: function (retorno) {
+       var myobject = JSON.parse(retorno);
     let canvasMTDMissedHeats = document.getElementById("chartMTDMissedHeats").getContext("2d");
+
     let data = {
         labels: [],
-        datasets: [{ data: [], backgroundColor: [] }]
+        datasets: [{ data: [], backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"] }]
     };
-    //let index = 1;
-    //$.each(retorno, function () {
-    //    data.labels.push(this.CREW);
-    //    data.datasets[0].data.push(this.AMOUNT);
-    //    data.datasets[0].backgroundColor.push(colorList[index]);
-    //    index++;
-    //});
-    data = {
-        labels: ["A", "B", "C", "D"],
-        datasets: [{ data: [2, 2, 4, 4], backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
-    };
+
+      $.each(myobject, function () {
+        data.labels.push(this.Crew);
+          data.datasets[0].data.push(this.Value);
+    });
+
+    //data = {
+    //    labels: ["A", "B", "C", "D"],
+    //    datasets: [{ data: [2, 2, 4, 4], backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
+    //};
 
     let options = {
         animation: { animateScale: true },
@@ -42,43 +43,34 @@ function GetMTDMissedHeats() {
     doughnutMTDMissedHeats = new Chart(canvasMTDMissedHeats,
         { type: 'doughnut', data: data, options: options });
 }
-    //});
-   // }
+    });
+    }
 
 
 function GetMTDDelays() {
-    //$.ajax({
-    //    url: "http://localhost:8002/api/Q727",
-    //    method: "GET",
-    //    success: function (retorno) {
+    $.ajax({
+        url: "http://localhost:8002/api/MTDDelays",
+        method: "GET",
+        success: function (retorno) {
+            var myobject = JSON.parse(retorno);
             let canvaschartMTDDelays = document.getElementById("chartMTDDelays").getContext("2d");
 
             let data = {
                 labels: [],
                 datasets: [
-                    { barPercentage: 0.5, data: [], label: 'Electrode Change', backgroundColor: colorList[1] },
-                    { barPercentage: 0.5, data: [], label: 'Inspect Furnace', backgroundColor: colorList[2] },
-                    { barPercentage: 0.5, data: [], label: 'Stnd P. Off', backgroundColor: colorList[3] },
-                    { barPercentage: 0.5, data: [], label: 'Tapping Prep', backgroundColor: colorList[4] }]
+                    { barPercentage: 1, data: [], label: 'Electrode Change', backgroundColor: "#138cfc"},
+                    { barPercentage: 1, data: [], label: 'Inspect Furnace', backgroundColor: "#2c54a9"  },
+                    { barPercentage: 1, data: [], label: 'Stnd P. Off', backgroundColor: "#e36b33" },
+                    { barPercentage: 1, data: [], label: 'Tapping Prep', backgroundColor: "#7c1c84" }]
             };
 
-            //for (var i = 0; i < retorno; i++) {
-            //    $.each(retorno, function () {
-            //        data.labels.push(this.CREW);
-            //        data.datasets[i].data.push(this.AMOUNT);
-            //    });
-            //}
-
-            data = {
-                labels: ["C", "A", "B", "D"],
-                datasets: [
-                    { barPercentage: 1, data: [0.13, 0.31, 0.08, 0.04], label: "Electrode Change", backgroundColor: "rgba(156,195,218,1)" },
-                    { barPercentage: 1, data: [0.17, 0.02, 0.04, 0.02], label: "Inspect Furnace", backgroundColor: "rgba(26,123,185,0.5)" },
-                    { barPercentage: 1, data: [2.00, 1.56, 0.71, 0.69], label: "Stnd P. Off", backgroundColor: "rgba(247,165,74,0.5)" },
-                    { barPercentage: 1, data: [0.03, 0.06, 0.05, 0.06], label: "Tapping Prep", backgroundColor: "rgba(181,184,207,0.5)" }
-                ]
-            };
-
+            $.each(myobject, function () {
+                data.labels.push(this.Crew);
+                data.datasets[0].data.push(this.ElectrodeCahnge);
+                data.datasets[1].data.push(this.InspectFurnace);
+                data.datasets[2].data.push(this.StndPOff);
+                data.datasets[3].data.push(this.TappingPrep);
+            });
             let options = {
                 responsive: true,
                 legend: { position: 'bottom' },
@@ -89,8 +81,8 @@ function GetMTDDelays() {
 
             barChartMTDDelays = new Chart(canvaschartMTDDelays,
                 { type: 'bar', data: data, options: options });
-        //}
-        //});
+        }
+        });
     }
 
 function GetMTDTapTempand02PPM() {    
@@ -477,61 +469,79 @@ function GetTapWtTarget() {
 
 
 function GetMTDProduction() {
+    debugger
+    $.ajax({
+        url: "http://localhost:3000/data",
+        method: "GET",
+        success: function (retorno) {
+            let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
+            var barChartData = {
+                labels: [],
+                datasets: [{
+                    label: 'Increase',
+                    backgroundColor: "#269643",
+                    borderColor: "#269643",
+                    borderWidth: 1,
+                    data: [
+                        //[1, 3],
+                        //[2, 4],
+                        //[2, 4],
+                        //[4, 6],
+                        //[5, 7],
+                        //[3, 5],
+                        //[0, 0]
+                    ]
+                },
+                {
+                    label: 'Total',
+                    backgroundColor: "#148dfb",
+                    borderColor: "#148dfb",
+                    borderWidth: 1,
 
-    let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
+                    data: [
+                        //[0, 0],
+                        //[0, 0],
+                        //[0, 0],
+                        //[0, 0],
+                        //[0, 0],
+                        //[0, 0],
+                        //[0, 7]
+                    ]
+                }
+                ]
 
-    var barChartData = {
-        labels: [1, 2, 3, 4, 5, 6, 'Total'],
-        datasets: [{
-            label: 'Increase',
-            backgroundColor: "rgba(131,208,192,0.5)",
-            borderColor: "rgba(131,208,192,0.5)",
-            borderWidth: 1,
-            data: [
-                [1, 3],
-                [2, 4],
-                [2, 4],
-                [4, 6],
-                [5, 7],
-                [3, 5],
-                [0, 0]
-            ]
-        },
-        {
-            label: 'Total',
-            backgroundColor: "rgba(156,195,218,1)",
-            borderColor: "rgba(156,195,218,1)",
-            borderWidth: 1,
+            };
+            var a = retorno.length;
+            console.log(a);
+            var i = 0;
+            $.each(retorno, function () {
+                if (i != (a - 1)) {
+                    barChartData.labels.push(this.ShiftDay);
+                    barChartData.datasets[0].data.push(this.BilletTons);
+                    barChartData.datasets[1].data.push([0,0]);
+                } else {
+                    barChartData.labels.push(this.ShiftDay);
+                    barChartData.datasets[1].data.push(this.BilletTons);
+                }
+                i++;
+            });
 
-            data: [
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 7]
-            ]
+            let options = {
+                responsive: true,
+                legend: { position: 'top' },
+                title: { display: true, text: "Billet Tons", position: "left", fontSize: 10 },
+                plugins: { labels: [{ render: 'value', position: 'outside' }] },
+                scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
+            };
+
+
+            barChartMTDProduction = new Chart(canvaschartMTDProduction,
+                { type: 'bar', data: barChartData, options: options });
         }
-        ]
-
-    };
-
-    let options = {
-        responsive: true,
-        legend: { position: 'top' },
-        title: { display: true, text: "Billet Tons", position: "left", fontSize: 10 },
-        plugins: { labels: [{ render: 'value', position: 'outside' }] },
-        scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
-    };
 
 
-    barChartMTDProduction = new Chart(canvaschartMTDProduction,
-        { type: 'bar', data: barChartData, options: options });
+    });
 }
-
-
-
 
 function GetMTDAverage() {
     $.ajax({
@@ -597,7 +607,7 @@ function EafLrfKwht(retorno) {
         bindto: '#EafLrfKwht',
         data: {
             columns: [
-                ['EAF + LRF KWht', 91.4]
+                ['EAF + LRF KWht', retorno.EAFLRFKWhValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -611,8 +621,8 @@ function EafLrfKwht(retorno) {
             //            },
             //            show: false // to turn off the min/max labels.
             //        },
-            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            //    max: 100, // 100 is default
+            min: retorno.EAFLRFKWhMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.EAFLRFKWhnMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -715,7 +725,7 @@ function FoamyCarbon(retorno) {
         bindto: '#FoamyCarbon',
         data: {
             columns: [
-                ['Foamy Carbon', 91.4]
+                ['Foamy Carbon', retorno.CarbonTonValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -729,8 +739,8 @@ function FoamyCarbon(retorno) {
             //            },
             //            show: false // to turn off the min/max labels.
             //        },
-            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            //    max: 100, // 100 is default
+            min: retorno.CarbonTonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.CarbonTonnMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -786,12 +796,12 @@ function NG(retorno) {
     });
 }
 
-function Aluminum() {
+function Aluminum(retorno) {
     var Aluminum = c3.generate({
         bindto: '#Aluminum',
         data: {
             columns: [
-                ['Aluminum', 91.4]
+                ['Aluminum', retorno.AluminiumValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -805,8 +815,8 @@ function Aluminum() {
             //            },
             //            show: false // to turn off the min/max labels.
             //        },
-            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            //    max: 100, // 100 is default
+            min: retorno.AluminiumMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.AluminiumMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -824,12 +834,12 @@ function Aluminum() {
     });
 }
 
-function ChargeCarbon() {
+function ChargeCarbon(retorno) {
     var ChargeCarbon = c3.generate({
         bindto: '#ChargeCarbon',
         data: {
             columns: [
-                ['Charge Carbon', 91.4]
+                ['Charge Carbon', retorno.ChargeCarbonValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -843,8 +853,8 @@ function ChargeCarbon() {
             //            },
             //            show: false // to turn off the min/max labels.
             //        },
-            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            //    max: 100, // 100 is default
+            min: retorno.ChargeCarbonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.ChargeCarbonMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
