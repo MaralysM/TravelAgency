@@ -1,51 +1,48 @@
-﻿
-
-function GetMTDMissedHeats() {
+﻿function GetMTDMissedHeats() {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDMissedHeats",
         method: "GET",
         success: function (retorno) {
-       var myobject = JSON.parse(retorno);
-    let canvasMTDMissedHeats = document.getElementById("chartMTDMissedHeats").getContext("2d");
+            var myobject = JSON.parse(retorno);
+            let canvasMTDMissedHeats = document.getElementById("chartMTDMissedHeats").getContext("2d");
 
-    let data = {
-        labels: [],
-        datasets: [{ data: [], backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"] }]
-    };
+            let data = {
+                labels: [],
+                datasets: [{ data: [], backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"] }]
+            };
 
-      $.each(myobject, function () {
-        data.labels.push(this.Crew);
-          data.datasets[0].data.push(this.Value);
-    });
+            $.each(myobject, function () {
+                data.labels.push(this.Crew);
+                data.datasets[0].data.push(this.Value);
+            });
 
-    //data = {
-    //    labels: ["A", "B", "C", "D"],
-    //    datasets: [{ data: [2, 2, 4, 4], backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
-    //};
+            //data = {
+            //    labels: ["A", "B", "C", "D"],
+            //    datasets: [{ data: [2, 2, 4, 4], backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
+            //};
 
-    let options = {
-        animation: { animateScale: true },
-        legend: { display: true, position: 'right' },
-        plugins: {
-            labels: [{ render: 'label', position: 'outside' },
-            { render: 'percentage', fontSize: 9, precision: 2 }]
-        },
-        tooltips: {
-            callbacks: {
-                label: function (t, d) {
-                    let xLabel = d.labels[t.index];
-                    let yLabel = d.datasets[0].data[t.index];
-                    return xLabel + ': ' + yLabel;
+            let options = {
+                animation: { animateScale: true },
+                legend: { display: true, position: 'right' },
+                plugins: {
+                    labels: [{ render: 'label', position: 'outside' },
+                    { render: 'percentage', fontSize: 9, precision: 2 }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (t, d) {
+                            let xLabel = d.labels[t.index];
+                            let yLabel = d.datasets[0].data[t.index];
+                            return xLabel + ': ' + yLabel;
+                        }
+                    }
                 }
-            }
+            };
+            doughnutMTDMissedHeats = new Chart(canvasMTDMissedHeats,
+                { type: 'doughnut', data: data, options: options });
         }
-    };
-    doughnutMTDMissedHeats = new Chart(canvasMTDMissedHeats,
-        { type: 'doughnut', data: data, options: options });
-}
     });
-    }
-
+}
 
 function GetMTDDelays() {
     $.ajax({
@@ -58,18 +55,18 @@ function GetMTDDelays() {
             let data = {
                 labels: [],
                 datasets: [
-                    { barPercentage: 1, data: [], label: 'Electrode Change', backgroundColor: "#138cfc"},
-                    { barPercentage: 1, data: [], label: 'Inspect Furnace', backgroundColor: "#2c54a9"  },
+                    { barPercentage: 1, data: [], label: 'Electrode Change', backgroundColor: "#138cfc" },
+                    { barPercentage: 1, data: [], label: 'Inspect Furnace', backgroundColor: "#2c54a9" },
                     { barPercentage: 1, data: [], label: 'Stnd P. Off', backgroundColor: "#e36b33" },
                     { barPercentage: 1, data: [], label: 'Tapping Prep', backgroundColor: "#7c1c84" }]
             };
 
             $.each(myobject, function () {
                 data.labels.push(this.Crew);
-                data.datasets[0].data.push(this.ElectrodeCahnge);
-                data.datasets[1].data.push(this.InspectFurnace);
-                data.datasets[2].data.push(this.StndPOff);
-                data.datasets[3].data.push(this.TappingPrep);
+                data.datasets[0].data.push(this.MTDDelays.ElectrodeCahnge);
+                data.datasets[1].data.push(this.MTDDelays.InspectFurnace);
+                data.datasets[2].data.push(this.MTDDelays.StndPOff);
+                data.datasets[3].data.push(this.MTDDelays.TappingPrep);
             });
             let options = {
                 responsive: true,
@@ -95,10 +92,10 @@ function GetMTDDelays() {
             barChartMTDDelays = new Chart(canvaschartMTDDelays,
                 { type: 'bar', data: data, options: options });
         }
-        });
-    }
+    });
+}
 
-function GetMTDTapTempand02PPM() {    
+function GetMTDTapTempand02PPM() {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDTapTempAndO2PPM",
         method: "GET",
@@ -114,10 +111,10 @@ function GetMTDTapTempand02PPM() {
             };
 
             $.each(myobject, function () {
-                    data.labels.push(this.Crew);
-                    data.datasets[0].data.push(this.TempInSpec);
-                    data.datasets[1].data.push(this.O2InSpec);
-                });
+                data.labels.push(this.Crew);
+                data.datasets[0].data.push(this.TempInSpec);
+                data.datasets[1].data.push(this.O2InSpec);
+            });
 
             let options = {
                 responsive: true,
@@ -144,8 +141,7 @@ function GetMTDTapTempand02PPM() {
                 { type: 'bar', data: data, options: options });
         }
     });
- }
-
+}
 
 function GetKWhPerScrapTon() {
     $.ajax({
@@ -170,61 +166,60 @@ function GetKWhPerScrapTon() {
                         color: 'yellow'
                     }
                 }, {
-                        datalabels: {
-                            labels: {
-                                title: null
-                            }
-                        },
-                        fill: false,
-                        backgroundColor: "#676a6c",
-                        borderColor: "#676a6c",
-                        borderDash: [5, 5],
-                        pointRadius: 0,
-                        data: myobject.Avg
-                    }]
+                    datalabels: {
+                        labels: {
+                            title: null
+                        }
+                    },
+                    fill: false,
+                    backgroundColor: "#676a6c",
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    data: myobject.Avg
+                }]
             };
 
 
-    let options = {
-        legend: {
-            display: false
-        },
-        title: { display: true, text: "" },
-        responsive: true,
-        plugins: {
-            datalabels: {
-                color: 'pink',
-                labels: {
-                    title: {
-                        color: 'red'
+            let options = {
+                legend: {
+                    display: false
+                },
+                title: { display: true, text: "" },
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        color: 'pink',
+                        labels: {
+                            title: {
+                                color: 'red'
+                            }
+                        },
+                        anchor: 'end',
+                        align: 'top'
                     }
                 },
-                anchor: 'end',
-                align: 'top'
-            }
-        },
-        scales: {
-            yAxes: [{
-                 scaleLabel: {
-                    display: true,
-                    labelString: 'Average of Kwh Ton'
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Average of Kwh Ton'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Heat'
+                        }
+                    }]
                 }
-            }],
-            xAxes: [{
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Heat'
-                }
-            }]
-        }
 
-    };
+            };
             barChartKWhPerScrapTon = new Chart(canvaschartKWhPerScrapTon,
                 { type: 'line', data: data, options: options });
         }
     });
 }
-
 
 function GetScrapTonPerHour() {
     $.ajax({
@@ -283,7 +278,7 @@ function GetScrapTonPerHour() {
                 },
                 scales: {
                     yAxes: [{
-                         scaleLabel: {
+                        scaleLabel: {
                             display: true,
                             labelString: 'TonHour(POn)'
                         }
@@ -334,7 +329,7 @@ function GetIronYield() {
                     borderColor: "#676a6c",
                     borderDash: [5, 5],
                     pointRadius: 0,
-                    data: myobject.AvYield
+                    data: myobject.Avg
                 }]
             };
 
@@ -379,13 +374,11 @@ function GetIronYield() {
     });
 }
 
-
-
-function GetTargetPPM() {    
+function GetTargetPPM() {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/TapPPMTargetPPM",
         method: "GET",
-        success: function (retorno) {   
+        success: function (retorno) {
             var myobject = JSON.parse(retorno);
             $('#Average').html(myobject.AvgO2InSpec);
             let canvaschartTargetPPM = document.getElementById("chartTargetPPM").getContext("2d");
@@ -401,21 +394,21 @@ function GetTargetPPM() {
                     pointBackgroundColor: "#2791ee",
                     pointRadius: 0,
                     pointBorderWidth: 1
-                },{
-                        fill: false,
-                        backgroundColor: "#676a6c",
-                        borderColor: "#676a6c",
-                        borderDash: [5, 5],
-                        pointRadius: 0,
-                        data: myobject.Min
-                    }, {
-                        fill: false,
-                        backgroundColor: "#676a6c",
-                        borderColor: "#676a6c",
-                        borderDash: [5, 5],
-                        pointRadius: 0,
-                        data: myobject.Max
-                    }
+                }, {
+                    fill: false,
+                    backgroundColor: "#676a6c",
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    data: myobject.Min
+                }, {
+                    fill: false,
+                    backgroundColor: "#676a6c",
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    data: myobject.Max
+                }
                 ]
             };
 
@@ -424,10 +417,10 @@ function GetTargetPPM() {
                 legend: {
                     display: false
                 },
-             //   title: { display: true, text: "02AimDiff", position: "left", fontSize: 10 },
+                //   title: { display: true, text: "02AimDiff", position: "left", fontSize: 10 },
                 scales: {
                     yAxes: [{
-                         scaleLabel: {
+                        scaleLabel: {
                             display: true,
                             labelString: '02AimDiff'
                         }
@@ -469,20 +462,20 @@ function GetTargetTemp() {
                     pointRadius: 0,
                     pointBorderWidth: 1
                 }, {
-                        fill: false,
-                        backgroundColor: "#676a6c",
-                        borderColor: "#676a6c",
-                        borderDash: [5, 5],
-                        pointRadius: 0,
-                        data: myobject.Min
-                    }, {
-                        fill: false,
-                        backgroundColor: "#676a6c",
-                        borderColor: "#676a6c",
-                        borderDash: [5, 5],
-                        pointRadius: 0,
-                        data: myobject.Max
-                    }
+                    fill: false,
+                    backgroundColor: "#676a6c",
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    data: myobject.Min
+                }, {
+                    fill: false,
+                    backgroundColor: "#676a6c",
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    data: myobject.Max
+                }
                 ]
             };
             let options = {
@@ -512,6 +505,7 @@ function GetTargetTemp() {
         }
     });
 }
+
 function GetTapWtTarget() {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/TapWtTapWtTarget",
@@ -533,27 +527,27 @@ function GetTapWtTarget() {
                     pointRadius: 0,
                     pointBorderWidth: 1
                 }, {
-                        fill: false,
-                        backgroundColor: "#676a6c",
-                        borderColor: "#676a6c",
-                        borderDash: [5, 5],
-                        pointRadius: 0,
-                        data: myobject.Min
-                    }, {
-                        fill: false,
-                        backgroundColor: "#676a6c",
-                        borderColor: "#676a6c",
-                        borderDash: [5, 5],
-                        pointRadius: 0,
-                        data: myobject.Max
-                    }]
+                    fill: false,
+                    backgroundColor: "#676a6c",
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    data: myobject.Min
+                }, {
+                    fill: false,
+                    backgroundColor: "#676a6c",
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    data: myobject.Max
+                }]
             };
             let options = {
                 responsive: true,
                 legend: {
                     display: false
                 },
-               // title: { display: true, text: "Average of TapWtDiff", position: "left", fontSize: 10 },
+                // title: { display: true, text: "Average of TapWtDiff", position: "left", fontSize: 10 },
                 scales: {
                     yAxes: [{
                         ticks: { beginAtZero: true }, scaleLabel: {
@@ -577,92 +571,96 @@ function GetTapWtTarget() {
     });
 }
 
-
-function GetMTDProduction() {    
-    //$.ajax({
-    //    url: "http://sapwebbeap03:8002/api/MTDProduction",
-    //    method: "GET",
-    //    success: function (retorno) {
+function GetMTDProduction() {
+    $.ajax({
+        url: "http://sapwebbeap03:8002/api/MTDProduction",
+        method: "GET",
+        success: function (retorno) {
+            var myobject = JSON.parse(retorno);
             let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
             var barChartData = {
-                labels: [0, 1, 2, 3, 4, 5,'Total'],
+                labels: [],
                 datasets: [{
                     label: 'Increase',
                     datalabels: {
                         color: 'red'
                     },
                     data: [
-                        [1, 3],
-                        [2, 4],
-                        [2, 4],
-                        [4, 6],
-                        [5, 7],
-                        [3, 5],
-                        [0, 7]
+                        //[1, 3],
+                        //[2, 4],
+                        //[2, 4],
+                        //[4, 6],
+                        //[5, 7],
+                        //[3, 5],
+                        //[0, 7]
                     ],
                     backgroundColor: [
-                        '#269643',
-                        '#269643',
-                        '#269643',
-                        '#269643',
-                        '#269643',
-                        '#269643',
-                        '#148dfb'
+                        //'#269643',
+                        //'#269643',
+                        //'#269643',
+                        //'#269643',
+                        //'#269643',
+                        //'#269643',
+                        //'#148dfb'
 
                     ],
                     borderColor: [
-                        '#269643',
-                        '#269643',
-                        '#269643',
-                        '#269643',
-                        '#269643',
-                        '#269643',
-                       '#148dfb'],
+                        //'#269643',
+                        //'#269643',
+                        //'#269643',
+                        //'#269643',
+                        //'#269643',
+                        //'#269643',
+                        //'#148dfb'
+                    ],
                     borderWidth: 1
                 }, {
-                        type: 'line',
-                        label: 'Dataset 3',
-                        backgroundColor: 'transparent',
-                        data: [8, 8, 8, 8, 8, 8, 8, 8],
-                        fill: false,
-                        borderColor: "#676a6c",
-                        borderDash: [5, 5],
-                        pointRadius: 0,
-                        datalabels: {
-                            labels: {
-                                title: null
-                            }
+                    type: 'line',
+                    label: 'Dataset 3',
+                    backgroundColor: 'transparent',
+                    data: myobject.target,
+                    fill: false,
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    datalabels: {
+                        labels: {
+                            title: null
                         }
-                    }	
+                    }
+                }
                 ]
 
             };
-            //var a = retorno.length;
-            //var i = 0;
-            //$.each(retorno, function () {
-            //    if (i != (a - 1)) {
-            //        barChartData.labels.push(this.ShiftDay);
-            //        barChartData.datasets[0].data.push(this.BilletTons);
-            //        barChartData.datasets[1].data.push([0,0]);
-            //    } else {
-            //        barChartData.labels.push(this.ShiftDay);
-            //        barChartData.datasets[1].data.push(this.BilletTons);
-            //    }
-            //    i++;
-            //});
+            var a = myobject.length;
+            var i = 0;
+            $.each(myobject, function () {
+                if (i != (a - 1)) {
+                    barChartData.labels.push(this.data.ShiftDay);
+                    barChartData.datasets[0].data.push(this.data.BilletTons);
+                    barChartData.datasets[0].backgroundColor.push('#269643');
+                    barChartData.datasets[0].borderColor.push('#269643');
+                } else {
+                    barChartData.labels.push(this.ShiftDay);
+                    barChartData.datasets[0].data.push(this.data.BilletTons);
+                    barChartData.datasets[0].backgroundColor.push('#148dfb');
+                    barChartData.datasets[0].borderColor.push('#148dfb');
+                }
+                i++;
+            });
 
             let options = {
                 responsive: true,
-                legend:false,
-               // title: { display: true, text: "Billet Tons", position: "left", fontSize: 10 },
+                legend: false,
+                // title: { display: true, text: "Billet Tons", position: "left", fontSize: 10 },
                 plugins: {
-                    labels: [] ,
+                    labels: [],
                     datalabels: {
                         anchor: 'end',
                         align: 'top',
-                        rotation:-90,
+                        rotation: -90,
                         formatter: function (value, context) {
-                            return value[1]-value[0];
+                            return value[1] - value[0];
                         }
                     }
                 },
@@ -673,40 +671,40 @@ function GetMTDProduction() {
                             labelString: 'Billet Tons'
                         }
                     }],
-                    xAxes: [{ scaleLabel: {
+                    xAxes: [{
+                        scaleLabel: {
                             display: true,
                             labelString: 'Shift Day'
                         }
                     }]
                 }
             };
-
-
             barChartMTDProduction = new Chart(canvaschartMTDProduction,
                 { type: 'bar', data: barChartData, options: options });
         }
 
 
-//    });
-//}
+    });
+}
 
 function GetMTDAverage() {
-    //$.ajax({
-    //    url: "http://sapwebbeap03:8002/api/MTDAverage",
-    //    method: "GET",
-    //    success: function (retorno) {
-    //        var myobject = JSON.parse(retorno);
-            EafKWht();
-            EafLrfKwht();
-            TonPerHour();
-            IronYield();
-            FoamyCarbon();
-            NG();
-            Aluminum();
-            ChargeCarbon();
-    //    }
-    //});
+    $.ajax({
+        url: "http://sapwebbeap03:8002/api/MTDAverage",
+        method: "GET",
+        success: function (retorno) {
+            var myobject = JSON.parse(retorno);
+            EafKWht(myobject);
+            EafLrfKwht(myobject);
+            TonPerHour(myobject);
+            IronYield(myobject);
+            FoamyCarbon(myobject);
+            NG(myobject);
+            Aluminum(myobject);
+            ChargeCarbon(myobject);
+        }
+    });
 }
+
 function EafKWht(retorno) {
 
     var thresholdOpts = {
@@ -718,7 +716,7 @@ function EafKWht(retorno) {
         bindto: '#Chart1',
         data: {
             columns: [
-                ['EAF KWht', 200]
+                ['EAF KWht', retorno.EAFkWhValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -732,8 +730,8 @@ function EafKWht(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: 800 // 100 is default
+            min: retorno.EAFkWhMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.EAFkWhMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -749,13 +747,14 @@ function EafKWht(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, 500,".DrawChart1", 90);
+            drawThresholds(this, thresholdOpts, opts, retorno.EAFkWhMax, ".DrawChart1", retorno.EAFkWhTarget);
         }
     };
 
     chart = c3.generate(opts);
 
 }
+
 function EafLrfKwht(retorno) {
     var thresholdOpts = {
         boxSize: 8,
@@ -767,7 +766,7 @@ function EafLrfKwht(retorno) {
         bindto: '#Chart2',
         data: {
             columns: [
-                ['EAF KWht', 200]
+                ['EAF KWht', retorno.EAFLRFKWhValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -781,8 +780,8 @@ function EafLrfKwht(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: 500 // 100 is default
+            min: retorno.EAFLRFKWhMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.EAFLRFKWhnMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -798,7 +797,7 @@ function EafLrfKwht(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart2",70);
+            drawThresholds(this, thresholdOpts, opts, retorno.EAFLRFKWhnMax, ".DrawChart2", retorno.EAFLRFKWhTarget);
         }
     };
     chart = c3.generate(opts);
@@ -871,7 +870,7 @@ function TonPerHour(retorno) {
         bindto: '#Chart3',
         data: {
             columns: [
-                ['EAF KWht', 200]
+                ['EAF KWht', retorno.TonHourPonValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -885,8 +884,8 @@ function TonPerHour(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: 800 // 100 is default
+            min: retorno.TonHourPonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.TonHourPonMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -902,7 +901,7 @@ function TonPerHour(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart3", 100);
+            drawThresholds(this, thresholdOpts, opts, retorno.TonHourPonMax, ".DrawChart3", retorno.TonHourPonTarget);
         }
     };
 
@@ -919,7 +918,7 @@ function IronYield(retorno) {
         bindto: '#Chart4',
         data: {
             columns: [
-                ['EAF KWht', 200]
+                ['EAF KWht', retorno.IronYieldValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -933,8 +932,8 @@ function IronYield(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: 800 // 100 is default
+            min: retorno.IronYieldMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.IronYieldMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -950,7 +949,7 @@ function IronYield(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart4", 300);
+            drawThresholds(this, thresholdOpts, opts, retorno.IronYieldMax, ".DrawChart4", retorno.IronYieldTarget);
         }
     };
 
@@ -967,7 +966,7 @@ function FoamyCarbon(retorno) {
         bindto: '#Chart5',
         data: {
             columns: [
-                ['EAF KWht', 200]
+                ['EAF KWht', retorno.CarbonTonValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -981,8 +980,8 @@ function FoamyCarbon(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: 800 // 100 is default
+            min: retorno.CarbonTonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.CarbonTonnMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -998,7 +997,7 @@ function FoamyCarbon(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart5", 400);
+            drawThresholds(this, thresholdOpts, opts, retorno.CarbonTonnMax, ".DrawChart5", retorno.CarbonTonTarget);
         }
     };
 
@@ -1015,7 +1014,7 @@ function NG(retorno) {
         bindto: '#Chart6',
         data: {
             columns: [
-                ['EAF KWht', 200]
+                ['EAF KWht', retorno.NGTonValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -1029,8 +1028,8 @@ function NG(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: 800 // 100 is default
+            min: retorno.NGTonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.NGTonMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -1046,7 +1045,7 @@ function NG(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart6", 400);
+            drawThresholds(this, thresholdOpts, opts, retorno.NGTonMax, ".DrawChart6", retorno.NGTonTarget);
         }
     };
 
@@ -1063,7 +1062,7 @@ function Aluminum(retorno) {
         bindto: '#Chart7',
         data: {
             columns: [
-                ['EAF KWht', 200]
+                ['EAF KWht', retorno.AluminiumValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -1077,8 +1076,8 @@ function Aluminum(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: 800 // 100 is default
+            min: retorno.AluminiumMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.AluminiumMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -1094,7 +1093,7 @@ function Aluminum(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart7", 400);
+            drawThresholds(this, thresholdOpts, opts, retorno.AluminiumMax, ".DrawChart7", retorno.AluminiumTarget);
         }
     };
 
@@ -1111,7 +1110,7 @@ function ChargeCarbon(retorno) {
         bindto: '#Chart8',
         data: {
             columns: [
-                ['EAF KWht', 200]
+                ['EAF KWht', retorno.ChargeCarbonValue]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -1125,8 +1124,8 @@ function ChargeCarbon(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: 800 // 100 is default
+            min: retorno.ChargeCarbonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: retorno.ChargeCarbonMax // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -1142,7 +1141,7 @@ function ChargeCarbon(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart8", 400);
+            drawThresholds(this, thresholdOpts, opts, retorno.ChargeCarbonMax, ".DrawChart8", retorno.ChargeCarbonTarget);
         }
     };
 
