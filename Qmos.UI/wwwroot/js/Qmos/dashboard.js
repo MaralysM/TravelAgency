@@ -636,13 +636,13 @@ function GetMTDProduction() {
             var i = 0;
             $.each(myobject, function () {
                 if (i != (a - 1)) {
-                    barChartData.labels.push(this.ShiftDay);
-                    barChartData.datasets[0].data.push(this.BilletTons);
+                    barChartData.labels.push(this[i].ShiftDay);
+                    barChartData.datasets[0].data.push(this[i].BilletTons);
                     barChartData.datasets[0].backgroundColor.push('#269643');
                     barChartData.datasets[0].borderColor.push('#269643');
                 } else {
-                    barChartData.labels.push(this.ShiftDay);
-                    barChartData.datasets[0].data.push(this.BilletTons);
+                    barChartData.labels.push(this[i].ShiftDay);
+                    barChartData.datasets[0].data.push(this[i].BilletTons);
                     barChartData.datasets[0].backgroundColor.push('#148dfb');
                     barChartData.datasets[0].borderColor.push('#148dfb');
                 }
