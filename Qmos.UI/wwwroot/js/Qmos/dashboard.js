@@ -572,10 +572,11 @@ function GetTapWtTarget() {
 }
 
 function GetMTDProduction() {
-    $.ajax({
-        url: "http://sapwebbeap03:8002/api/MTDProduction",
-        method: "GET",
-        success: function (retorno) {
+    //$.ajax({
+    //    url: "http://sapwebbeap03:8002/api/MTDProduction",
+    //    method: "GET",
+    //    success: function (retorno) {
+  var retorno =;
             var myobject = JSON.parse(retorno);
             let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
             var barChartData = {
@@ -632,17 +633,17 @@ function GetMTDProduction() {
                 ]
 
             };
-            var a = myobject.length;
+            var a = myobject.data.length;
             var i = 0;
             $.each(myobject, function () {
                 if (i != (a - 1)) {
-                    barChartData.labels.push(this.data.ShiftDay);
-                    barChartData.datasets[0].data.push(this.data.BilletTons);
+                    barChartData.labels.push(this.ShiftDay);
+                    barChartData.datasets[0].data.push(this.BilletTons);
                     barChartData.datasets[0].backgroundColor.push('#269643');
                     barChartData.datasets[0].borderColor.push('#269643');
                 } else {
-                    barChartData.labels.push(this.data.ShiftDay);
-                    barChartData.datasets[0].data.push(this.data.BilletTons);
+                    barChartData.labels.push(this.ShiftDay);
+                    barChartData.datasets[0].data.push(this.BilletTons);
                     barChartData.datasets[0].backgroundColor.push('#148dfb');
                     barChartData.datasets[0].borderColor.push('#148dfb');
                 }
@@ -684,8 +685,8 @@ function GetMTDProduction() {
         }
 
 
-    });
-}
+//    });
+//}
 
 function GetMTDAverage() {
     $.ajax({
