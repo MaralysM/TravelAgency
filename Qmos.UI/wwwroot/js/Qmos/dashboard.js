@@ -11,15 +11,15 @@
                 datasets: [{ data: [], backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"] }]
             };
 
-            $.each(myobject, function () {
-                data.labels.push(this.Crew);
-                data.datasets[0].data.push(this.Value);
-            });
+            //$.each(myobject, function () {
+            //    data.labels.push(this.Crew);
+            //    data.datasets[0].data.push(this.Value);
+            //});
 
-            //data = {
-            //    labels: ["A", "B", "C", "D"],
-            //    datasets: [{ data: [2, 2, 4, 4], backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
-            //};
+            data = {
+                labels: myobject.Crew,
+                datasets: [{ data: myobject.Value, backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
+            };
 
             let options = {
                 animation: { animateScale: true },
@@ -46,7 +46,7 @@
 
 function GetMTDDelays() {
     $.ajax({
-        url: "http://localhost:8002/api/MTDDelays",
+        url: "http://sapwebbeap03:8002/api/MTDDelays",
         method: "GET",
         success: function (retorno) {
             var myobject = JSON.parse(retorno);
@@ -641,7 +641,7 @@ function GetMTDProduction() {
                     barChartData.datasets[0].backgroundColor.push('#269643');
                     barChartData.datasets[0].borderColor.push('#269643');
                 } else {
-                    barChartData.labels.push(this.ShiftDay);
+                    barChartData.labels.push(this.data.ShiftDay);
                     barChartData.datasets[0].data.push(this.data.BilletTons);
                     barChartData.datasets[0].backgroundColor.push('#148dfb');
                     barChartData.datasets[0].borderColor.push('#148dfb');
