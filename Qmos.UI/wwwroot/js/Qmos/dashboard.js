@@ -469,68 +469,106 @@ function GetTapWtTarget() {
 
 
 function GetMTDProduction() {    
-    $.ajax({
-        url: "http://sapwebbeap03:8002/api/MTDProduction",
-        method: "GET",
-        success: function (retorno) {
+    //$.ajax({
+    //    url: "http://sapwebbeap03:8002/api/MTDProduction",
+    //    method: "GET",
+    //    success: function (retorno) {
             let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
             var barChartData = {
-                labels: [],
+                labels: [0, 1, 2, 3, 4, 5,'Total'],
                 datasets: [{
                     label: 'Increase',
-                    backgroundColor: "#269643",
-                    borderColor: "#269643",
-                    borderWidth: 1,
+                    datalabels: {
+                        color: 'red'
+                    },
                     data: [
-                        //[1, 3],
-                        //[2, 4],
-                        //[2, 4],
-                        //[4, 6],
-                        //[5, 7],
-                        //[3, 5],
-                        //[0, 0]
-                    ]
-                },
-                {
-                    label: 'Total',
-                    backgroundColor: "#148dfb",
-                    borderColor: "#148dfb",
-                    borderWidth: 1,
+                        [1, 3],
+                        [2, 4],
+                        [2, 4],
+                        [4, 6],
+                        [5, 7],
+                        [3, 5],
+                        [0, 7]
+                    ],
+                    backgroundColor: [
+                        '#269643',
+                        '#269643',
+                        '#269643',
+                        '#269643',
+                        '#269643',
+                        '#269643',
+                        '#148dfb'
 
-                    data: [
-                        //[0, 0],
-                        //[0, 0],
-                        //[0, 0],
-                        //[0, 0],
-                        //[0, 0],
-                        //[0, 0],
-                        //[0, 7]
-                    ]
-                }
+                    ],
+                    borderColor: [
+                        '#269643',
+                        '#269643',
+                        '#269643',
+                        '#269643',
+                        '#269643',
+                        '#269643',
+                       '#148dfb'],
+                    borderWidth: 1
+                }, {
+                        type: 'line',
+                        label: 'Dataset 3',
+                        backgroundColor: 'transparent',
+                        data: [8, 8, 8, 8, 8, 8, 8, 8],
+                        fill: false,
+                        borderColor: "#676a6c",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        datalabels: {
+                            labels: {
+                                title: null
+                            }
+                        }
+                    }	
                 ]
 
             };
-            var a = retorno.length;
-            console.log(a);
-            var i = 0;
-            $.each(retorno, function () {
-                if (i != (a - 1)) {
-                    barChartData.labels.push(this.ShiftDay);
-                    barChartData.datasets[0].data.push(this.BilletTons);
-                    barChartData.datasets[1].data.push([0,0]);
-                } else {
-                    barChartData.labels.push(this.ShiftDay);
-                    barChartData.datasets[1].data.push(this.BilletTons);
-                }
-                i++;
-            });
+            //var a = retorno.length;
+            //var i = 0;
+            //$.each(retorno, function () {
+            //    if (i != (a - 1)) {
+            //        barChartData.labels.push(this.ShiftDay);
+            //        barChartData.datasets[0].data.push(this.BilletTons);
+            //        barChartData.datasets[1].data.push([0,0]);
+            //    } else {
+            //        barChartData.labels.push(this.ShiftDay);
+            //        barChartData.datasets[1].data.push(this.BilletTons);
+            //    }
+            //    i++;
+            //});
 
             let options = {
                 responsive: true,
-                legend: { position: 'top' },
-                title: { display: true, text: "Billet Tons", position: "left", fontSize: 10 },
-                plugins: { labels: [{ render: 'value', position: 'outside' }] },
-                scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
+                legend:false,
+               // title: { display: true, text: "Billet Tons", position: "left", fontSize: 10 },
+                plugins: {
+                    labels: [] ,
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        rotation:-90,
+                        formatter: function (value, context) {
+                            return value[1]-value[0];
+                        }
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: { beginAtZero: true }, scaleLabel: {
+                            display: true,
+                            labelString: 'Billet Tons'
+                        }
+                    }],
+                    xAxes: [{ scaleLabel: {
+                            display: true,
+                            labelString: 'Shift Day'
+                        }
+                    }]
+                }
             };
 
 
@@ -539,8 +577,8 @@ function GetMTDProduction() {
         }
 
 
-    });
-}
+//    });
+//}
 
 function GetMTDAverage() {
     //$.ajax({
