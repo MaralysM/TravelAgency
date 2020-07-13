@@ -5,13 +5,20 @@
     ViewData["Root"] = "Dashboards";
 }
 
-
-<link href="~/css/plugins/c3/c3.css" rel="stylesheet" />
 <link href="~/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 <link rel="stylesheet" href="~/css/plugins/daterangepicker/daterangepicker.css" />
 <link href="~/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-chosen.css" />
-
+<link href="~/css/plugins/c3/c3.min.css" rel="stylesheet" />
+<style>
+    .mytxt {
+        font-size: 8pt;
+    }
+ .Alg { 
+ width: 100%;
+  min-height: 200px;
+}
+</style>
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-6">
@@ -19,50 +26,59 @@
     </div>
 </div>
 
-<div class="col-lg-12" data-rolable-url="dash-MTDAverage" data-rolable-name="MTD Average">
-    <div class="ibox ">
-        <div class="ibox-title">
-            <h5 style=" font-size: 150%;">@DateTime.Now.ToString("MM/dd/yyyy HH:mm")</h5>
-            <div class="ibox-tools">
-                <div onLoad="carga()" class="font-bold" style=" font-size: 150%;">
-                    <span id="hora">00</span>:<span id="minuto">00</span>:<span id="segundo">01</span>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox">
+                <div class="col-lg-12" data-rolable-url="dash-MTDAverage" data-rolable-name="MTD Average">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5 style=" font-size: 150%;">@DateTime.Now.ToString("MM/dd/yyyy HH:mm")</h5>
+                            <div class="ibox-tools">
+                                <div onLoad="carga()" class="font-bold" style=" font-size: 150%;">
+                                    <span id="hora">00</span>:<span id="minuto">00</span>:<span id="segundo">01</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="text-center col-md-3 "><label>EAF KWht</label><svg id="Chart1" class="Alg DrawChart1"></svg> </div>
+                                <div class="text-center col-md-3"><label>Eaf + LRF KwhT</label><svg id="Chart2" class="Alg DrawChart2"></svg> </div>
+                                <div class="text-center col-md-3"><label>Ton per Hour (POn)</label><svg id="Chart3" class="Alg DrawChart3"></svg> </div>
+                                <div class="text-center col-md-3"><label>Iron Yield</label><svg id="Chart4" class="Alg DrawChart4"></svg> </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="text-center col-md-3"><label>Foamy Carbon</label><svg id="Chart5" class="Alg DrawChart5"></svg> </div>
+                                <div class="text-center col-md-3"><label>NG</label><svg id="Chart6" class="Alg DrawChart6"></svg> </div>
+                                <div class="text-center col-md-3"><label>Aluminum</label><svg id="Chart7" class="Alg DrawChart7"></svg> </div>
+                                <div class="text-center col-md-3"><label>ChargeCarbon</label><svg id="Chart8" class="Alg DrawChart8"></svg> </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="ibox-content">
-            <div class="row">
-                <div class="col-lg-3 col-md-3" id="EafKWht"></div>
-                <div class="col-lg-3 col-md-3" id="EafLrfKwht"></div>
-                <div class="col-lg-3 col-md-3" id="TonPerHour"></div>
-                <div class="col-lg-3 col-md-3" id="IronYield"></div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-3" id="FoamyCarbon"></div>
-                <div class="col-lg-3 col-md-3" id="NG"></div>
-                <div class="col-lg-3 col-md-3" id="Aluminum"></div>
-                <div class="col-lg-3 col-md-3" id="ChargeCarbon"></div>
-            </div>
-        </div>
     </div>
-</div>
 
-@section Scripts {
-    <script src="~/js/plugins/toastr/toastr.min.js"></script>
-    <script src="~/js/plugins/c3/d3-5.8.2.min.js" charset="utf-8"></script>
-    <script src="~/js/plugins/c3/c3.min.js"></script>
-    <script src="~/js/plugins/moment/moment.min.js"></script>
-    <script src="~/js/plugins/daterangepicker/daterangepicker.min.js"></script>
-    <script src="~/js/Qmos/dashboard.js"></script>
-    <script src="~/lib/plugins/chosen/chosen.jquery.js"></script>
 
-    <script>
+                @section Scripts {
+                    <script src="~/js/plugins/toastr/toastr.min.js"></script>
+                    <script src="~/js/plugins/moment/moment.min.js"></script>
+                    <script src="~/js/plugins/daterangepicker/daterangepicker.min.js"></script>
+                    <script src="~/lib/plugins/chosen/chosen.jquery.js"></script>
+
+                    <script src="~/js/plugins/c3/c3.min.js"></script>
+                    <script src="~/js/plugins/d3/d3.v3.min.js"></script>
+                    <script src="~/js/Qmos/dashboard.js"></script>
+                    <script>
         $(document).ready(function () {
-            GetMTDAverage();
-            //Every X seconds (XXXX milliseconds) the refresh function will be executed
+           GetMTDAverage();
+            //Every X seconds (XXXX milliseconds) the refresh function will be executeicond
             if (@Model.TIMEMILLISECONDS > 0) {
             var milliseconds = @Model.TIMEMILLISECONDS;
                 setTimeout(refresh, milliseconds);
-                }
+            }
         });
-    </script>
-}
+                    </script>
+                }

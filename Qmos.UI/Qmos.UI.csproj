@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="wwwroot\js\plugins\d3\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="KCI_ApiRequester, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />

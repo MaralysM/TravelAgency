@@ -543,29 +543,34 @@ function GetMTDProduction() {
 }
 
 function GetMTDAverage() {
-    $.ajax({
-        url: "http://sapwebbeap03:8002/api/MTDAverage",
-        method: "GET",
-        success: function (retorno) {
-            var myobject = JSON.parse(retorno);
-            EafKWht(myobject);
-            EafLrfKwht(myobject);
-            TonPerHour(myobject);
-            IronYield(myobject);
-            FoamyCarbon(myobject);
-            NG(myobject);
-            Aluminum(myobject);
-            ChargeCarbon(myobject);
-        }
-    });
+    //$.ajax({
+    //    url: "http://sapwebbeap03:8002/api/MTDAverage",
+    //    method: "GET",
+    //    success: function (retorno) {
+    //        var myobject = JSON.parse(retorno);
+            EafKWht();
+            EafLrfKwht();
+            TonPerHour();
+            IronYield();
+            FoamyCarbon();
+            NG();
+            Aluminum();
+            ChargeCarbon();
+    //    }
+    //});
 }
-
 function EafKWht(retorno) {
-    var EafKWht = c3.generate({
-        bindto: '#EafKWht',
+
+    var thresholdOpts = {
+        boxSize: 8,
+        boxFill: false,
+        strokeWidth: 2
+    };
+    var opts = {
+        bindto: '#Chart1',
         data: {
             columns: [
-                ['EAF KWht', retorno.EAFkWhValue]
+                ['EAF KWht', 200]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -573,82 +578,152 @@ function EafKWht(retorno) {
             onmouseout: function (d, i) { console.log("onmouseout", d, i); }
         },
         gauge: {
-            //        label: {
-            //            format: function(value, ratio) {
-            //                return value;
-            //            },
-            //            show: false // to turn off the min/max labels.
-            //        },
-                min: retorno.EAFkWhMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-                max: retorno.EAFkWhMax // 100 is default
+            label: {
+                format: function (value, ratio) {
+                    return value;
+                },
+                show: true // to turn off the min/max labels.                       
+            },
+            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: 800 // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
+            pattern: ['#1887ef'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
-                values: [30, 60, 90, 100]
+                values: []
             }
         },
         size: {
             height: 180
+        },
+        onrendered: function () {
+            drawThresholds(this, thresholdOpts, opts, 500,".DrawChart1", 90);
         }
-    });
+    };
 
+    chart = c3.generate(opts);
 
+}
+function EafLrfKwht(retorno) {
+    var thresholdOpts = {
+        boxSize: 8,
+        boxFill: false,
+        strokeWidth: 2
+    };
+    var chart;
+    var opts = {
+        bindto: '#Chart2',
+        data: {
+            columns: [
+                ['EAF KWht', 200]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+            label: {
+                format: function (value, ratio) {
+                    return value;
+                },
+                show: true // to turn off the min/max labels.                       
+            },
+            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: 500 // 100 is default
+            //    units: ' %',
+            //    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            pattern: ['#1887ef'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: []
+            }
+        },
+        size: {
+            height: 180
+        },
+        onrendered: function () {
+            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart2",70);
+        }
+    };
+    chart = c3.generate(opts);
+}
+
+function drawThresholds(chart, thOpts, chOpts, Max, ClassChart, ValueChart) {
+    d3.select(ClassChart).selectAll("text.mytxt").remove();
+    d3.select(ClassChart).selectAll("rect.myrect").remove();
+    d3.select(ClassChart).selectAll("line.myline").remove();
+    var radius = chart.radius,
+        iradius = chart.innerRadius;
+
+    var v = ValueChart;
+    var col = 'red';
+
+    var angle = Math.PI * v / Max;
+    var x0 = (iradius * Math.cos(angle));
+    var y0 = (iradius * Math.sin(angle));
+    var x1 = (radius * Math.cos(angle));
+    var y1 = (radius * Math.sin(angle));
+    d3.select(ClassChart).select(".c3-chart-arcs").append("line")
+        .attr({
+            x1: -x0,
+            y1: -y0,
+            x2: -x1,
+            y2: -y1
+        })
+        .attr('class', 'myline')
+        .style("stroke-width", thOpts.strokeWidth)
+        .style("stroke", col);
+
+    var txtSize = measure(v, "mytxt", chart);
+    var xt = ((radius + thOpts.boxSize) * Math.cos(angle)) + txtSize.width / 2;
+    var yt = ((radius + thOpts.boxSize) * Math.sin(angle)) + txtSize.height / 2;
+    d3.select(ClassChart).select(".c3-chart-arcs").append("text")
+        .attr({
+            x: -xt,
+            y: -yt
+        })
+        .attr('class', 'mytxt')
+        .text(v);
 
 }
 
-function EafLrfKwht(retorno) {
-    var EafKWht = c3.generate({
-        bindto: '#EafLrfKwht',
-        data: {
-            columns: [
-                ['EAF + LRF KWht', retorno.EAFLRFKWhValue]
-            ],
-            type: 'gauge',
-            onclick: function (d, i) { console.log("onclick", d, i); },
-            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-        },
-        gauge: {
-            //        label: {
-            //            format: function(value, ratio) {
-            //                return value;
-            //            },
-            //            show: false // to turn off the min/max labels.
-            //        },
-            min: retorno.EAFLRFKWhMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.EAFLRFKWhnMax // 100 is default
-            //    units: ' %',
-            //    width: 39 // for adjusting arc thickness
-        },
-        color: {
-            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
-            threshold: {
-                //            unit: 'value', // percentage is default
-                //            max: 200, // 100 is default
-                values: [30, 60, 90, 100]
-            }
-        },
-        size: {
-            height: 180
-        }
-    });
-
-
-
+function measure(text, classname, chart) {
+    if (!text || text.length === 0) return {
+        height: 0,
+        width: 0
+    };
+    var container = d3.select('body').append('svg').attr('class', classname);
+    container.append('text').attr({
+        x: -9000,
+        y: -9000
+    }).text(text);
+    var bbox = container.node().getBBox();
+    container.remove();
+    return {
+        height: bbox.height,
+        width: bbox.width
+    };
 }
 
 function TonPerHour(retorno) {
-
-    var TonPerHour = c3.generate({
-        bindto: '#TonPerHour',
+    var thresholdOpts = {
+        boxSize: 8,
+        boxFill: false,
+        strokeWidth: 2
+    };
+    var opts = {
+        bindto: '#Chart3',
         data: {
             columns: [
-                ['Ton Per Hour (POn)', retorno.TonHourPonValue]
+                ['EAF KWht', 200]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -656,75 +731,95 @@ function TonPerHour(retorno) {
             onmouseout: function (d, i) { console.log("onmouseout", d, i); }
         },
         gauge: {
-            //        label: {
-            //            format: function(value, ratio) {
-            //                return value;
-            //            },
-            //            show: false // to turn off the min/max labels.
-            //        },
-                min: retorno.TonHourPonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-                max: retorno.TonHourPonMax // 100 is default
+            label: {
+                format: function (value, ratio) {
+                    return value;
+                },
+                show: true // to turn off the min/max labels.                       
+            },
+            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: 800 // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
+            pattern: ['#1887ef'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
-                values: [30, 60, 90, 100]
+                values: []
             }
         },
         size: {
             height: 180
+        },
+        onrendered: function () {
+            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart3", 100);
         }
-    });
+    };
+
+    chart = c3.generate(opts);
 }
 
 function IronYield(retorno) {
-    var IronYield = c3.generate({
-    bindto: '#IronYield',
-    data: {
-        columns: [
-            ['Iron Yield', retorno.IronYieldValue]
-        ],
-        type: 'gauge',
-        onclick: function (d, i) { console.log("onclick", d, i); },
-        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-    },
-    gauge: {
-        //        label: {
-        //            format: function(value, ratio) {
-        //                return value;
-        //            },
-        //            show: false // to turn off the min/max labels.
-            //    },
-        min: retorno.IronYieldMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-        max: retorno.IronYieldMax // 100 is default
-        //    units: ' %',
-        //    width: 39 // for adjusting arc thickness
-    },
+    var thresholdOpts = {
+        boxSize: 8,
+        boxFill: false,
+        strokeWidth: 2
+    };
+    var opts = {
+        bindto: '#Chart4',
+        data: {
+            columns: [
+                ['EAF KWht', 200]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+            label: {
+                format: function (value, ratio) {
+                    return value;
+                },
+                show: true // to turn off the min/max labels.                       
+            },
+            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: 800 // 100 is default
+            //    units: ' %',
+            //    width: 39 // for adjusting arc thickness
+        },
         color: {
-        pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
-        threshold: {
-            //            unit: 'value', // percentage is default
-            //            max: 200, // 100 is default
-            values: [30, 60, 90, 100]
+            pattern: ['#1887ef'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: []
+            }
+        },
+        size: {
+            height: 180
+        },
+        onrendered: function () {
+            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart4", 300);
         }
-    },
-    size: {
-        height: 180
-    }
-});
+    };
+
+    chart = c3.generate(opts);
 }
 
 function FoamyCarbon(retorno) {
-    var FoamyCarbon = c3.generate({
-        bindto: '#FoamyCarbon',
+    var thresholdOpts = {
+        boxSize: 8,
+        boxFill: false,
+        strokeWidth: 2
+    };
+    var opts = {
+        bindto: '#Chart5',
         data: {
             columns: [
-                ['Foamy Carbon', retorno.CarbonTonValue]
+                ['EAF KWht', 200]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -732,37 +827,47 @@ function FoamyCarbon(retorno) {
             onmouseout: function (d, i) { console.log("onmouseout", d, i); }
         },
         gauge: {
-            //        label: {
-            //            format: function(value, ratio) {
-            //                return value;
-            //            },
-            //            show: false // to turn off the min/max labels.
-            //        },
-            min: retorno.CarbonTonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.CarbonTonnMax // 100 is default
+            label: {
+                format: function (value, ratio) {
+                    return value;
+                },
+                show: true // to turn off the min/max labels.                       
+            },
+            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: 800 // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
+            pattern: ['#1887ef'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
-                values: [30, 60, 90, 100]
+                values: []
             }
         },
         size: {
             height: 180
+        },
+        onrendered: function () {
+            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart5", 400);
         }
-    });
+    };
+
+    chart = c3.generate(opts);
 }
 
 function NG(retorno) {
-    var NG = c3.generate({
-        bindto: '#NG',
+    var thresholdOpts = {
+        boxSize: 8,
+        boxFill: false,
+        strokeWidth: 2
+    };
+    var opts = {
+        bindto: '#Chart6',
         data: {
             columns: [
-                ['NG', retorno.NGTonValue]
+                ['EAF KWht', 200]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -770,37 +875,47 @@ function NG(retorno) {
             onmouseout: function (d, i) { console.log("onmouseout", d, i); }
         },
         gauge: {
-            //        label: {
-            //            format: function(value, ratio) {
-            //                return value;
-            //            },
-            //            show: false // to turn off the min/max labels.
-            //        },
-            min: retorno.NGTonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.NGTonMax // 100 is default
+            label: {
+                format: function (value, ratio) {
+                    return value;
+                },
+                show: true // to turn off the min/max labels.                       
+            },
+            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: 800 // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
+            pattern: ['#1887ef'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
-                values: [30, 60, 90, 100]
+                values: []
             }
         },
         size: {
             height: 180
+        },
+        onrendered: function () {
+            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart6", 400);
         }
-    });
+    };
+
+    chart = c3.generate(opts);
 }
 
 function Aluminum(retorno) {
-    var Aluminum = c3.generate({
-        bindto: '#Aluminum',
+    var thresholdOpts = {
+        boxSize: 8,
+        boxFill: false,
+        strokeWidth: 2
+    };
+    var opts = {
+        bindto: '#Chart7',
         data: {
             columns: [
-                ['Aluminum', retorno.AluminiumValue]
+                ['EAF KWht', 200]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -808,37 +923,47 @@ function Aluminum(retorno) {
             onmouseout: function (d, i) { console.log("onmouseout", d, i); }
         },
         gauge: {
-            //        label: {
-            //            format: function(value, ratio) {
-            //                return value;
-            //            },
-            //            show: false // to turn off the min/max labels.
-            //        },
-            min: retorno.AluminiumMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.AluminiumMax // 100 is default
+            label: {
+                format: function (value, ratio) {
+                    return value;
+                },
+                show: true // to turn off the min/max labels.                       
+            },
+            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: 800 // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
+            pattern: ['#1887ef'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
-                values: [30, 60, 90, 100]
+                values: []
             }
         },
         size: {
             height: 180
+        },
+        onrendered: function () {
+            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart7", 400);
         }
-    });
+    };
+
+    chart = c3.generate(opts);
 }
 
 function ChargeCarbon(retorno) {
-    var ChargeCarbon = c3.generate({
-        bindto: '#ChargeCarbon',
+    var thresholdOpts = {
+        boxSize: 8,
+        boxFill: false,
+        strokeWidth: 2
+    };
+    var opts = {
+        bindto: '#Chart8',
         data: {
             columns: [
-                ['Charge Carbon', retorno.ChargeCarbonValue]
+                ['EAF KWht', 200]
             ],
             type: 'gauge',
             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -846,29 +971,35 @@ function ChargeCarbon(retorno) {
             onmouseout: function (d, i) { console.log("onmouseout", d, i); }
         },
         gauge: {
-            //        label: {
-            //            format: function(value, ratio) {
-            //                return value;
-            //            },
-            //            show: false // to turn off the min/max labels.
-            //        },
-            min: retorno.ChargeCarbonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.ChargeCarbonMax // 100 is default
+            label: {
+                format: function (value, ratio) {
+                    return value;
+                },
+                show: true // to turn off the min/max labels.                       
+            },
+            min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: 800 // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
         color: {
-            pattern: ['#178af5', '#178af5', '#178af5', '#178af5'], // the three color levels for the percentage values.
+            pattern: ['#1887ef'], // the three color levels for the percentage values.
             threshold: {
                 //            unit: 'value', // percentage is default
                 //            max: 200, // 100 is default
-                values: [30, 60, 90, 100]
+                values: []
             }
         },
         size: {
             height: 180
+        },
+        onrendered: function () {
+            drawThresholds(this, thresholdOpts, opts, 500, ".DrawChart8", 400);
         }
-    });}
+    };
+
+    chart = c3.generate(opts);
+}
 
 function refresh() {
     //Refresh the page
