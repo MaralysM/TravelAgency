@@ -572,11 +572,10 @@ function GetTapWtTarget() {
 }
 
 function GetMTDProduction() {
-    //$.ajax({
-    //    url: "http://sapwebbeap03:8002/api/MTDProduction",
-    //    method: "GET",
-    //    success: function (retorno) {
-  var retorno =;
+    $.ajax({
+        url: "http://sapwebbeap03:8002/api/MTDProduction",
+        method: "GET",
+        success: function (retorno) {
             var myobject = JSON.parse(retorno);
             let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
             var barChartData = {
@@ -685,8 +684,8 @@ function GetMTDProduction() {
         }
 
 
-//    });
-//}
+    });
+}
 
 function GetMTDAverage() {
     $.ajax({
