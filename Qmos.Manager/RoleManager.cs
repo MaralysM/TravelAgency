@@ -31,12 +31,10 @@ namespace Qmos.Manager
                 if (role.ID_Role == 0)
                 {
                     RoleService.Create(role);
-                    LoggerActionsManager.Add(new LoggerActions { TypeAction = TypeActions.Insert, Message = "Register has inserted succesfull-Role", UserId = 0 });
                 }
                 else
                 {
                     RoleService.Edit(role);
-                    LoggerActionsManager.Add(new LoggerActions { TypeAction = TypeActions.Update, Message = "Register has modify succesfull-Role", UserId = 0 });
                 }
             }
             catch (UniqueKeyException ex)

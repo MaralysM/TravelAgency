@@ -43,7 +43,7 @@ namespace Qmos.Manager
                 string Enlace = $"{(string.IsNullOrEmpty(BaseUrl) ? "" : $"{BaseUrl}")}ForgotPassword/Index?i={idUserEncriptado}";
                 user.DT_ValidDatePasswordRecoveryLink = DateTime.Now.AddHours(24);
                 DB.SaveChanges();
-                await EmailSender.SendEmailAsync(user.TX_Email, $" Restablecimiento de contraseña de la cuenta Linea Comercial",
+                await EmailSender.SendEmailAsync(user.TX_Email, $" Qmos password reset",
                     "<html><head><style>a {color: white;text-decoration: none;}a:active {color: white;text-decoration: none;}a:hover {color: white;text-decoration: none;}</style></head>" +
 $@"<body style='font-family:sans-serif;width: 100%;text-align: -webkit-center;'>
     <div>
@@ -52,21 +52,21 @@ $@"<body style='font-family:sans-serif;width: 100%;text-align: -webkit-center;'>
     <div
         style='width: 398px;margin-top:-5px;padding-top:20px;background-color:white;border-width:1px;border-style:solid;border-color:white;text-align:center;margin-top:-15px;'>
         <div><img height='80px' src='cid:Icon'></div>
-        <p style='font-size: 14px;'><strong>Estimado</strong>, {user.TX_FirstName} {user.TX_LastName}</p>
-        <p style='font-size: 14px;text-align: center;'>El siguiente enlace le permitir&aacute; restablecer la contrase&ntilde;a para ingresar nuevamente al portal de
-            <br /><strong>Lince Comercial</strong>.
+        <p style='font-size: 14px;'><strong>Dear</strong>, {user.TX_FirstName} {user.TX_LastName}</p>
+        <p style='font-size: 14px;text-align: center;'>The following link will allow you to: reset the password to enter the portal again
+            <br /><strong>Qmos</strong>.
             <br />
             <br />
         </p>
         <div>
             <button
-                style='background-color: lightseagreen;color: white; border-radius: 25px; width: 200px; border-color: lightseagreen;height: 40px;'><a style='color: white; text-decoration: none;' href='{Enlace}' target='_blank'> Restablecer Contrase&ntilde;a</a></button>
+                style='background-color: lightseagreen;color: white; border-radius: 25px; width: 200px; border-color: lightseagreen;height: 40px;'><a style='color: white; text-decoration: none;' href='{Enlace}' target='_blank'> Reset Password</a></button>
         </div>
         <p></p>
-        <p>Este enlace tendrá una vigencia de <strong>24 horas</strong></p>
+        <p>This link will be valid for <strong>24 hours</strong></p>
         <p></p>
-        <p style='font-size: 11px;'>Si no visualiza el enlace puede ingresar esta url en su explorador: {Enlace} </p>
-        <p style='font-size: 12px;'>Este mensaje ha sido enviado autom&aacute;ticamente por el sistema</p>
+        <p style='font-size: 11px;'>If you don't see the link you can enter this url in your browser: {Enlace} </p>
+        <p style='font-size: 12px;'>This message has been sent automatically by the system</p>
     </div>
     <div>
         <img src='cid:Footer' width='400px'>
