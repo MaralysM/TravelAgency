@@ -76,7 +76,20 @@ function GetMTDDelays() {
                 legend: { position: 'bottom' },
                 title: { display: true, text: "" },
                 plugins: { labels: [{ render: 'value', position: 'outside' }] },
-                scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
+                scales: {
+                    yAxes: [{
+                        ticks: { beginAtZero: true }, scaleLabel: {
+                            display: true,
+                            labelString: 'NormDuration'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Crew'
+                        }
+                    }]
+                }
             };
 
             barChartMTDDelays = new Chart(canvaschartMTDDelays,
@@ -111,7 +124,20 @@ function GetMTDTapTempand02PPM() {
                 legend: { position: 'bottom' },
                 title: { display: true, text: "" },
                 plugins: { labels: [{ render: 'value', position: 'outside' }] },
-                scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
+                scales: {
+                    yAxes: [{
+                        ticks: { beginAtZero: true }, scaleLabel: {
+                            display: true,
+                            labelString: '%'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Crew'
+                        }
+                    }]
+                }
             };
 
             barChartMTDTapTempand02PPM = new Chart(canvaschartMTDTapTempand02PPM,
@@ -176,6 +202,20 @@ function GetKWhPerScrapTon() {
                 anchor: 'end',
                 align: 'top'
             }
+        },
+        scales: {
+            yAxes: [{
+                 scaleLabel: {
+                    display: true,
+                    labelString: 'Average of Kwh Ton'
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Heat'
+                }
+            }]
         }
 
     };
@@ -240,6 +280,20 @@ function GetScrapTonPerHour() {
                         anchor: 'end',
                         align: 'top'
                     }
+                },
+                scales: {
+                    yAxes: [{
+                         scaleLabel: {
+                            display: true,
+                            labelString: 'TonHour(POn)'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Heat'
+                        }
+                    }]
                 }
 
             };
@@ -301,6 +355,20 @@ function GetIronYield() {
                         anchor: 'end',
                         align: 'top'
                     }
+                },
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Yield'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Heat'
+                        }
+                    }]
                 }
 
             };
@@ -356,7 +424,21 @@ function GetTargetPPM() {
                 legend: {
                     display: false
                 },
-                title: { display: true, text: "02AimDiff", position: "left", fontSize: 10 }
+             //   title: { display: true, text: "02AimDiff", position: "left", fontSize: 10 },
+                scales: {
+                    yAxes: [{
+                         scaleLabel: {
+                            display: true,
+                            labelString: '02AimDiff'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Heat'
+                        }
+                    }]
+                }
             };
 
             barChartTargetPPM = new Chart(canvaschartTargetPPM,
@@ -408,7 +490,21 @@ function GetTargetTemp() {
                 legend: {
                     display: false
                 },
-                title: { display: true, text: "TempAimDiff", position: "left", fontSize: 10 }
+                //title: { display: true, text: "TempAimDiff", position: "left", fontSize: 10 },
+                scales: {
+                    yAxes: [{
+                        ticks: { beginAtZero: true }, scaleLabel: {
+                            display: true,
+                            labelString: 'TempAimDiff'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Heat'
+                        }
+                    }]
+                }
             };
 
             barChartTargetTemp = new Chart(canvaschartTargetTemp,
@@ -457,7 +553,21 @@ function GetTapWtTarget() {
                 legend: {
                     display: false
                 },
-                title: { display: true, text: "Average of TapWtDiff", position: "left", fontSize: 10 }
+               // title: { display: true, text: "Average of TapWtDiff", position: "left", fontSize: 10 },
+                scales: {
+                    yAxes: [{
+                        ticks: { beginAtZero: true }, scaleLabel: {
+                            display: true,
+                            labelString: 'Average of TapWtDiff'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Heat'
+                        }
+                    }]
+                }
 
             };
 
