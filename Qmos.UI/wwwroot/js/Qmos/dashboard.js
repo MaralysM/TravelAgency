@@ -579,20 +579,20 @@ function GetMTDProduction() {
             var myobject = JSON.parse(retorno);
             let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
             var barChartData = {
-                labels: [],
+                labels: [/*1,2,3,4,5,6,'Total'*/],
                 datasets: [{
                     label: 'Increase',
                     datalabels: {
                         color: 'red'
                     },
                     data: [
-                        //[1, 3],
-                        //[2, 4],
-                        //[2, 4],
-                        //[4, 6],
-                        //[5, 7],
-                        //[3, 5],
-                        //[0, 7]
+                        //[1,382.28],
+                        //[2, 1566.66666],
+                        //[2, 43334.876],
+                        //[4, 6324.6754],
+                        //[5, 743535.8866],
+                        //[3, 535.7564],
+                        //[0, 734534.56457]
                     ],
                     backgroundColor: [
                         //'#269643',
@@ -618,7 +618,7 @@ function GetMTDProduction() {
                     type: 'line',
                     label: 'Dataset 3',
                     backgroundColor: 'transparent',
-                    data: myobject.target,
+                        data: myobject.target, //[8000000, 8000000, 8000000, 8000000, 8000000, 8000000, 8000000],
                     fill: false,
                     borderColor: "#676a6c",
                     borderDash: [5, 5],
@@ -662,7 +662,7 @@ function GetMTDProduction() {
                         align: 'top',
                         rotation: -90,
                         formatter: function (value, context) {
-                            return value[1] - value[0];
+                            return Math.round(value[1] - value[0]);
                         }
                     }
                 },
