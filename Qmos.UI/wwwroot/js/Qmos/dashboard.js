@@ -1,31 +1,32 @@
 ﻿function GetMTDMissedHeats() {
-    $.ajax({
-        url: "http://sapwebbeap03:8002/api/MTDMissedHeats",
-        method: "GET",
-        success: function (retorno) {
-            var myobject = JSON.parse(retorno);
+    //$.ajax({
+    //    url: "http://sapwebbeap03:8002/api/MTDMissedHeats",
+    //    method: "GET",
+    //    success: function (retorno) {
+            //var myobject = JSON.parse(retorno);
             let canvasMTDMissedHeats = document.getElementById("chartMTDMissedHeats").getContext("2d");
 
             let data = {
-                labels: [],
-                datasets: [{ data: [], backgroundColor: [] }]
+                labels: ["A","B","C","D"],
+                datasets: [{ data: [45, 83, 32, 66], backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"], labels: ["A", "B", "C", "D"]}]
             };
-
-            //$.each(myobject, function () {
-            //    data.labels.push(this.Crew);
-            //    data.datasets[0].data.push(this.Value);
-            //});
-
-            data = {
-                labels: myobject.Crew,
-                datasets: [{ data: myobject.Value, backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"] }]
-            };
+            //data = {
+            //    labels: myobject.Crew,
+            //    datasets: [{ data: myobject.Value, backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"] }]
+            //};
             let options = {
                 animation: { animateScale: true },
-                legend: { display: true, position: 'right' },
+                legend: { display: false, position: 'right' },
                 plugins: {
-                    labels: [{ render: 'label', position: 'outside' },
-                    { render: 'percentage', fontSize: 9, precision: 2 }]
+                    datalabels: {
+                        position: 'outside',
+                        color: 'white',
+                        textAlign: 'center',
+                        formatter: function (value, context) {
+                            let porcentaje = value * 100 / context.dataset._meta[0].total;
+                            return context.chart.data.labels[context.dataIndex] + '\n'+ value +' (' + Math.round(porcentaje * 10) / 10 + '%)';
+                        }
+                    }
                 },
                 tooltips: {
                     callbacks: {
@@ -40,8 +41,8 @@
             doughnutMTDMissedHeats = new Chart(canvasMTDMissedHeats,
                 { type: 'doughnut', data: data, options: options });
         }
-    });
-}
+//    });
+//}
 
 function GetMTDDelays() {
     $.ajax({
