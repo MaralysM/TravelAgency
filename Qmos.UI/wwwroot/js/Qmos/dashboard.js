@@ -8,7 +8,7 @@
 
             let data = {
                 labels: [],
-                datasets: [{ data: [], backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"] }]
+                datasets: [{ data: [], backgroundColor: [] }]
             };
 
             //$.each(myobject, function () {
@@ -18,9 +18,8 @@
 
             data = {
                 labels: myobject.Crew,
-                datasets: [{ data: myobject.Value, backgroundColor: ["rgba(247,165,74,0.5)", "rgba(181,184,207,0.5)", "rgba(156,195,218,1)", "rgba(26,123,185,0.5)"] }]
+                datasets: [{ data: myobject.Value, backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"] }]
             };
-
             let options = {
                 animation: { animateScale: true },
                 legend: { display: true, position: 'right' },
