@@ -219,7 +219,11 @@ function GetKWhPerScrapTon() {
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 12
+                            fontSize: 14,
+                            callback: function (dataLabel, index) {
+                                // Hide the label of every 2nd dataset. return null to hide the grid line too
+                                return index % 2 === 0 ? dataLabel : '';
+                            }
                         },
                         scaleLabel: {
                             display: true,
@@ -302,7 +306,11 @@ function GetScrapTonPerHour() {
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 12
+                            fontSize: 14,
+                            callback: function (dataLabel, index) {
+                                // Hide the label of every 2nd dataset. return null to hide the grid line too
+                                return index % 2 === 0 ? dataLabel : '';
+                            }
                         },
                         scaleLabel: {
                             display: true,
@@ -383,7 +391,11 @@ function GetIronYield() {
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 12
+                            fontSize: 14,
+                            callback: function (dataLabel, index) {
+                                // Hide the label of every 2nd dataset. return null to hide the grid line too
+                                return index % 2 === 0 ? dataLabel : '';
+                            }
                         },
                         scaleLabel: {
                             display: true,
@@ -455,9 +467,14 @@ function GetTargetPPM() {
                         }
                     }],
                     xAxes: [{
-                        ticks: {
-                            fontSize: 12
-                        },
+                        xAxes: [{
+                            ticks: {
+                                fontSize: 14,
+                                callback: function (dataLabel, index) {
+                                    // Hide the label of every 2nd dataset. return null to hide the grid line too
+                                    return index % 2 === 0 ? dataLabel : '';
+                                }
+                            },
                         scaleLabel: {
                             display: true,
                             labelString: 'Heat'
@@ -529,7 +546,11 @@ function GetTargetTemp() {
                     xAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            fontSize: 12
+                            fontSize: 14,
+                            callback: function (dataLabel, index) {
+                                // Hide the label of every 2nd dataset. return null to hide the grid line too
+                                return index % 2 === 0 ? dataLabel : '';
+                            }
                         },scaleLabel: {
                             display: true,
                             labelString: 'Heat'
@@ -594,7 +615,12 @@ function GetTapWtTarget() {
                         }
                     }],
                     xAxes: [{
-                        ticks: { beginAtZero: true, fontSize: 12 },
+                        ticks: {
+                            beginAtZero: true, fontSize: 14,
+                            callback: function (dataLabel, index) {
+                                // Hide the label of every 2nd dataset. return null to hide the grid line too
+                                return index % 2 === 0 ? dataLabel : '';
+                            } },
                         scaleLabel: {
                             display: true,
                             labelString: 'Heat'
