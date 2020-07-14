@@ -123,12 +123,20 @@ function GetMTDTapTempand02PPM() {
                 plugins: { labels: [{ render: 'value', position: 'outside' }] },
                 scales: {
                     yAxes: [{
-                        ticks: { beginAtZero: true }, scaleLabel: {
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 14
+                        },
+                        scaleLabel: {
                             display: true,
                             labelString: '%'
                         }
                     }],
                     xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 14
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Crew'
@@ -201,12 +209,18 @@ function GetKWhPerScrapTon() {
                 },
                 scales: {
                     yAxes: [{
+                        ticks: {
+                            fontSize: 14
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Average of Kwh Ton'
                         }
                     }],
                     xAxes: [{
+                        ticks: {
+                            fontSize: 14
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Heat'
@@ -278,12 +292,18 @@ function GetScrapTonPerHour() {
                 },
                 scales: {
                     yAxes: [{
+                        ticks: {
+                            fontSize: 14
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'TonHour(POn)'
                         }
                     }],
                     xAxes: [{
+                        ticks: {
+                            fontSize: 14
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Heat'
@@ -353,12 +373,18 @@ function GetIronYield() {
                 },
                 scales: {
                     yAxes: [{
+                        ticks: {
+                            fontSize: 14
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Yield'
                         }
                     }],
                     xAxes: [{
+                        ticks: {
+                            fontSize: 14
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Heat'
@@ -420,12 +446,18 @@ function GetTargetPPM() {
                 //   title: { display: true, text: "02AimDiff", position: "left", fontSize: 10 },
                 scales: {
                     yAxes: [{
+                        ticks: {
+                            fontSize: 14
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: '02AimDiff'
                         }
                     }],
                     xAxes: [{
+                        ticks: {
+                            fontSize: 14
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Heat'
@@ -486,13 +518,19 @@ function GetTargetTemp() {
                 //title: { display: true, text: "TempAimDiff", position: "left", fontSize: 10 },
                 scales: {
                     yAxes: [{
-                        ticks: { beginAtZero: true }, scaleLabel: {
+                        ticks: {
+                            beginAtZero: true ,
+                            fontSize: 14
+                        }, scaleLabel: {
                             display: true,
                             labelString: 'TempAimDiff'
                         }
                     }],
                     xAxes: [{
-                        scaleLabel: {
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 14
+                        },scaleLabel: {
                             display: true,
                             labelString: 'Heat'
                         }
@@ -550,12 +588,13 @@ function GetTapWtTarget() {
                 // title: { display: true, text: "Average of TapWtDiff", position: "left", fontSize: 10 },
                 scales: {
                     yAxes: [{
-                        ticks: { beginAtZero: true }, scaleLabel: {
+                        ticks: { beginAtZero: true, fontSize: 14 }, scaleLabel: {
                             display: true,
                             labelString: 'Average of TapWtDiff'
                         }
                     }],
                     xAxes: [{
+                        ticks: { beginAtZero: true, fontSize: 14 },
                         scaleLabel: {
                             display: true,
                             labelString: 'Heat'
@@ -668,12 +707,19 @@ function GetMTDProduction() {
                 },
                 scales: {
                     yAxes: [{
-                        ticks: { beginAtZero: true }, scaleLabel: {
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 14
+                        }, scaleLabel: {
                             display: true,
                             labelString: 'Billet Tons'
                         }
                     }],
                     xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 14
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Shift Day'
