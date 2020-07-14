@@ -467,7 +467,6 @@ function GetTargetPPM() {
                         }
                     }],
                     xAxes: [{
-                        xAxes: [{
                             ticks: {
                                 fontSize: 14,
                                 callback: function (dataLabel, index) {
