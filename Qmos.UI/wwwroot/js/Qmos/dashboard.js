@@ -219,7 +219,7 @@ function GetKWhPerScrapTon() {
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 14
+                            fontSize: 12
                         },
                         scaleLabel: {
                             display: true,
@@ -302,7 +302,7 @@ function GetScrapTonPerHour() {
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 14
+                            fontSize: 12
                         },
                         scaleLabel: {
                             display: true,
@@ -337,7 +337,7 @@ function GetIronYield() {
                     borderColor: "#2791ee",
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
-                    pointRadius: 0,
+                    pointRadius: 0
                 }, {
                     datalabels: {
                         labels: {
@@ -383,7 +383,7 @@ function GetIronYield() {
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 14
+                            fontSize: 12
                         },
                         scaleLabel: {
                             display: true,
@@ -456,7 +456,7 @@ function GetTargetPPM() {
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 14
+                            fontSize: 12
                         },
                         scaleLabel: {
                             display: true,
@@ -529,7 +529,7 @@ function GetTargetTemp() {
                     xAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            fontSize: 14
+                            fontSize: 12
                         },scaleLabel: {
                             display: true,
                             labelString: 'Heat'
@@ -594,7 +594,7 @@ function GetTapWtTarget() {
                         }
                     }],
                     xAxes: [{
-                        ticks: { beginAtZero: true, fontSize: 14 },
+                        ticks: { beginAtZero: true, fontSize: 12 },
                         scaleLabel: {
                             display: true,
                             labelString: 'Heat'
