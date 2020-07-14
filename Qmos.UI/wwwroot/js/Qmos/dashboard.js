@@ -63,7 +63,7 @@ function GetMTDDelays() {
 
             $.each(myobject, function () {
                 data.labels.push(this.Crew);
-                data.datasets[0].data.push(this.MTDDelays.ElectrodeCahnge);
+                data.datasets[0].data.push(this.MTDDelays.ElectrodeChange);
                 data.datasets[1].data.push(this.MTDDelays.InspectFurnace);
                 data.datasets[2].data.push(this.MTDDelays.StndPOff);
                 data.datasets[3].data.push(this.MTDDelays.TappingPrep);
