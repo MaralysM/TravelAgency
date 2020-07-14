@@ -1,19 +1,19 @@
 ﻿function GetMTDMissedHeats() {
-    //$.ajax({
-    //    url: "http://sapwebbeap03:8002/api/MTDMissedHeats",
-    //    method: "GET",
-    //    success: function (retorno) {
-            //var myobject = JSON.parse(retorno);
+    $.ajax({
+        url: "http://sapwebbeap03:8002/api/MTDMissedHeats",
+        method: "GET",
+        success: function (retorno) {
+            var myobject = JSON.parse(retorno);
             let canvasMTDMissedHeats = document.getElementById("chartMTDMissedHeats").getContext("2d");
 
-            let data = {
-                labels: ["A","B","C","D"],
-                datasets: [{ data: [45, 83, 32, 66], backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"], labels: ["A", "B", "C", "D"]}]
-            };
-            //data = {
-            //    labels: myobject.Crew,
-            //    datasets: [{ data: myobject.Value, backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"] }]
+            //let data = {
+            //    labels: ["A","B","C","D"],
+            //    datasets: [{ data: [45, 83, 32, 66], backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"], labels: ["A", "B", "C", "D"]}]
             //};
+            data = {
+                labels: myobject.Crew,
+                datasets: [{ data: myobject.Value, backgroundColor: ["#e36b33", "#7c1c84", "#138cfc", "#2c54a9"], labels: myobject.Crew }]
+            };
             let options = {
                 animation: { animateScale: true },
                 legend: { display: false, position: 'right' },
@@ -41,8 +41,8 @@
             doughnutMTDMissedHeats = new Chart(canvasMTDMissedHeats,
                 { type: 'doughnut', data: data, options: options });
         }
-//    });
-//}
+    });
+}
 
 function GetMTDDelays() {
     $.ajax({
