@@ -56,17 +56,17 @@ function GetMTDDelays() {
                 labels: [],
                 datasets: [
                     { barPercentage: 1, data: [], label: 'Electrode Change', backgroundColor: "#138cfc" },
-                    { barPercentage: 1, data: [], label: 'Inspect Furnace', backgroundColor: "#2c54a9" },
+                    //{ barPercentage: 1, data: [], label: 'Inspect Furnace', backgroundColor: "#2c54a9" },
                     { barPercentage: 1, data: [], label: 'Stnd P. Off', backgroundColor: "#e36b33" },
                     { barPercentage: 1, data: [], label: 'Tapping Prep', backgroundColor: "#7c1c84" }]
             };
 
-            $.each(myobject, function () {
+            $.each(myobject.MTDDelays, function () {
                 data.labels.push(this.Crew);
-                data.datasets[0].data.push(this.MTDDelays.ElectrodeChange);
-                data.datasets[1].data.push(this.MTDDelays.InspectFurnace);
-                data.datasets[2].data.push(this.MTDDelays.StndPOff);
-                data.datasets[3].data.push(this.MTDDelays.TappingPrep);
+                data.datasets[0].data.push(this.ElectrodeChange);
+                data.datasets[1].data.push(this.StndPOff);
+                data.datasets[2].data.push(this.TappingPrep);
+                //data.datasets[3].data.push(this.MTDDelays.TappingPrep);
             });
             let options = {
                 responsive: true,
