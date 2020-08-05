@@ -13,8 +13,8 @@
 
 
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>@(!string.IsNullOrEmpty((string)ViewData["Root"]) ? @ViewData["Title"].ToString() : "")</h2>
+    <div class="col-sm-12 text-center" style="font-size:40px;color:#000000">
+        @(!string.IsNullOrEmpty((string)ViewData["Root"]) ? @ViewData["Title"].ToString() : "")
     </div>
 </div>
 
@@ -53,6 +53,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="fa-pull-right ">
+        <span>
+            <img alt="image" height="80" src="~/images/LK_turia_logos55cm_optimus.png">
+        </span>
     </div>
 </div>
 

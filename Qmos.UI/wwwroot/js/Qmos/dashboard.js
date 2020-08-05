@@ -75,15 +75,18 @@ function GetMTDDelays() {
                 plugins: { labels: [{ render: 'value', position: 'outside' }] },
                 scales: {
                     yAxes: [{
-                        ticks: { beginAtZero: true }, scaleLabel: {
+                        ticks: { beginAtZero: true, fontSize: 16 }, scaleLabel: {
                             display: true,
-                            labelString: 'NormDuration'
+                            labelString: 'NormDuration',
+                            fontColor: "black"
                         }
                     }],
                     xAxes: [{
+                        ticks: { fontSize: 16 },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Crew'
+                            labelString: 'Crew',
+                            fontColor: "black"
                         }
                     }]
                 }
@@ -125,21 +128,23 @@ function GetMTDTapTempand02PPM() {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            fontSize: 14
+                            fontSize: 16
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: '%'
+                            labelString: '%',
+                            fontColor: "black"
                         }
                     }],
                     xAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            fontSize: 14
+                            fontSize: 16
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Crew'
+                            labelString: 'Crew',
+                            fontColor: "black"
                         }
                     }]
                 }
@@ -210,16 +215,17 @@ function GetKWhPerScrapTon() {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            fontSize: 14
+                            fontSize: 16
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Average of Kwh Ton'
+                            labelString: 'Average of Kwh Ton',
+                            fontColor: "black"
                         }
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 14,
+                            fontSize: 16,
                             callback: function (dataLabel, index) {
                                 // Hide the label of every 2nd dataset. return null to hide the grid line too
                                 return index % 2 === 0 ? dataLabel : '';
@@ -227,7 +233,8 @@ function GetKWhPerScrapTon() {
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Heat'
+                            labelString: 'Heat',
+                            fontColor: "black"
                         }
                     }]
                 }
@@ -382,16 +389,17 @@ function GetIronYield() {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            fontSize: 14
+                            fontSize: 16 
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Yield'
+                            labelString: 'Yield',
+                            fontColor: "black"
                         }
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 14,
+                            fontSize: 16,
                             callback: function (dataLabel, index) {
                                 // Hide the label of every 2nd dataset. return null to hide the grid line too
                                 return index % 2 === 0 ? dataLabel : '';
@@ -399,7 +407,8 @@ function GetIronYield() {
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Heat'
+                            labelString: 'Heat',
+                            fontColor: "black"
                         }
                     }]
                 }
@@ -459,16 +468,17 @@ function GetTargetPPM() {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            fontSize: 14
+                            fontSize: 16
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: '02AimDiff'
+                            labelString: '02AimDiff',
+                            fontColor: "black"
                         }
                     }],
                     xAxes: [{
                             ticks: {
-                                fontSize: 14,
+                                fontSize: 16,
                                 callback: function (dataLabel, index) {
                                     // Hide the label of every 2nd dataset. return null to hide the grid line too
                                     return index % 2 === 0 ? dataLabel : '';
@@ -476,7 +486,8 @@ function GetTargetPPM() {
                             },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Heat'
+                            labelString: 'Heat',
+                            fontColor: "black"
                         }
                     }]
                 }
@@ -536,23 +547,25 @@ function GetTargetTemp() {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true ,
-                            fontSize: 14
+                            fontSize: 16
                         }, scaleLabel: {
                             display: true,
-                            labelString: 'TempAimDiff'
+                            labelString: 'TempAimDiff',
+                            fontColor: "black"
                         }
                     }],
                     xAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            fontSize: 14,
+                            fontSize: 16,
                             callback: function (dataLabel, index) {
                                 // Hide the label of every 2nd dataset. return null to hide the grid line too
                                 return index % 2 === 0 ? dataLabel : '';
                             }
                         },scaleLabel: {
                             display: true,
-                            labelString: 'Heat'
+                            labelString: 'Heat',
+                            fontColor: "black"
                         }
                     }]
                 }
@@ -608,21 +621,23 @@ function GetTapWtTarget() {
                 // title: { display: true, text: "Average of TapWtDiff", position: "left", fontSize: 10 },
                 scales: {
                     yAxes: [{
-                        ticks: { beginAtZero: true, fontSize: 14 }, scaleLabel: {
+                        ticks: { beginAtZero: true, fontSize: 16 }, scaleLabel: {
                             display: true,
-                            labelString: 'Average of TapWtDiff'
+                            labelString: 'Average of TapWtDiff',
+                            fontColor: "black"
                         }
                     }],
                     xAxes: [{
                         ticks: {
-                            beginAtZero: true, fontSize: 14,
+                            beginAtZero: true, fontSize: 16,
                             callback: function (dataLabel, index) {
                                 // Hide the label of every 2nd dataset. return null to hide the grid line too
                                 return index % 2 === 0 ? dataLabel : '';
                             } },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Heat'
+                            labelString: 'Heat',
+                            fontColor: "black"
                         }
                     }]
                 }
@@ -734,20 +749,22 @@ function GetMTDProduction() {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            fontSize: 14
+                            fontSize: 16
                         }, scaleLabel: {
                             display: true,
-                            labelString: 'Billet Tons'
+                            labelString: 'Billet Tons',
+                            fontColor: "black"
                         }
                     }],
                     xAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            fontSize: 14
+                            fontSize: 16
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Shift Day'
+                            labelString: 'Shift Day',
+                            fontColor: "black"
                         }
                     }]
                 }
