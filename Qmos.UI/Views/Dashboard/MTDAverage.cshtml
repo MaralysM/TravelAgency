@@ -65,27 +65,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="fa-pull-right ">
+                    <span>
+                        <img alt="image" height="80" src="~/images/LK_turia_logos55cm_optimus.png">
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-    <div class="fa-pull-right ">
-        <span>
-            <img alt="image" height="80" src="~/images/LK_turia_logos55cm_optimus.png">
-        </span>
-    </div>
 </div>
+@section Scripts {
+    <script src="~/js/plugins/toastr/toastr.min.js"></script>
+    <script src="~/js/plugins/moment/moment.min.js"></script>
+    <script src="~/js/plugins/daterangepicker/daterangepicker.min.js"></script>
+    <script src="~/lib/plugins/chosen/chosen.jquery.js"></script>
 
-
-                @section Scripts {
-                    <script src="~/js/plugins/toastr/toastr.min.js"></script>
-                    <script src="~/js/plugins/moment/moment.min.js"></script>
-                    <script src="~/js/plugins/daterangepicker/daterangepicker.min.js"></script>
-                    <script src="~/lib/plugins/chosen/chosen.jquery.js"></script>
-
-                    <script src="~/js/plugins/c3/c3.min.js"></script>
-                    <script src="~/js/plugins/d3/d3.v3.min.js"></script>
-                    <script src="~/js/Qmos/dashboard.js"></script>
-                    <script>
+    <script src="~/js/plugins/c3/c3.min.js"></script>
+    <script src="~/js/plugins/d3/d3.v3.min.js"></script>
+    <script src="~/js/Qmos/dashboard.js"></script>
+    <script>
         $(document).ready(function () {
            GetMTDAverage();
             //Every X seconds (XXXX milliseconds) the refresh function will be executeicond
@@ -94,5 +92,5 @@
                 setTimeout(refresh, milliseconds);
             }
         });
-                    </script>
+ </script>
                 }

@@ -325,6 +325,7 @@ CREATE TABLE [Qmos].[update_time]
 	)
 GO
 
-
-
+  UPDATE [Qmos].[Security].[SM_ELEMENT] 
+   SET [BO_Default] = 1
+ WHERE [TX_Url] = 'Dashboard/TapWtTarget'
 
