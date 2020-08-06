@@ -334,3 +334,10 @@ BEGIN
  UPDATE [Qmos].[Security].[SM_ELEMENT] SET TX_Name = 'MTD Tap Temp and O2 PPM' WHERE [TX_Url] = 'Dashboard/MTDTapTempand02PPM'
  UPDATE [Qmos].[Security].[SM_ELEMENT] SET [TX_Url] = 'Dashboard/MTDTapTempandO2PPM' WHERE TX_Name = 'MTD Tap Temp and O2 PPM' 
 END
+
+
+IF EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Scrap Ton per Hour')
+BEGIN
+ UPDATE [Qmos].[Security].[SM_ELEMENT] SET TX_Name = 'Ton per Hour' WHERE [TX_Url] = 'Dashboard/ScrapTonPerHour'
+ UPDATE [Qmos].[Security].[SM_ELEMENT] SET [TX_Url] = 'Dashboard/TonPerHour' WHERE TX_Name = 'Ton per Hour' 
+END

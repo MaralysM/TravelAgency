@@ -53,9 +53,9 @@ namespace Qmos.UI.Controllers
             return View("KWhPerScrapTon", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
         }
 
-        public IActionResult ScrapTonPerHour()
+        public IActionResult TonPerHour()
         {
-            return View("ScrapTonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("TonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
         }
 
         public IActionResult IronYield()
