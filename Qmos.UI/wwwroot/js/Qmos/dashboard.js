@@ -208,6 +208,9 @@ function GetKWhPerScrapTon() {
                                 color: 'red'
                             }
                         },
+                        font: {
+                            size: 16
+                        },
                         anchor: 'end',
                         align: 'top'
                     }
