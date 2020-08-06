@@ -70,7 +70,12 @@ function GetMTDDelays() {
             });
             let options = {
                 responsive: true,
-                legend: { position: 'bottom' },
+                legend: {
+                    position: 'bottom', labels: {
+                        // This more specific font property overrides the global property
+                        fontSize: 18
+                    }
+                },
                 title: { display: true, text: "" },
                 plugins: { labels: [{ render: 'value', position: 'outside', fontSize: 18, fontColor: "red" }] },
                 scales: {
@@ -121,7 +126,13 @@ function GetMTDTapTempand02PPM() {
 
             let options = {
                 responsive: true,
-                legend: { position: 'bottom' },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        // This more specific font property overrides the global property
+                        fontSize: 18
+                    }
+                },
                 title: { display: true, text: "" },
                 plugins: { labels: [{ render: 'value', position: 'outside', fontSize: 18, fontColor: "red" }] },
                 scales: {
