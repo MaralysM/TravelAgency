@@ -218,7 +218,7 @@ function GetKWhPerScrapTon() {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            fontSize: 16
+                            fontSize: 18
                         },
                         scaleLabel: {
                             display: true,
@@ -300,6 +300,9 @@ function GetScrapTonPerHour() {
                                 color: 'red'
                             }
                         },
+                        font: {
+                            size: 16
+                        },
                         anchor: 'end',
                         align: 'top'
                     }
@@ -307,7 +310,7 @@ function GetScrapTonPerHour() {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            fontSize: 14
+                            fontSize: 18
                         },
                         scaleLabel: {
                             display: true,
@@ -316,7 +319,7 @@ function GetScrapTonPerHour() {
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 14,
+                            fontSize: 16,
                             callback: function (dataLabel, index) {
                                 // Hide the label of every 2nd dataset. return null to hide the grid line too
                                 return index % 2 === 0 ? dataLabel : '';
@@ -474,7 +477,7 @@ function GetTargetPPM() {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            fontSize: 16
+                            fontSize: 18
                         },
                         scaleLabel: {
                             display: true,
@@ -553,7 +556,7 @@ function GetTargetTemp() {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true ,
-                            fontSize: 16
+                            fontSize: 18
                         }, scaleLabel: {
                             display: true,
                             labelString: 'TempAimDiff',
@@ -627,7 +630,7 @@ function GetTapWtTarget() {
                 // title: { display: true, text: "Average of TapWtDiff", position: "left", fontSize: 10 },
                 scales: {
                     yAxes: [{
-                        ticks: { beginAtZero: true, fontSize: 16 }, scaleLabel: {
+                        ticks: { beginAtZero: true, fontSize: 18 }, scaleLabel: {
                             display: true,
                             labelString: 'Average of TapWtDiff',
                             fontColor: "black"
