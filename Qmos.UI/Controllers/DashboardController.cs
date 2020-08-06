@@ -44,9 +44,9 @@ namespace Qmos.UI.Controllers
             return View("MTDDelays", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
         }
 
-        public IActionResult MTDTapTempand02PPM()
+        public IActionResult MTDTapTempandO2PPM()
         {
-            return View("MTDTapTempand02PPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("MTDTapTempandO2PPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
         }
         public IActionResult KWhPerScrapTon()
         {

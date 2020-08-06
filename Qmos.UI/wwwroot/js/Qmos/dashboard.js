@@ -453,7 +453,7 @@ function GetTargetPPM() {
             var data = {
                 labels: myobject.AxeX,
                 datasets: [{
-                    label: "02AimDiff",
+                    label: "O2AimDiff",
                     steppedLine: true,
                     data: myobject.AxeY,
                     borderColor: "#2791ee",
@@ -492,7 +492,7 @@ function GetTargetPPM() {
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: '02AimDiff',
+                            labelString: 'O2AimDiff',
                             fontColor: "black"
                         }
                     }],

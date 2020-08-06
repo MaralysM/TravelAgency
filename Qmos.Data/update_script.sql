@@ -329,3 +329,8 @@ GO
    SET [BO_Default] = 1
  WHERE [TX_Url] = 'Dashboard/TapWtTarget'
 
+IF EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Tap Temp and 02 PPM')
+BEGIN
+ UPDATE [Qmos].[Security].[SM_ELEMENT] SET TX_Name = 'MTD Tap Temp and O2 PPM' WHERE [TX_Url] = 'Dashboard/MTDTapTempand02PPM'
+ UPDATE [Qmos].[Security].[SM_ELEMENT] SET [TX_Url] = 'Dashboard/MTDTapTempandO2PPM' WHERE TX_Name = 'MTD Tap Temp and O2 PPM' 
+END
