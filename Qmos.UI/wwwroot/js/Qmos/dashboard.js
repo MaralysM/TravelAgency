@@ -134,7 +134,7 @@ function GetMTDTapTempand02PPM() {
                     }
                 },
                 title: { display: true, text: "" },
-                plugins: { labels: [{ render: 'value', position: 'outside', fontSize: 18, fontColor: "red" }] },
+                plugins: { labels: [{ render: 'percentage', precision: 0, position: 'outside', fontSize: 18, fontColor: "red" }] },
                 scales: {
                     yAxes: [{
                         ticks: {
