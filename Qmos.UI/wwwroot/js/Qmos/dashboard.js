@@ -72,7 +72,7 @@ function GetMTDDelays() {
                 responsive: true,
                 legend: { position: 'bottom' },
                 title: { display: true, text: "" },
-                plugins: { labels: [{ render: 'value', position: 'outside' }] },
+                plugins: { labels: [{ render: 'value', position: 'outside', fontSize: 18, fontColor: "red" }] },
                 scales: {
                     yAxes: [{
                         ticks: { beginAtZero: true, fontSize: 16 }, scaleLabel: {
@@ -82,7 +82,7 @@ function GetMTDDelays() {
                         }
                     }],
                     xAxes: [{
-                        ticks: { fontSize: 16 },
+                        ticks: { fontSize: 18 },
                         scaleLabel: {
                             display: true,
                             labelString: 'Crew',
@@ -123,7 +123,7 @@ function GetMTDTapTempand02PPM() {
                 responsive: true,
                 legend: { position: 'bottom' },
                 title: { display: true, text: "" },
-                plugins: { labels: [{ render: 'value', position: 'outside' }] },
+                plugins: { labels: [{ render: 'value', position: 'outside', fontSize: 18, fontColor: "red" }] },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -139,7 +139,7 @@ function GetMTDTapTempand02PPM() {
                     xAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            fontSize: 16
+                            fontSize: 18
                         },
                         scaleLabel: {
                             display: true,
