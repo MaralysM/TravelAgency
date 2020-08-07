@@ -1,0 +1,85 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    @model Qmos.UI.ViewModels.UpdateTimeViewModel
+    @if (Model.Id != 0)
+    {
+        ViewData["Title"] = "Modify update time";
+    }
+    else
+    {
+        ViewData["Title"] = "Create update time";
+
+        ViewData["Root"] = "Users";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+<link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert.css">
+<link rel="stylesheet" href="~/css/plugins/toastr/toastr.min.css" />
+<partial name="_HeaderDetailPartial" view-data="ViewData" />
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group row text-left">
+                                <div class="col-lg-12">
+                                    <span class="text-danger"> *</span><span>
+                                        Required fields
+                                    </span>
+                                </div>
+                            </div>
+                            <form asp-action="Post" role="form" method="post">
+                                <input type="hidden" asp-for="@Model.Id" />
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Time Refresh</label><span class="text-danger"> *</span>
+                                        <div class="input-group " data-autoclose="true">
+                                            <input type="text" class="form-control time" asp-for="TIME_REFRESH" placeholder="Time Refresh">
+                                            <span class="input-group-addon">
+                                                <span class="fa fa-clock-o"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group row text-center">
+                                    <div class="col-lg-12">
+                                        <a asp-action="Index" class="btn btn-white"><i class="fa fa-arrow-left"></i> Back</a>
+                                        <button id="btn-save" class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 1], null);
+        $('#table tbody').on('click', '.delete', function () {
+            eliminarRegistro(".delete", "data-id", "@Url.Action("DeleteRoleByUser", "Users")", '#table', $(this));
+        });
+
+        $(document).ready(function () {
+            $('.time').inputmask("hh:mm:ss", {
+            placeholder: "hh:mm:ss", 
+            insertMode: false, 
+            showMaskOnHover: false     
+          }
+         );
+        });
+
+    </script>
+}
