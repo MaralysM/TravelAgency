@@ -1,6 +1,6 @@
 ﻿@{
     @model IList<Qmos.Entities.TransitionParametersHeader>
-    ViewData["Title"] = "Update Time list";
+    ViewData["Title"] = "Transition parameters list";
     ViewData["Root"] = "Mangement";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -18,7 +18,7 @@
                     {
                         <div class="row">
                             <div class="col-lg-offset-10">
-                                <a asp-controller="UpdateTime" asp-action="Get" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
+                                <a asp-controller="TransitionParameters" asp-action="Get" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
                             </div>
                         </div>
                     }
@@ -42,7 +42,7 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a asp-controller="UpdateTime" asp-action="GetUpdate" asp-route-pk="@item.Id" class="btn btn-primary"><i class="fa fa-edit"></i> Update</a>
+                                                <a asp-controller="TransitionParameters" asp-action="GetUpdate" asp-route-pk="@item.Id" class="btn btn-primary"><i class="fa fa-edit"></i> Update</a>
                                                 <a data-id="@item.Id" class="btn btn-danger delete"><i class="fa fa-remove"></i> Remove</a>
                                             </div>
                                         </td>
@@ -68,7 +68,7 @@
     {
         formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 1], null);
         $('#table tbody').on('click', '.delete', function () {
-            eliminarRegistro(".delete", "data-id", "@Url.Action("Delete", "UpdateTime")", '#table', $(this));
+            eliminarRegistro(".delete", "data-id", "@Url.Action("Delete", "TransitionParameters")", '#table', $(this));
         });
     });
     </script>

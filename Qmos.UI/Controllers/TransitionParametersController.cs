@@ -141,19 +141,19 @@ namespace KeyCore.TimeSheet.UI.Controllers
 
         //}
 
-        //public IActionResult Get()
-        //{
-        //    try
-        //    {
-        //        TemplateScheduleJobViewModel templateScheduleJobViewModel = new TemplateScheduleJobViewModel();
-        //        InitializeViewModel(templateScheduleJobViewModel);
-        //        return View("Form", templateScheduleJobViewModel);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        public IActionResult Get()
+        {
+            try
+            {
+                TransitionParametersViewModel templateScheduleJobViewModel = new TransitionParametersViewModel();
+                //InitializeViewModel(templateScheduleJobViewModel);
+                return View("Form", templateScheduleJobViewModel);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         //public IActionResult GetUpdate(long pk)
         //{

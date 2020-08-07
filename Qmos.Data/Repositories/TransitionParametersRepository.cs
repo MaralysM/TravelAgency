@@ -10,8 +10,8 @@ namespace Qmos.Data
 {
     public class TransitionParametersRepository : RepositoryBase, ITransitionParametersRepository
     {
-        string TABLE = $"{SCHEMA}update_time";
-        const string TAG = "UpdateTime_DATA";
+        string TABLE = $"{SCHEMA}transition_parameters_header";
+        const string TAG = "transitionparametersheaderDATA";
 
         public TransitionParametersRepository(IConfiguration configuration) : base(configuration)
         {
