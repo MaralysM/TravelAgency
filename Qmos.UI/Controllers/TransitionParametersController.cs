@@ -15,9 +15,11 @@ namespace KeyCore.TimeSheet.UI.Controllers
     public class TransitionParametersController : Controller
     {
         public ITransitionParametersManager Manager { get; }
-        public TransitionParametersController(ITransitionParametersManager manager)
+        public IElementManager ElementManager { get; }
+        public TransitionParametersController(ITransitionParametersManager manager, IElementManager elementManager)
         {
             Manager = manager;
+            ElementManager = elementManager;
         }
 
         public async Task<IActionResult> Index()
@@ -132,22 +134,19 @@ namespace KeyCore.TimeSheet.UI.Controllers
 
         //}
 
-        //private void InitializeViewModel(TemplateScheduleJobViewModel viewModel)
-        //{
-
-        //    var x = new Helper.PlanningHeper();
-        //    viewModel.Detail.ShiftDayList = x.ShiftDaySelectList(ParametersPlanManager.AllFullListHeaderShift((short)EmployeeManager.GetIdPlantByEmployeeId(EmployeeManager.GetDataEmployeeByEmployeeId(int.Parse(HttpContext.Session.GetString("employee_id"))).Id)));
-        //    viewModel.Detail.JobList = SelectListItemHelper.ToSelectList(JobManager.All(true, true).Result.ToList(), "Id", "Name", "Code", true);
-
-        //}
+        private void InitializeViewModel(TransitionParametersViewModel viewModel)
+        {
+            List<KCI_SecureModuleCL.Models.SM_ELEMENT> EntityElement = ElementManager.All().Result.ToList();             
+            viewModel.Detail.ElementList = SelectListItemHelper.ToSelectList(EntityElement.Where(x=>x.ID_ElementParent == EntityElement.Where(y=>y.TX_Name== "Dashboards").FirstOrDefault().ID_Element).ToList(), "ID_Element", "TX_Name", "Code");
+        }
 
         public IActionResult Get()
         {
             try
             {
-                TransitionParametersViewModel templateScheduleJobViewModel = new TransitionParametersViewModel();
-                //InitializeViewModel(templateScheduleJobViewModel);
-                return View("Form", templateScheduleJobViewModel);
+                TransitionParametersViewModel transitionParametersViewModel = new TransitionParametersViewModel();
+                InitializeViewModel(transitionParametersViewModel);
+                return View("Form", transitionParametersViewModel);
             }
             catch (Exception ex)
             {
