@@ -12,6 +12,7 @@ namespace Qmos.Data.Extensions
             
             services.AddTransient<ILogger_actionsRepository, LoggerActionsRepository>();
             services.AddTransient<IUpdateTimeRepository, UpdateTimeRepository>();
+            services.AddTransient<ITransitionParametersRepository, TransitionParametersRepository>();
             
             return services;
         }
