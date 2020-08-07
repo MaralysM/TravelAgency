@@ -132,6 +132,14 @@ BEGIN
   END
 
 
+
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Transition Parameters')
+BEGIN
+   INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
+ VALUES('Transition Parameters','fa fa-history','TransitionParameters' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Management'),2 ,0)
+END
+
+
   /*******************************************************
            Insert   [Security].[SM_ROLE]
 ********************************************************/
@@ -255,6 +263,12 @@ INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
            (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Update Time'))
 END
 
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Transition Parameters') AND ID_Role =1)
+BEGIN 
+INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
+           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Transition Parameters'))
+END
+
 /*******************************************************
            Update   [Security].[SM_ELEMENT] 
 ********************************************************/
@@ -315,7 +329,43 @@ UPDATE [Security].[SM_ELEMENT]
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM')
 GO
 
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Icon] = 'fa fa-money-bill-alt'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Qmos')
+GO
 
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Icon] = 'fa fa-cogs'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Management')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Icon] = 'fa fa-key'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Roles')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Icon] = 'fa fa-user'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Users')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Icon] = 'fa fa-bars'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Menu & Elements')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Icon] = 'fa fa-tachometer-alt'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards')
+GO
+
+UPDATE [Security].[SM_ELEMENT]
+   SET [TX_Icon] = 'fa fa-refresh'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Update Time')
+GO
+/*******************************************************           
+                        Management
+********************************************************/
 
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'update_time' )
 CREATE TABLE [Qmos].[update_time]
@@ -325,6 +375,33 @@ CREATE TABLE [Qmos].[update_time]
 	)
 GO
 
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'transition_parameters_header' )
+CREATE TABLE [Qmos].[transition_parameters_header]
+	(
+	  id SMALLINT NOT NULL IDENTITY(1,1),
+      name VARCHAR(100) NULL,
+	  active bit NULL,
+	  PRIMARY KEY(id)
+	)
+GO
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'transition_parameters_details' )
+CREATE TABLE [Qmos].[transition_parameters_details]
+	(
+	  id SMALLINT NOT NULL IDENTITY(1,1),
+	  id_transition_parameters_header SMALLINT NOT NULL,
+	  time_transition TIME(2) NULL,
+      order_transition SMALLINT NOT NULL,
+	  id_element  INT NOT NULL,
+	  PRIMARY KEY(id),
+	  FOREIGN KEY (id_element) REFERENCES [Security].[SM_ELEMENT](id_element),
+	  FOREIGN KEY (id_transition_parameters_header) REFERENCES [Qmos].[transition_parameters_header](id)
+	)
+GO
+
+/*******************************************************           
+                        Adjustment
+********************************************************/
   UPDATE [Qmos].[Security].[SM_ELEMENT] 
    SET [BO_Default] = 1
  WHERE [TX_Url] = 'Dashboard/TapWtTarget'
@@ -341,3 +418,4 @@ BEGIN
  UPDATE [Qmos].[Security].[SM_ELEMENT] SET TX_Name = 'Ton per Hour' WHERE [TX_Url] = 'Dashboard/ScrapTonPerHour'
  UPDATE [Qmos].[Security].[SM_ELEMENT] SET [TX_Url] = 'Dashboard/TonPerHour' WHERE TX_Name = 'Ton per Hour' 
 END
+
