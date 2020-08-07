@@ -50,62 +50,69 @@ namespace KeyCore.TimeSheet.UI.Controllers
         //    }
         //}
 
-        //public IActionResult Post(TemplateScheduleJobViewModel viewModel)
-        //{
-        //    InitializeViewModel(viewModel);
-        //    try
-        //    {
-        //        ValidateViewModel(viewModel);
+        public IActionResult Post(TransitionParametersViewModel viewModel)
+        {
+            InitializeViewModel(viewModel);
+            try
+            {
+                //ValidateViewModel(viewModel);
 
-        //        if (!ModelState.IsValid)
-        //        {
-        //            var data = Manager.FindById(viewModel.Header.Id);
-        //            viewModel.List = data.ScheduleEmployeeList;
-        //            return View("Form", viewModel);
-        //        }
+                if (!ModelState.IsValid)
+                {
+                    //var data = Manager.FindById(viewModel.Header.Id);
+                    //viewModel.List = data.ScheduleEmployeeList;
+                    //return View("Form", viewModel);
+                }
 
-        //        var entity = new TemplateJobHeader
-        //        {
-        //            Id = viewModel.Header.Id,
-        //            IdSupervisor = EmployeeManager.GetDataEmployeeByEmployeeId(int.Parse(HttpContext.Session.GetString("employee_id"))).Id,
-        //        };
+                var entity = new TransitionParametersHeader
+                {
+                    Id = viewModel.Header.Id,
+                    Name = "",
+                    Active = true
+                };
 
-        //        if (viewModel.Detail.ListOfSelectedWorkShift == null ? viewModel.Detail.Id_WorkShift != 0 : viewModel.Detail.ListOfSelectedWorkShift.Count() != 0 && viewModel.Detail.idJob != 0 && viewModel.Detail.OrderJob != 0)
-        //        {
-        //            if (viewModel.Detail.ListOfSelectedWorkShift != null)
-        //            {
-        //                foreach (var item in viewModel.Detail.ListOfSelectedWorkShift)
-        //                {
-        //                    entity.ScheduleEmployeeList.Add(new TemplateJobDetails
-        //                    {
-        //                        Id = viewModel.Detail.Id,
-        //                        Job = new Job { Id = viewModel.Detail.idJob },
-        //                        ParametersPlantHeaderShift = new ParametersPlantHeaderShift { Id = item },
-        //                        Orderjob = viewModel.Detail.OrderJob
-        //                    });
-        //                }
-        //            }
-        //            else
-        //            {
-        //                entity.ScheduleEmployeeList.Add(new TemplateJobDetails
-        //                {
-        //                    Id = viewModel.Detail.Id,
-        //                    Job = new Job { Id = viewModel.Detail.idJob },
-        //                    ParametersPlantHeaderShift = new ParametersPlantHeaderShift { Id = viewModel.Detail.Id_WorkShift },
-        //                    Orderjob = viewModel.Detail.OrderJob
-        //                });
-        //            }
-        //        }
+                var entityDetails = new TransitionParametersDetails
+                { 
+                    time_transition = viewModel.Detail.TimeTransition,
+                    order_transition =  viewModel.Detail.OrderTransition,
+                    id_element = viewModel.Detail.IdElement
+                };
+                //if (viewModel.Detail.ListOfSelectedWorkShift == null ? viewModel.Detail.Id_WorkShift != 0 : viewModel.Detail.ListOfSelectedWorkShift.Count() != 0 && viewModel.Detail.idJob != 0 && viewModel.Detail.OrderJob != 0)
+                //{
+                //    if (viewModel.Detail.ListOfSelectedWorkShift != null)
+                //    {
+                //        foreach (var item in viewModel.Detail.ListOfSelectedWorkShift)
+                //        {
+                //            entity.ScheduleEmployeeList.Add(new TemplateJobDetails
+                //            {
+                //                Id = viewModel.Detail.Id,
+                //                Job = new Job { Id = viewModel.Detail.idJob },
+                //                ParametersPlantHeaderShift = new ParametersPlantHeaderShift { Id = item },
+                //                Orderjob = viewModel.Detail.OrderJob
+                //            });
+                //        }
+                //    }
+                //    else
+                //    {
+                //        entity.ScheduleEmployeeList.Add(new TemplateJobDetails
+                //        {
+                //            Id = viewModel.Detail.Id,
+                //            Job = new Job { Id = viewModel.Detail.idJob },
+                //            ParametersPlantHeaderShift = new ParametersPlantHeaderShift { Id = viewModel.Detail.Id_WorkShift },
+                //            Orderjob = viewModel.Detail.OrderJob
+                //        });
+                //    }
+                //}
 
-        //        long result = Manager.Save(entity);
-        //        return RedirectToAction("GetUpdate", new { pk = result });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError("Error", ex.Message);
-        //        return View("Form", viewModel);
-        //    }
-        //}
+                long result = Manager.Save(entity);
+                return RedirectToAction("GetUpdate", new { pk = result });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+                return View("Form", viewModel);
+            }
+        }
 
 
         //private void ValidateViewModel(TemplateScheduleJobViewModel viewModel)

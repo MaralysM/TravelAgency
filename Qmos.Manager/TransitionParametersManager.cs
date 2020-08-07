@@ -43,28 +43,30 @@ namespace Qmos.Manager
             }
         }
 
-        //public async Task Save(UpdateTime updateTime)
-        //{
-        //    try
-        //    {
-        //        if (updateTime.Id == 0)
-        //        {
-        //            await Repository.Add(updateTime);
-        //        }
-        //        else
-        //        {
-        //            await Repository.UpdateAsync(updateTime, updateTime.Id);
-        //        }
-        //    }
-        //    catch (UniqueKeyException ex)
-        //    {
-        //        throw new Exception("Cannot insert or update a value duplicate");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Cannot add a register");
-        //    }
-        //}
+        public short Save(TransitionParametersHeader entity)
+        {
+            try
+            {
+                if (entity.Id == 0)
+                {
+                    entity.Id = Repository.AddHeader(entity);
+                    Repository.AddDetail(entity.Id, entity);
+                }
+                else
+                {
+                    Repository.AddDetail(entity.Id, entity);
+                }
+                return entity.Id;
+            }
+            catch (UniqueKeyException ex)
+            {
+                throw new Exception("Cannot insert or update a value duplicate");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cannot add a register");
+            }
+        }
 
 
         //public async Task<UpdateTime> FindById(object id)

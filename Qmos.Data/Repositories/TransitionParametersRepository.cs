@@ -17,15 +17,39 @@ namespace Qmos.Data
         {
 
         }
-        public async Task Add(UpdateTime entity)
+        public short AddHeader(TransitionParametersHeader entity)
         {
             try
             {
-                var con = await OpenAsync();
+                var con = Open();
                 SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = $" INSERT INTO {TABLE}([time_refresh]) VALUES('{entity.time_refresh}');";
-                await cmd.ExecuteNonQueryAsync();
+                cmd.CommandText = $" INSERT INTO {TABLE}([name],[active]) VALUES('{entity.Name}', '{entity.Active}');";
+                var result = cmd.ExecuteScalar();
                 Close(con);
+                return (short)result;
+            }
+            catch (SqlException ex) when (ex.Number == 2627)
+            {
+                throw new UniqueKeyException($"{TAG}: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool AddDetail(long idHeader, TransitionParametersHeader entity)
+        {
+            try
+            {
+                var con = Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = $"INSERT INTO [Qmos].[transition_parameters_details] " +
+                    $"(id_transition_parameters_header, time_transition, order_transition, id_element) " +
+                    $"VALUES ({idHeader}, {entity.TransitionParametersDetails.time_transition}, {entity.TransitionParametersDetails.order_transition}, {entity.TransitionParametersDetails.id_element}) ";
+                int result = cmd.ExecuteNonQuery();
+                Close(con);
+                return result > 0;
             }
             catch (SqlException ex) when (ex.Number == 2627)
             {

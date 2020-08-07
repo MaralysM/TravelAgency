@@ -6,7 +6,8 @@ namespace Qmos.Data
 {
     public interface ITransitionParametersRepository
     {
-        Task Add(UpdateTime entity);
+        short AddHeader(TransitionParametersHeader entity);
+        bool AddDetail(long idHeader, TransitionParametersHeader entity);
         Task<IList<TransitionParametersHeader>> AllAsync();
         Task<UpdateTime> UpdateAsync(UpdateTime entity, params object[] Id);
         Task<UpdateTime> FindByIdAsync(params object[] values);

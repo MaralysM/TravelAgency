@@ -11,6 +11,7 @@ namespace Qmos.Manager
     public interface ITransitionParametersManager
     {
         Task<IList<TransitionParametersHeader>> All(bool onlyActives = true);
+        short Save(TransitionParametersHeader entity);
         //Task Save(UpdateTime updateTime);
         //Task<UpdateTime> FindById(object id);
         //Task Delete(short id);
