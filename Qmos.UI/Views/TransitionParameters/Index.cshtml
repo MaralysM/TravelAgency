@@ -1,5 +1,5 @@
 ﻿@{
-    @model IList<Qmos.Entities.UpdateTime>
+    @model IList<Qmos.Entities.TransitionParametersHeader>
     ViewData["Title"] = "Update Time list";
     ViewData["Root"] = "Mangement";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,26 +14,31 @@
         <div class="col-lg-offset-2 col-lg-8">
             <div class="ibox">
                 <div class="ibox-content text-center p-md">
-                    @if (Model.Count()==0) { 
-                    <div class="row">
-                        <div class="col-lg-offset-10">
-                            <a asp-controller="UpdateTime" asp-action="Get" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
+                    @if (Model.Count() == 0)
+                    {
+                        <div class="row">
+                            <div class="col-lg-offset-10">
+                                <a asp-controller="UpdateTime" asp-action="Get" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
+                            </div>
                         </div>
-                    </div>
                     }
                     <table class="table table-striped table-bordered table-hover dataTables" id="table">
                         <thead>
                             <tr>
-                                <th>Update time</th>
+                                <th>Name</th>
+                                <th>Status</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @{ foreach (var item in Model)
-                                    {
+                                {
                                     <tr>
                                         <td>
-                                            @item.time_refresh
+                                            @item.Name
+                                        </td>
+                                        <td>
+                                            @item.Active
                                         </td>
                                         <td>
                                             <div class="btn-group">
@@ -42,8 +47,8 @@
                                             </div>
                                         </td>
                                     </tr>
-                                     }
                                 }
+                            }
                         </tbody>
                     </table>
                 </div>

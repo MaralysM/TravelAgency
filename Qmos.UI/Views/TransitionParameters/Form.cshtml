@@ -1,17 +1,8 @@
-﻿@using Microsoft.AspNetCore.Http;
-@{
-    @model Qmos.UI.ViewModels.UpdateTimeViewModel
-    @if (Model.Id != 0)
-    {
-        ViewData["Title"] = "Modify update time";
-    }
-    else
-    {
-        ViewData["Title"] = "Create update time";
-
-        ViewData["Root"] = "Users";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+﻿@{
+    @model Qmos.UI.ViewModels.TransitionParametersViewModel
+    ViewData["Title"] = "Transition parameters form";
+    ViewData["Root"] = "Transition parameters";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert.css">
 <link rel="stylesheet" href="~/css/plugins/toastr/toastr.min.css" />
@@ -36,16 +27,27 @@
                                 </div>
                             </div>
                             <form asp-action="Post" role="form" method="post">
-                                <input type="hidden" asp-for="@Model.Id" />
+                                <input type="hidden" asp-for="Header.Id" />
+                                <input type="hidden" asp-for="Detail.Id" />
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label>Time Refresh</label><span class="text-danger"> *</span>
+                                        <label>Time Transition</label><span class="text-danger"> *</span>
                                         <div class="input-group " data-autoclose="true">
-                                            <input type="text" class="form-control time" asp-for="TIME_REFRESH" placeholder="Time Refresh">
+                                            <input type="text" class="form-control time" asp-for="Detail.TimeTransition" placeholder="Time Transition">
                                             <span class="input-group-addon">
                                                 <span class="fa fa-clock-o"></span>
                                             </span>
                                         </div>
+                                    </div>
+                                    <div class="col-lg-2 form-group">
+                                        <label>Order</label><span class="text-danger"> *</span>
+                                        <input asp-for="Detail.OrderTransition" type="number" placeholder="Order" class="form-control">
+                                    </div>
+                                    <div class="col-lg-4 form-group">
+                                        <label>Chart</label><span class="text-danger"> *</span>
+                                        <select class="form-control m-b chosen-select" asp-for="Detail.IdElement" asp-items="@(Model.Detail.ElementList)">
+                                            <option value="0">Select One Option</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
@@ -74,9 +76,9 @@
 
         $(document).ready(function () {
             $('.time').inputmask("hh:mm:ss", {
-            placeholder: "hh:mm:ss", 
-            insertMode: false, 
-            showMaskOnHover: false     
+            placeholder: "hh:mm:ss",
+            insertMode: false,
+            showMaskOnHover: false
           }
          );
         });
