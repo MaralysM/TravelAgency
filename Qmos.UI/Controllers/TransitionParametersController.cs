@@ -27,7 +27,7 @@ namespace KeyCore.TimeSheet.UI.Controllers
             IList<TransitionParametersHeader> list = new List<TransitionParametersHeader>();
             try
             {
-                list = await Manager.All();
+                list = await Manager.All(false);
                 return View(list);
             }
             catch (Exception ex)
@@ -37,18 +37,18 @@ namespace KeyCore.TimeSheet.UI.Controllers
             }
         }
 
-        //public IActionResult GetUpdateDetail(int id)
-        //{
-        //    try
-        //    {
-        //        var result = Manager.FindDetailById(id);
-        //        return Json(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { error = true, message = ex.Message });
-        //    }
-        //}
+        public IActionResult GetUpdateDetail(short id)
+        {
+            try
+            {
+                var result = Manager.FindDetailById(id);
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = true, message = ex.Message });
+            }
+        }
 
         public IActionResult Post(TransitionParametersViewModel viewModel)
         {
@@ -67,49 +67,25 @@ namespace KeyCore.TimeSheet.UI.Controllers
                 var entity = new TransitionParametersHeader
                 {
                     Id = viewModel.Header.Id,
-                    Name = "",
+                    Name = "Transition parameters",
                     Active = true
                 };
 
-                var entityDetails = new TransitionParametersDetails
+                entity.TransitionParametersDetailsEntity = new TransitionParametersDetails
                 { 
+                    Id= viewModel.Detail.Id,
                     time_transition = viewModel.Detail.TimeTransition,
                     order_transition =  viewModel.Detail.OrderTransition,
-                    id_element = viewModel.Detail.IdElement
-                };
-                //if (viewModel.Detail.ListOfSelectedWorkShift == null ? viewModel.Detail.Id_WorkShift != 0 : viewModel.Detail.ListOfSelectedWorkShift.Count() != 0 && viewModel.Detail.idJob != 0 && viewModel.Detail.OrderJob != 0)
-                //{
-                //    if (viewModel.Detail.ListOfSelectedWorkShift != null)
-                //    {
-                //        foreach (var item in viewModel.Detail.ListOfSelectedWorkShift)
-                //        {
-                //            entity.ScheduleEmployeeList.Add(new TemplateJobDetails
-                //            {
-                //                Id = viewModel.Detail.Id,
-                //                Job = new Job { Id = viewModel.Detail.idJob },
-                //                ParametersPlantHeaderShift = new ParametersPlantHeaderShift { Id = item },
-                //                Orderjob = viewModel.Detail.OrderJob
-                //            });
-                //        }
-                //    }
-                //    else
-                //    {
-                //        entity.ScheduleEmployeeList.Add(new TemplateJobDetails
-                //        {
-                //            Id = viewModel.Detail.Id,
-                //            Job = new Job { Id = viewModel.Detail.idJob },
-                //            ParametersPlantHeaderShift = new ParametersPlantHeaderShift { Id = viewModel.Detail.Id_WorkShift },
-                //            Orderjob = viewModel.Detail.OrderJob
-                //        });
-                //    }
-                //}
+                    id_element = viewModel.Detail.IdElement,
+                    id_transition_parameters_header = viewModel.Header.Id
 
+                };
                 long result = Manager.Save(entity);
                 return RedirectToAction("GetUpdate", new { pk = result });
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("Error", ex.Message);
+                ModelState.AddModelError("Error", "An error occurred while saving. Verify that the data is correct");
                 return View("Form", viewModel);
             }
         }
@@ -161,52 +137,64 @@ namespace KeyCore.TimeSheet.UI.Controllers
             }
         }
 
-        //public IActionResult GetUpdate(long pk)
-        //{
-        //    TemplateScheduleJobViewModel viewModel = new TemplateScheduleJobViewModel();
-        //    InitializeViewModel(viewModel);
-        //    try
-        //    {
-        //        var data = Manager.FindById(pk);
-        //        viewModel.Header.Id = data.Id;
+        public IActionResult GetUpdate(long pk)
+        {
+            TransitionParametersViewModel viewModel = new TransitionParametersViewModel();
+            InitializeViewModel(viewModel);
+            try
+            {
+                var data = Manager.FindById(pk).Result;
+                viewModel.List = data.transitionParametersDetails;
+                viewModel.Header.Id = data.Id;
+                return View("Form", viewModel);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+                return View("Form", viewModel);
+            }
+        }
 
-        //        viewModel.Header.Employee.Name = string.Concat(data.Employee.personSupervisor.FirstName.ToString(), " ", data.Employee.personSupervisor.SecondName.ToString(), " ", data.Employee.personSupervisor.LastName.ToString(), " ", data.Employee.personSupervisor.SecondLastName.ToString()).ToUpper();
-        //        viewModel.List = data.ScheduleEmployeeList;
-        //        return View("Form", viewModel);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError("Error", ex.Message);
-        //        return View("Form", viewModel);
-        //    }
-        //}
+        public IActionResult Remove(short id)
+        {
+            try
+            {
+                Manager.Remove(id);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
 
+        public IActionResult RemoveDetail(short id)
+        {
+            try
+            {
+                Manager.RemoveDetail(id);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
 
-        //public IActionResult Remove(long id)
-        //{
-        //    try
-        //    {
-        //        Manager.Remove(id);
-        //        return Json(true);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { success = false, error = ex.Message });
-        //    }
-        //}
-
-        //public IActionResult RemoveDetail(long id)
-        //{
-        //    try
-        //    {
-        //        Manager.RemoveDetail(id);
-        //        return Json(true);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { success = false, error = ex.Message });
-        //    }
-        //}
+        public async Task<IActionResult> UpdateStatus(int id)
+        {
+            try
+            {
+                TransitionParametersHeader entity = await Manager.FindById(id);
+                entity.Active = !entity.Active;
+                bool Resp = Manager.UpdateHeader(entity);
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
 
     }
 }

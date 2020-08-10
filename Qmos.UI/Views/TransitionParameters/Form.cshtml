@@ -59,6 +59,41 @@
                                 </div>
                             </form>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table class="table table-striped table-bordered table-hover dataTables" id="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Time Transition</th>
+                                            <th>Order Transition</th>
+                                            <th>Chart</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.List)
+                                        {
+                                            <tr>
+                                                <td class="text-center">@item.time_transition</td>
+                                                <td> @item.order_transition</td>
+                                                <td> @item.element_name</td>
+                                                <td class="text-center">
+                                                    <div class="btn-group">
+                                                        <a data-id="@item.Id" class="btn btn-primary btnEditDetail"><i class="fa fa-edit"></i></a>
+                                                        <a data-id="@item.Id" class="btn btn-danger delete">
+                                                            <i class="fa fa-remove"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -71,16 +106,43 @@
     <script>
         formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 1], null);
         $('#table tbody').on('click', '.delete', function () {
-            eliminarRegistro(".delete", "data-id", "@Url.Action("DeleteRoleByUser", "Users")", '#table', $(this));
+            eliminarRegistro(".delete", "data-id", "@Url.Action("RemoveDetail", "TransitionParameters")", '#table', $(this));
         });
 
         $(document).ready(function () {
+
             $('.time').inputmask("hh:mm:ss", {
-            placeholder: "hh:mm:ss",
-            insertMode: false,
-            showMaskOnHover: false
-          }
-         );
+                placeholder: "hh:mm:ss",
+                insertMode: false,
+                showMaskOnHover: false
+             });
+
+             $('form').submit(function () {
+                if ($('#Detail_TimeTransition').val() == "" && $('#Detail_OrderTransition').val() == 0 && $('#Detail_IdElement').val() == 0) {
+                    toastr.error("Enter the fields marked as required");
+                    return false;
+                }
+                return true;
+            });
+
+         $('.btnEditDetail').on('click', function () {
+                $.ajax({
+                url: '@Url.Action("GetUpdateDetail", "TransitionParameters")',
+                method: "GET",
+                data: { id : $(this).attr('data-id') },
+                    success: function (retorno) {                                            
+                    $('#Header_Id').val(retorno.id_transition_parameters_header);
+                    $('#Detail_Id').val(retorno.id);
+                    $('#Detail_TimeTransition').val(retorno.time_transition);
+                    $('#Detail.TimeTransition').trigger("chosen:updated");
+                    $('#Detail_OrderTransition').val(retorno.order_transition);
+                    $('#Detail_IdElement').val(retorno.id_element);
+                },
+                error: function (response) {
+                    toastr.error("There is a problem: " + response.responseText);
+                }
+                });
+            });
         });
 
     </script>

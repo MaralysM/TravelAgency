@@ -8,5 +8,6 @@ namespace Qmos.Entities
         public string time_transition { get; set; }
         public short order_transition { get; set; }
         public int id_element { get; set; }
+        public string element_name{ get; set; }
     }
 }

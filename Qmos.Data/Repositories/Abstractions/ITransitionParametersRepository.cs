@@ -10,8 +10,12 @@ namespace Qmos.Data
         bool AddDetail(long idHeader, TransitionParametersHeader entity);
         Task<IList<TransitionParametersHeader>> AllAsync();
         Task<UpdateTime> UpdateAsync(UpdateTime entity, params object[] Id);
-        Task<UpdateTime> FindByIdAsync(params object[] values);
-        void Remove(UpdateTime entity);
+        void Remove(short entity);
+        Task<TransitionParametersHeader> FindByIdAsync(params object[] values);
+        TransitionParametersDetails FindDetailById(short id);
+        void RemoveDetail(short id);
+        bool UpdateDetail(TransitionParametersHeader entity);
+        bool UpdateHeader(TransitionParametersHeader entity);
 
     }
 }

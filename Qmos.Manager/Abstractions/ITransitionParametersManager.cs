@@ -12,8 +12,12 @@ namespace Qmos.Manager
     {
         Task<IList<TransitionParametersHeader>> All(bool onlyActives = true);
         short Save(TransitionParametersHeader entity);
+        Task<TransitionParametersHeader> FindById(object id);
+        TransitionParametersDetails FindDetailById(short id);
+        void Remove(short id);
+        void RemoveDetail(short id);
+        bool UpdateHeader(TransitionParametersHeader entity);
         //Task Save(UpdateTime updateTime);
         //Task<UpdateTime> FindById(object id);
-        //Task Delete(short id);
     }
 }

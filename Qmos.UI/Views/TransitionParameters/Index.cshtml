@@ -35,15 +35,18 @@
                                 {
                                     <tr>
                                         <td>
-                                            @item.Name
+                                            @item.Name.ToUpper()
                                         </td>
                                         <td>
-                                            @item.Active
+                                            @(item.Active ? "ACTIVE" : "INACTIVE" )
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a asp-controller="TransitionParameters" asp-action="GetUpdate" asp-route-pk="@item.Id" class="btn btn-primary"><i class="fa fa-edit"></i> Update</a>
-                                                <a data-id="@item.Id" class="btn btn-danger delete"><i class="fa fa-remove"></i> Remove</a>
+                                                <a asp-controller="TransitionParameters" asp-action="GetUpdate" data-toggle="tooltip" title="Update" asp-route-pk="@item.Id" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                <a data-id="@item.Id" class="btn updateStatus btn-success" data-toggle="tooltip" title="@(item.Active ? "Inactivate" : "Activate")">
+                                                    <i class="fa @(item.Active ? "fa-remove" : "fa-check")"></i> 
+                                                </a>
+                                                <a data-id="@item.Id" class="btn btn-danger delete" data-toggle="tooltip" title="Remove"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -68,7 +71,11 @@
     {
         formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 1], null);
         $('#table tbody').on('click', '.delete', function () {
-            eliminarRegistro(".delete", "data-id", "@Url.Action("Delete", "TransitionParameters")", '#table', $(this));
+            eliminarRegistro(".delete", "data-id", "@Url.Action("Remove", "TransitionParameters")", '#table', $(this));
+        });
+
+       $('#table tbody').on('click', '.updateStatus', function () {
+            updateStatus("data-id", "@Url.Action("UpdateStatus", "TransitionParameters")", '#table', $(this));
         });
     });
     </script>

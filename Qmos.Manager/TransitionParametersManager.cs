@@ -54,7 +54,15 @@ namespace Qmos.Manager
                 }
                 else
                 {
-                    Repository.AddDetail(entity.Id, entity);
+                    Repository.UpdateHeader(entity);
+                    if (entity.TransitionParametersDetailsEntity.Id > 0)
+                    {
+                        Repository.UpdateDetail(entity);
+                    }
+                    else
+                    {
+                        Repository.AddDetail(entity.Id, entity);
+                    }
                 }
                 return entity.Id;
             }
@@ -69,34 +77,79 @@ namespace Qmos.Manager
         }
 
 
-        //public async Task<UpdateTime> FindById(object id)
-        //{
-        //    try
-        //    {
-        //        return await Repository.FindByIdAsync(id);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Have ocurred an error to search");
-        //    }
-        //}
 
-        //public async Task Delete(short id)
-        //{
-        //    try
-        //    {
-        //        UpdateTime entity = await Repository.FindByIdAsync(id);
-        //        Repository.Remove(entity);
-        //    }
-        //    catch (DeleteWithRelationshipException ex)
-        //    {
-        //        throw new Exception("The record you are trying to delete is related to another");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Have ocurred an error to delete");
-        //    }
-        //}
+        public bool UpdateHeader(TransitionParametersHeader entity)
+        {
+            try
+            {
+                  bool resp =   Repository.UpdateHeader(entity);
+                
+                return resp;
+            }
+            catch (UniqueKeyException ex)
+            {
+                throw new Exception("Cannot insert or update a value duplicate");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cannot add a register");
+            }
+        }
+        public async Task<TransitionParametersHeader> FindById(object id)
+        {
+            try
+            {
+                return await Repository.FindByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Have ocurred an error to search");
+            }
+        }
+
+        public TransitionParametersDetails FindDetailById(short id)
+        {
+            try
+            {
+                return Repository.FindDetailById(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Have ocurred an error to search");
+            }
+        }
+
+        public void Remove(short id)
+        {
+            try
+            {
+                Repository.Remove(id);
+            }
+            catch (DeleteWithRelationshipException ex)
+            {
+                throw new Exception("The record you are trying to delete is related to another");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Have ocurred an error to delete");
+            }
+        }
+
+        public void RemoveDetail(short id)
+        {
+            try
+            {
+                Repository.RemoveDetail(id);
+            }
+            catch (DeleteWithRelationshipException ex)
+            {
+                throw new Exception("The record you are trying to delete is related to another");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Have ocurred an error to delete");
+            }
+        }
 
     }
 }
