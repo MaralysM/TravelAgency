@@ -1258,9 +1258,12 @@ function ChargeCarbon(retorno) {
     chart = c3.generate(opts);
 }
 
-function refresh() {
+function refresh(Url,Order) {
+    debugger
     //Refresh the page
-    location.reload();
+    if (Order == 0) {
+        location.reload();
+    } else { window.location.replace(Url); }
 }
 
 var tiempo = {};

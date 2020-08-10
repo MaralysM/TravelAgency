@@ -33,54 +33,54 @@ namespace Qmos.UI.Controllers
         {
             return View();
         }
-        public IActionResult MTDMissedHeats()
+        public IActionResult MTDMissedHeats(decimal Time = 0, short Order = 0)
         {
   
-            return View("MTDMissedHeats", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result }) ;
+            return View("MTDMissedHeats", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order }) ;
         }
 
-        public IActionResult MTDDelays()
+        public IActionResult MTDDelays(decimal Time = 0, short Order = 0)
         {
-            return View("MTDDelays", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("MTDDelays", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
 
-        public IActionResult MTDTapTempandO2PPM()
+        public IActionResult MTDTapTempandO2PPM(decimal Time = 0, short Order = 0)
         {
-            return View("MTDTapTempandO2PPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("MTDTapTempandO2PPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
-        public IActionResult KWhPerScrapTon()
+        public IActionResult KWhPerScrapTon(decimal Time = 0, short Order = 0)
         {
-            return View("KWhPerScrapTon", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
-        }
-
-        public IActionResult TonPerHour()
-        {
-            return View("TonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("KWhPerScrapTon", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
 
-        public IActionResult IronYield()
+        public IActionResult TonPerHour(decimal Time = 0, short Order = 0)
         {
-            return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("TonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
-        public IActionResult TargetPPM()
+
+        public IActionResult IronYield(decimal Time = 0, short Order = 0)
         {
-            return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
-        public IActionResult TargetTemp()
+        public IActionResult TargetPPM(decimal Time = 0, short Order = 0)
         {
-            return View("TargetTemp", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
-        public IActionResult TapWtTarget()
+        public IActionResult TargetTemp(decimal Time = 0, short Order = 0)
         {
-            return View("TapWtTarget", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("TargetTemp", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
-        public IActionResult MTDProduction()
+        public IActionResult TapWtTarget(decimal Time = 0, short Order = 0)
         {
-            return View("MTDProduction", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("TapWtTarget", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
-        public IActionResult MTDAverage()
+        public IActionResult MTDProduction(decimal Time = 0, short Order = 0)
         {
-            return View("MTDAverage", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds().Result });
+            return View("MTDProduction", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+        }
+        public IActionResult MTDAverage(decimal Time = 0, short Order = 0)
+        {
+            return View("MTDAverage", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
 
     }

@@ -175,8 +175,8 @@ namespace Qmos.Data
                 SqlConnection con = Open();
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandText = $" SELECT * FROM [Qmos].[transition_parameters_header] TPH " +
-                $" INNER JOIN[Qmos].[transition_parameters_details] TPD ON TPH.id = TPD.id_transition_parameters_header" +
-                $" WHERE TPH.id = {values[0]};";
+                $" INNER JOIN[Qmos].[transition_parameters_details] TPD ON TPH.id = TPD.id_transition_parameters_header";
+               // $" WHERE TPH.id = {values[0]};";
                 var dr = await cmd.ExecuteReaderAsync();
                 while (dr.Read())
                 {

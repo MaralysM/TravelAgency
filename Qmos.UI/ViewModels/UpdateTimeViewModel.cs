@@ -15,6 +15,7 @@ namespace Qmos.UI.ViewModels
         public string TIME_REFRESH { get; set; }
         public decimal TIMEMILLISECONDS{ get; set; }
         public bool ACTIVE { get; set; }
+        public short ORDER_TRANSITION{ get; set; }
 
     }
 }

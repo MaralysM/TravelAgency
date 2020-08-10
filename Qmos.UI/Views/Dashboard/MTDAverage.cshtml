@@ -11,22 +11,22 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-chosen.css" />
 <link href="~/css/plugins/c3/c3.min.css" rel="stylesheet" />
 <style>
-.mytxt {
-    font-size: 14pt;
-}
- .Alg { 
- width: 100%;
-  min-height: 200px;
-}
-.c3-chart-arcs-gauge-min 
-{
-    font-size: 12px;
-}
+    .mytxt {
+        font-size: 14pt;
+    }
 
-.c3-chart-arcs-gauge-max 
-{
-    font-size: 12px;
-}
+    .Alg {
+        width: 100%;
+        min-height: 200px;
+    }
+
+    .c3-chart-arcs-gauge-min {
+        font-size: 12px;
+    }
+
+    .c3-chart-arcs-gauge-max {
+        font-size: 12px;
+    }
 </style>
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -89,8 +89,10 @@
             //Every X seconds (XXXX milliseconds) the refresh function will be executeicond
             if (@Model.TIMEMILLISECONDS > 0) {
             var milliseconds = @Model.TIMEMILLISECONDS;
-                setTimeout(refresh, milliseconds);
+              setTimeout(function(){
+                refresh("@Url.Action("Index", "AutomaticTransition")?Order="+ @Model.ORDER_TRANSITION,@Model.ORDER_TRANSITION);
+            },milliseconds)
             }
-        });
- </script>
-                }
+            });
+    </script>
+}

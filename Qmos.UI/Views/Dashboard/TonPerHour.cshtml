@@ -70,8 +70,10 @@
             //Every X seconds (XXXX milliseconds) the refresh function will be executed
             if (@Model.TIMEMILLISECONDS > 0) {
             var milliseconds = @Model.TIMEMILLISECONDS;
-                setTimeout(refresh, milliseconds);
-                }
+              setTimeout(function(){
+                refresh("@Url.Action("Index", "AutomaticTransition")?Order="+ @Model.ORDER_TRANSITION,@Model.ORDER_TRANSITION);
+            },milliseconds)
+            }
         });
     </script>
 }

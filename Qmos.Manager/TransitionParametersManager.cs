@@ -151,5 +151,23 @@ namespace Qmos.Manager
             }
         }
 
+        public decimal ConversionToMilliseconds(string Time)
+        {
+            try
+            {
+                int totalH = 0; int TotalM = 0; int TotalS = 0;
+                string[] timeArray = Time.Split(':');
+                totalH = int.Parse(timeArray[0]) * 3600000;// Conversion Horas
+                TotalM = int.Parse(timeArray[1]) * 60000;//Conversion Minutos
+                TotalS = int.Parse(timeArray[2]) * 1000;// Conversion Segundos    
+                
+                return (totalH + TotalM + TotalS);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Have ocurred an error ");
+            }
+        }
+
     }
 }
