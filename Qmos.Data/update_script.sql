@@ -419,3 +419,18 @@ BEGIN
  UPDATE [Qmos].[Security].[SM_ELEMENT] SET [TX_Url] = 'Dashboard/TonPerHour' WHERE TX_Name = 'Ton per Hour' 
 END
 
+/*******************************************************                                  
+                Automatic transition
+********************************************************/
+
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Automatic Transition')
+BEGIN
+INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
+ VALUES('Automatic Transition','fa fa-spinner','AutomaticTransition' ,1,2 ,0)
+END
+
+ IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Automatic Transition') AND ID_Role =1)
+BEGIN  
+INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
+           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Automatic Transition'))
+END
