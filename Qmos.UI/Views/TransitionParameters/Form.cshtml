@@ -118,7 +118,7 @@
              });
 
              $('form').submit(function () {
-                if ($('#Detail_TimeTransition').val() == "" && $('#Detail_OrderTransition').val() == 0 && $('#Detail_IdElement').val() == 0) {
+                if ($('#Detail_TimeTransition').val() == "" || $('#Detail_OrderTransition').val() == 0 || $('#Detail_IdElement').val() == 0) {
                     toastr.error("Enter the fields marked as required");
                     return false;
                 }

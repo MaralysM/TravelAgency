@@ -434,3 +434,4 @@ BEGIN
 INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
            (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Automatic Transition'))
 END
+

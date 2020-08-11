@@ -55,13 +55,13 @@ namespace KeyCore.TimeSheet.UI.Controllers
             InitializeViewModel(viewModel);
             try
             {
-                //ValidateViewModel(viewModel);
+                ValidateViewModel(viewModel);
 
                 if (!ModelState.IsValid)
                 {
-                    //var data = Manager.FindById(viewModel.Header.Id);
-                    //viewModel.List = data.ScheduleEmployeeList;
-                    //return View("Form", viewModel);
+                    var data = Manager.FindById(viewModel.Header.Id).Result;
+                    viewModel.List = data.transitionParametersDetails;
+                    return View("Form", viewModel);
                 }
 
                 var entity = new TransitionParametersHeader
@@ -86,36 +86,28 @@ namespace KeyCore.TimeSheet.UI.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("Error", "An error occurred while saving. Verify that the data is correct");
+                var data = Manager.FindById(viewModel.Header.Id).Result;
+                viewModel.List = data.transitionParametersDetails;
                 return View("Form", viewModel);
             }
         }
 
 
-        //private void ValidateViewModel(TemplateScheduleJobViewModel viewModel)
-        //{
-        //    if (viewModel.Detail.ListOfSelectedWorkShift == null ? viewModel.Detail.Id_WorkShift == 0 : viewModel.Detail.ListOfSelectedWorkShift.Count() == 0)
-        //        ModelState.AddModelError("Shift", "The Shift field is required");
-        //    if (viewModel.Detail.idJob == 0)
-        //        ModelState.AddModelError("Job", "The Job field is required");
-        //    if (viewModel.Detail.OrderJob < 0)
-        //        ModelState.AddModelError("Order", "The Order field is required ( > 0)");
+        private void ValidateViewModel(TransitionParametersViewModel viewModel)
+        {
+            if (viewModel.Detail.TimeTransition == "" )
+                ModelState.AddModelError("Error", "The transition time is required");
+            if (viewModel.Detail.OrderTransition == 0)
+                ModelState.AddModelError("Error", "The Order field is required ( > 0)");
+            if (viewModel.Detail.IdElement == 0)
+                ModelState.AddModelError("Error", "The graph is required");
 
-        //    var ss = Manager.AllDetailByIdHeader(viewModel.Header.Id);
-        //    if (ss.Any(x => x.Orderjob == viewModel.Detail.OrderJob && (viewModel.Detail.ListOfSelectedWorkShift == null ? x.ParametersPlantHeaderShift.Id == viewModel.Detail.Id_WorkShift : viewModel.Detail.ListOfSelectedWorkShift.Contains(x.ParametersPlantHeaderShift.Id)) && x.Id != viewModel.Detail.Id))
-        //    {
-        //        ModelState.AddModelError("Order", "The Order already has a template");
-        //    }
-        //    if (ss.Any(x => x.Job.Id == viewModel.Detail.idJob && (viewModel.Detail.ListOfSelectedWorkShift == null ? x.ParametersPlantHeaderShift.Id == viewModel.Detail.Id_WorkShift : viewModel.Detail.ListOfSelectedWorkShift.Contains(x.ParametersPlantHeaderShift.Id)) && x.Orderjob == viewModel.Detail.OrderJob && x.Id == viewModel.Header.Id))
-        //    {
-        //        ModelState.AddModelError("Job", "The Job already has a template");
-        //    }
-
-        //    if (ss.Any(x => x.Job.Id == viewModel.Detail.idJob && (viewModel.Detail.ListOfSelectedWorkShift == null ? x.ParametersPlantHeaderShift.Id == viewModel.Detail.Id_WorkShift : viewModel.Detail.ListOfSelectedWorkShift.Contains(x.ParametersPlantHeaderShift.Id)) && viewModel.Detail.Id == 0))
-        //    {
-        //        ModelState.AddModelError("Job", "The Job already has a template");
-        //    }
-
-        //}
+            var data = Manager.FindById(0).Result.transitionParametersDetails;
+            if (data.Any(x => x.order_transition == viewModel.Detail.OrderTransition))
+            {
+                ModelState.AddModelError("Order", "The Order already has a template");
+            }
+        }
 
         private void InitializeViewModel(TransitionParametersViewModel viewModel)
         {

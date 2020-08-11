@@ -37,13 +37,17 @@ namespace Qmos.UI.Controllers
             TransitionParametersHeader DataHeader = Manager.FindById(0).Result;
             string[] Element = null; 
             if (DataHeader.Active) {
-
-                Order++;
+                if (Order == DataHeader.transitionParametersDetails.OrderByDescending(x => x.order_transition).FirstOrDefault().order_transition)
+                {
+                    Order = 1;
+                }
+                else {
+                    Order++;
+                }
+                
                 DataDetails = DataHeader.transitionParametersDetails.OrderBy(x => x.order_transition).Where(x => x.order_transition >= Order).FirstOrDefault();
                 Element = ElementManager.FindById(DataDetails.id_element).Result.TX_Url.Split("/");
 
-                if (Order == DataHeader.transitionParametersDetails.OrderByDescending(x => x.order_transition).FirstOrDefault().order_transition)
-                    Order = 0;
 
             } else {
                 ModelState.AddModelError("Error", "Automatic transition graphs are not active");
@@ -51,7 +55,6 @@ namespace Qmos.UI.Controllers
             }
 
             return RedirectToAction($"{Element[1]}", $"{Element[0]}", new { Time = Manager.ConversionToMilliseconds(DataDetails.time_transition), Order= DataDetails.order_transition });
-          //  return View("MTDDelays", new UpdateTimeViewModel { TIMEMILLISECONDS = Manager.ConversionToMilliseconds(DataDetails.time_transition), AUTOMATIC_TRANSITION = true, ORDER_TRANSITION = DataDetails.order_transition });
 
         }
     }

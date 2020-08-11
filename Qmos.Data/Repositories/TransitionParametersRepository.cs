@@ -201,7 +201,7 @@ namespace Qmos.Data
             {
                 SqlConnection con = Open();
                 SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = $"select * from [Qmos].[transition_parameters_details] where id = {id}";
+                cmd.CommandText = $"select E.TX_Name element_name, * from [Qmos].[transition_parameters_details] TPD INNER JOIN [Security].[SM_ELEMENT] E ON TPD.id_element =E.ID_Element where id = {id}";
                 var dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
