@@ -374,7 +374,7 @@ UPDATE [Security].[SM_ELEMENT]
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Icon] = 'fa fa-tachometer-alt'
+   SET [TX_Icon] = 'fa fa-dashboard'
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards')
 GO
 
@@ -454,3 +454,48 @@ INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
            (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Automatic Transition'))
 END
 
+/*******************************************************                                  
+                Reference Parameters
+********************************************************/
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Reference Parameters')
+	BEGIN
+	INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
+	VALUES('Reference Parameters','fa fa-cog','ReferenceParameters' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Management'),2 ,0)
+	END
+
+     IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Reference Parameters') AND ID_Role =1)
+BEGIN  
+INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
+           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Reference Parameters'))
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'reference_Parameters')
+ CREATE TABLE [Qmos].[reference_parameters]
+	(
+	  id SMALLINT NOT NULL IDENTITY(1,1),
+	  id_element  INT NOT NULL,
+	  cant_ref SMALLINT NOT NULL,
+	  ref1 DECIMAL(18,2) NULL,
+	  ref2 DECIMAL(18,2) NULL,  
+	  PRIMARY KEY(id),
+	  FOREIGN KEY (id_element) REFERENCES [Security].[SM_ELEMENT](id_element)
+	)
+GO
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[reference_Parameters] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM') )
+BEGIN 
+INSERT INTO [Qmos].[reference_Parameters]([id_element],[cant_ref]) VALUES
+           ((select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM'), 2)
+END
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[reference_Parameters] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp') )
+BEGIN 
+INSERT INTO [Qmos].[reference_Parameters]([id_element],[cant_ref]) VALUES
+           ((select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp'), 2)
+END
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[reference_Parameters] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget') )
+BEGIN 
+INSERT INTO [Qmos].[reference_Parameters]([id_element],[cant_ref]) VALUES
+           ((select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget'), 2)
+END
