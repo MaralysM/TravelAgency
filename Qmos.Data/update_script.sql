@@ -8,6 +8,25 @@ BEGIN
      VALUES('ronner.velazquez@key-core.com','B2B0EBU0FJNECAMF1A2D66F63597D68DBDE933A0CC81694B0E8C6B798CAF0E3740A82A26A1B05E4F5F87502EA31610CB8348DA0920',1,0,123,'Ronner','','Velazquez','',435365365,1,NULL)
 END
 
+
+/*******************************************************           
+                        Adjustment
+********************************************************/
+
+  if ((select cOUNT(ID_Element) from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and O2 PPM') > 1)
+  begin 
+    DELETE FROM [Security].[SM_ROLE_ELEMENT]  WHERE id_element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and O2 PPM')
+    DELETE FROM [Qmos].[transition_parameters_details] WHERE id_element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and O2 PPM')
+	DELETE FROM [Security].[SM_ELEMENT] WHERE TX_Name= 'MTD Tap Temp and O2 PPM'
+  end
+
+ if ((select cOUNT(ID_Element) from [Security].[SM_ELEMENT] where  TX_Name= 'Ton per Hour') > 1)
+  begin 
+    DELETE FROM [Security].[SM_ROLE_ELEMENT]  WHERE id_element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Ton per Hour')
+    DELETE FROM [Qmos].[transition_parameters_details] WHERE id_element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Ton per Hour')
+	DELETE FROM [Security].[SM_ELEMENT] WHERE TX_Name= 'Ton per Hour'
+  end
+
 /*******************************************************
            Insert   [Security].[SM_ELEMENT] 
 ********************************************************/
@@ -81,10 +100,10 @@ BEGIN
   END
 
 
-  IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Scrap Ton per Hour')
+  IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Ton per Hour')
 BEGIN
     INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('Scrap Ton per Hour','','Dashboard' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
+ VALUES('Ton per Hour','','Dashboard' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
   END
 
     IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Iron Yield')
@@ -105,10 +124,10 @@ INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementPare
  VALUES('MTD Missed Heats','','Dashboard/MTDMissedHeats' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
   END
 
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Tap Temp and 02 PPM')
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Tap Temp and O2 PPM')
 BEGIN
  INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('MTD Tap Temp and 02 PPM','','Dashboard/MTDTapTempand02PPM' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
+ VALUES('MTD Tap Temp and O2 PPM','','Dashboard/MTDTapTempandO2PPM' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
 END
 
 IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Average')
@@ -215,10 +234,10 @@ INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
            (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'KWh per Ton'))
 END
 
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Scrap Ton per Hour') AND ID_Role =1)
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Ton per Hour') AND ID_Role =1)
 BEGIN 
 INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Scrap Ton per Hour'))
+           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Ton per Hour'))
 END
 
 IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Iron Yield') AND ID_Role =1)
@@ -239,10 +258,10 @@ INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
            (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Missed Heats'))
 END
 
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and 02 PPM') AND ID_Role =1)
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and O2 PPM') AND ID_Role =1)
 BEGIN 
 INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and 02 PPM'))
+           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and O2 PPM'))
 END
 
 IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average') AND ID_Role =1)
@@ -285,8 +304,8 @@ UPDATE [Security].[SM_ELEMENT]
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/MTDTapTempand02PPM'
- WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and 02 PPM')
+   SET [TX_Url] = 'Dashboard/MTDTapTempandO2PPM'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and O2 PPM')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
@@ -305,8 +324,8 @@ UPDATE [Security].[SM_ELEMENT]
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/ScrapTonPerHour'
- WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Scrap Ton per Hour')
+   SET [TX_Url] = 'Dashboard/TonPerHour'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Ton per Hour')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
