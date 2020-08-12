@@ -1,0 +1,76 @@
+﻿@{
+    @model IList<Qmos.Entities.ReferenceParameters>
+    ViewData["Title"] = "Reference Parameters";
+    ViewData["Root"] = "Mangement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert.css">
+<link rel="stylesheet" href="~/css/plugins/dataTables/datatables.min.css" />
+<link rel="stylesheet" href="~/css/plugins/toastr/toastr.min.css" />
+<partial name="_HeaderDetailPartial" view-data="ViewData" />
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8">
+            <div class="ibox">
+                <div class="ibox-content text-center p-md">
+                    <table class="table table-striped table-bordered table-hover dataTables" id="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Ref 1</th>
+                                <th hidden>Ref 1</th>
+                                <th>Ref 2</th>
+                                <th hidden>Ref 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.name_element
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="Ref 1" value="@item.ref1" class="form-control">
+                                        </td>
+                                        <td hidden>
+                                            2,5
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="Ref 2" value="@item.ref2"class="form-control">
+                                        </td>
+                                        <td hidden>
+                                            2,5
+                                        </td>
+                                    </tr>
+                                    }
+                                }
+                                </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="~/js/plugins/dataTables/dataTablesCustom.js"></script>
+    <script src="~/js/plugins/toastr/toastr.min.js"></script>
+
+    <script>
+    $(document).ready(function ()
+    {
+        formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 2], null);
+        $('#table tbody').on('click', '.delete', function () {
+            eliminarRegistro(".delete", "data-id", "@Url.Action("Remove", "TransitionParameters")", '#table', $(this));
+        });
+
+       $('#table tbody').on('click', '.updateStatus', function () {
+            updateStatus("data-id", "@Url.Action("UpdateStatus", "TransitionParameters")", '#table', $(this));
+        });
+    });
+    </script>
+}

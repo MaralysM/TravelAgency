@@ -22,6 +22,7 @@ namespace Qmos.Manager.Extensions
             services.AddTransient<IUpdateTimeManager, UpdateTimeManager>();
             services.AddTransient<IDashboardManager, DashboardManager>();
             services.AddTransient<ITransitionParametersManager, TransitionParametersManager>();
+            services.AddTransient<IReferenceParametersManager, ReferenceParametersManager>();
 
             return services;
         }
