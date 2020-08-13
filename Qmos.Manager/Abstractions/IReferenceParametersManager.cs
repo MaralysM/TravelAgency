@@ -12,5 +12,6 @@ namespace Qmos.Manager
     {
         Task<IList<ReferenceParameters>> All();
         bool UpdateReference(ReferenceParameters entity);
+        ReferenceParameters FindByIdElement(int id_element);
     }
 }

@@ -23,11 +23,12 @@ namespace Qmos.UI.Controllers
     public class DashboardController : Controller
     {
         public IDashboardManager Manager { get; }
+        public IReferenceParametersManager ReferenceParametersManager { get; }
 
-
-        public DashboardController(IDashboardManager manager)
+        public DashboardController(IDashboardManager manager, IReferenceParametersManager referenceParametersManager)
         {
             Manager = manager;
+            ReferenceParametersManager = referenceParametersManager;
         }
         public IActionResult Index()
         {
@@ -62,9 +63,10 @@ namespace Qmos.UI.Controllers
         {
             return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
-        public IActionResult TargetPPM(decimal Time = 0, short Order = 0)
+        public IActionResult TargetPPM(int id, decimal Time = 0, short Order = 0)
         {
-            return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+            ReferenceParameters referenceParameters = ReferenceParametersManager.FindByIdElement(id);
+            return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, REF1 = referenceParameters.ref1, REF2 = referenceParameters.ref2 });
         }
         public IActionResult TargetTemp(decimal Time = 0, short Order = 0)
         {

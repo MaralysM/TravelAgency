@@ -45,7 +45,7 @@ namespace Qmos.UI.Controllers
                 entity.ref1 = RefValue;
                 entity.ref2 = "0";//Unicamente como indicador
             } else {
-                entity.ref1 = "0";////Unicamente como indicador
+                entity.ref1 = "0";//Unicamente como indicador
                 entity.ref2 = RefValue;
             }
 

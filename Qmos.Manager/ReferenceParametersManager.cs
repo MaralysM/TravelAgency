@@ -57,5 +57,23 @@ namespace Qmos.Manager
                 throw new Exception("Cannot add a register");
             }
         }
+
+        public ReferenceParameters FindByIdElement(int id_element)
+        {
+            try
+            {
+                ReferenceParameters resp = Repository.FindByIdElement(id_element);
+
+                return resp;
+            }
+            catch (UniqueKeyException ex)
+            {
+                throw new Exception("Cannot insert or update a value duplicate");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cannot add a register");
+            }
+        }
     }
 }

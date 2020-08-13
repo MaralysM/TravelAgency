@@ -1,4 +1,5 @@
-﻿function GetMTDMissedHeats() {
+﻿
+function GetMTDMissedHeats() {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDMissedHeats",
         method: "GET",
@@ -441,7 +442,7 @@ function GetIronYield() {
     });
 }
 
-function GetTargetPPM() {
+function GetTargetPPM(ref1, ref2) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/TapPPMTargetPPM",
         method: "GET",

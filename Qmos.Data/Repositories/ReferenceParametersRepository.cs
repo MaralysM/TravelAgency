@@ -50,7 +50,6 @@ namespace Qmos.Data
             }
         }
 
-
         public bool UpdateReference(ReferenceParameters entity)
         {
             try
@@ -72,6 +71,34 @@ namespace Qmos.Data
             catch (SqlException ex) when (ex.Number == 2627)
             {
                 throw new UniqueKeyException($"{TAG}: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ReferenceParameters FindByIdElement(int id_element)
+        {
+            ReferenceParameters entity = new ReferenceParameters();
+            try
+             {
+                SqlConnection con = Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = $"select * from [Qmos].[reference_parameters] where id_element = {id_element}";
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    entity.Id = (short)dr["id"];
+                    entity.id_element = (int)dr["id_element"];
+                    entity.Name = dr["cant_ref"].ToString();
+                    entity.ref1 = dr["ref1"].ToString() == "" ? "0" : (dr["ref1"].ToString().Replace(",","."));
+                    entity.ref2 = dr["ref2"].ToString() == "" ? "0" : (dr["ref2"].ToString().Replace(",", "."));
+                }
+                dr.Close();
+                cmd.Dispose();
+                Close(con);
+                return entity;
             }
             catch (Exception ex)
             {

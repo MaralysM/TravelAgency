@@ -65,7 +65,8 @@
 
     <script>
         $(document).ready(function () {
-            GetTargetPPM();
+            debugger
+            GetTargetPPM(@Model.REF1, @Model.REF2);
             //Every X seconds (XXXX milliseconds) the refresh function will be executed
             if (@Model.TIMEMILLISECONDS > 0) {
             var milliseconds = @Model.TIMEMILLISECONDS;
