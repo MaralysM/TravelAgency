@@ -24,31 +24,58 @@ namespace Qmos.UI.Controllers
     public class ReferenceParametersController : Controller
     {
         public IReferenceParametersManager Manager { get; }
-
-
-        public ReferenceParametersController(IReferenceParametersManager manager)
+        public IElementManager ElementManager { get; }
+        public ReferenceParametersController(IReferenceParametersManager manager, IElementManager elementManager)
         {
             Manager = manager;
+            ElementManager = elementManager;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            IList<ReferenceParameters> EntityList = new List<ReferenceParameters>();
-            return View(await Manager.All());
+            ReferenceParametersViewModel referenceParametersViewModel = new ReferenceParametersViewModel();
+            InitializeViewModel(referenceParametersViewModel);
+            return View(referenceParametersViewModel);
+        }
+        public IActionResult Post(ReferenceParametersViewModel viewModel)
+        {
+            InitializeViewModel(viewModel);
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                var entity = new ReferenceParameters
+                {
+                    id_element= viewModel.idElement,
+                    reference = viewModel.Reference.Replace(".", ""),
+                };
+
+                long result = Manager.Save(entity);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", "An error occurred while saving. Verify that the data is correct");
+                return RedirectToAction("Index");
+            }
+        }
+
+
+        private void InitializeViewModel(ReferenceParametersViewModel viewModel)
+        {
+            List<KCI_SecureModuleCL.Models.SM_ELEMENT> EntityElement = ElementManager.All().Result.ToList();
+            viewModel.ElementList = SelectListItemHelper.ToSelectList(EntityElement.Where(x => x.ID_ElementParent == EntityElement.Where(y => y.TX_Name == "Dashboards").FirstOrDefault().ID_Element).ToList(), "ID_Element", "TX_Name", "Code");
+            viewModel.List =  Manager.All().Result;
         }
         [HttpGet]
-        public ActionResult UpdateRef(short Id, short TypeRef, string Ref)
+        public ActionResult UpdateRef(short Id, string Ref)
         {
             ReferenceParameters entity = new ReferenceParameters();
             string RefValue = Ref.Replace(".", "");
             entity.Id = Id;
-            if (TypeRef == 1) {
-                entity.ref1 = RefValue;
-                entity.ref2 = "0";//Unicamente como indicador
-            } else {
-                entity.ref1 = "0";//Unicamente como indicador
-                entity.ref2 = RefValue;
-            }
-
+                entity.reference = RefValue;
             var Result = Manager.UpdateReference(entity);
 
             return Json(new
@@ -57,6 +84,20 @@ namespace Qmos.UI.Controllers
 
             });
         }
+
+        public IActionResult Remove(short id)
+        {
+            try
+            {
+                Manager.Remove(id);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
+
 
     }
 }

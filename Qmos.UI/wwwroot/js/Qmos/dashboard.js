@@ -442,7 +442,7 @@ function GetIronYield() {
     });
 }
 
-function GetTargetPPM(ref1, ref2) {
+function GetTargetPPM(reference) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/TapPPMTargetPPM",
         method: "GET",

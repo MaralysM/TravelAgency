@@ -33,9 +33,7 @@ namespace Qmos.Data
                     {
                         Id = (short)dr["id"],
                         id_element = (int)dr["id_element"],
-                        Name = dr["cant_ref"].ToString(),
-                        ref1 = dr["ref1"].ToString() == "" ? "0" : (dr["ref1"].ToString()),
-                        ref2 = dr["ref2"].ToString() == "" ? "0" : (dr["ref2"].ToString()),
+                        reference = dr["reference"].ToString() == "" ? "0" : (dr["reference"].ToString()),
                         name_element = dr["element_name"].ToString()
                     }); 
                 }
@@ -54,13 +52,12 @@ namespace Qmos.Data
         {
             try
             {
-                string _update = entity.ref1 == "0" ? $" ref2 = {entity.ref2.ToString().Replace(',', '.')} " : $" ref1 = {entity.ref1.ToString().Replace(',', '.')} ";
                 int result = 0;
                 var con = Open();
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandText =
                     $"UPDATE  [Qmos].[reference_parameters] " +
-                    $"SET {_update}" +
+                    $"SET  reference = {entity.reference.ToString().Replace(',', '.')}" +
                     $"OUTPUT INSERTED.id " +
                     $"WHERE id = {entity.Id} ";
                 result = cmd.ExecuteNonQuery();
@@ -91,9 +88,7 @@ namespace Qmos.Data
                 {
                     entity.Id = (short)dr["id"];
                     entity.id_element = (int)dr["id_element"];
-                    entity.Name = dr["cant_ref"].ToString();
-                    entity.ref1 = dr["ref1"].ToString() == "" ? "0" : (dr["ref1"].ToString().Replace(",","."));
-                    entity.ref2 = dr["ref2"].ToString() == "" ? "0" : (dr["ref2"].ToString().Replace(",", "."));
+                    entity.reference = dr["reference"].ToString() == "" ? "0" : (dr["reference"].ToString().Replace(",","."));
                 }
                 dr.Close();
                 cmd.Dispose();
@@ -106,5 +101,47 @@ namespace Qmos.Data
             }
         }
 
+        public short Save(ReferenceParameters entity)
+        {
+            try
+            {
+                var con = Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = $" INSERT INTO {TABLE}([id_element],[reference])" +
+                    $"OUTPUT INSERTED.id " +
+                    $" VALUES({entity.id_element}, {entity.reference.ToString().Replace(',', '.')});";
+                var result = cmd.ExecuteScalar();
+                Close(con);
+                return (short)result;
+            }
+            catch (SqlException ex) when (ex.Number == 2627)
+            {
+                throw new UniqueKeyException($"{TAG}: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Remove(short id)
+        {
+            try
+            {
+                var con = Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = $"DELETE FROM {TABLE} WHERE id = {id};";
+                cmd.ExecuteNonQuery();
+                Close(con);
+            }
+            catch (SqlException ex) when (ex.Number == 1451)
+            {
+                throw new DeleteWithRelationshipException($"{TAG}: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

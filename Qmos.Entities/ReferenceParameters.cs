@@ -5,9 +5,7 @@ namespace Qmos.Entities
     public class ReferenceParameters : EntityBase<short>
     {
         public int id_element { get; set; }
-        public short cant_ref { get; set; }
-        public string ref1 { get; set; }
-        public string ref2 { get; set; }
+        public string reference { get; set; }
         public string name_element { get; set; }
     }
 }

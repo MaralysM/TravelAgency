@@ -66,7 +66,7 @@ namespace Qmos.UI.Controllers
         public IActionResult TargetPPM(int id, decimal Time = 0, short Order = 0)
         {
             ReferenceParameters referenceParameters = ReferenceParametersManager.FindByIdElement(id);
-            return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, REF1 = referenceParameters.ref1, REF2 = referenceParameters.ref2 });
+            return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, REFERENCE = referenceParameters.reference });
         }
         public IActionResult TargetTemp(decimal Time = 0, short Order = 0)
         {

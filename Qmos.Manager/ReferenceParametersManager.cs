@@ -75,5 +75,40 @@ namespace Qmos.Manager
                 throw new Exception("Cannot add a register");
             }
         }
+
+        public short Save(ReferenceParameters referenceParameters)
+        {
+            try
+            {
+                short resp = Repository.Save(referenceParameters);
+
+                return resp;
+            }
+            catch (UniqueKeyException ex)
+            {
+                throw new Exception("Cannot insert or update a value duplicate");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cannot add a register");
+            }
+        }
+
+        public void Remove(short id)
+        {
+            try
+            {
+                Repository.Remove(id);
+            }
+            catch (DeleteWithRelationshipException ex)
+            {
+                throw new Exception("The record you are trying to delete is related to another");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Have ocurred an error to delete");
+            }
+        }
+
     }
 }
