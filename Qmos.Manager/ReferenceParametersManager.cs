@@ -39,5 +39,23 @@ namespace Qmos.Manager
                 throw new Exception("Have ocurred an error to get to list");
             }
         }
+
+        public bool UpdateReference(ReferenceParameters entity)
+        {
+            try
+            {
+                bool resp = Repository.UpdateReference(entity);
+
+                return resp;
+            }
+            catch (UniqueKeyException ex)
+            {
+                throw new Exception("Cannot insert or update a value duplicate");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cannot add a register");
+            }
+        }
     }
 }

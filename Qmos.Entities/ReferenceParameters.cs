@@ -6,8 +6,8 @@ namespace Qmos.Entities
     {
         public int id_element { get; set; }
         public short cant_ref { get; set; }
-        public decimal? ref1 { get; set; }
-        public decimal? ref2 { get; set; }
+        public string ref1 { get; set; }
+        public string ref2 { get; set; }
         public string name_element { get; set; }
     }
 }

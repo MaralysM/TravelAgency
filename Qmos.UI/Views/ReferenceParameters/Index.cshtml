@@ -32,16 +32,16 @@
                                             @item.name_element
                                         </td>
                                         <td>
-                                            <input type="text" placeholder="Ref 1" value="@item.ref1" class="form-control">
+                                            <input type="text" placeholder="Ref 1" value="@item.ref1" class="form-control ref inputNumber" id="@item.Id" data-id="@item.Id" data-ref="1">
                                         </td>
                                         <td hidden>
-                                            2,5
+                                            @string.Format("{0:N}", decimal.Parse(item.ref1))
                                         </td>
                                         <td>
-                                            <input type="text" placeholder="Ref 2" value="@item.ref2"class="form-control">
+                                            <input type="text" placeholder="Ref 2" value="@item.ref2"class="form-control ref inputNumber" data-id="@item.Id" data-ref="2">
                                         </td>
                                         <td hidden>
-                                            2,5
+                                            @string.Format("{0:N}",decimal.Parse(item.ref2))
                                         </td>
                                     </tr>
                                     }
@@ -63,7 +63,17 @@
     <script>
     $(document).ready(function ()
     {
-        formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 2], null);
+          $('.inputNumber').inputmask("decimal",
+            {
+                'alias': 'numeric',
+                'groupSeparator': '.',
+                'radixPoint': ',',
+                'autoGroup': true,
+                'digits': 2,
+                'digitsOptional': false,
+                'placeholder': '0',
+            });
+        formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 2,4], null);
         $('#table tbody').on('click', '.delete', function () {
             eliminarRegistro(".delete", "data-id", "@Url.Action("Remove", "TransitionParameters")", '#table', $(this));
         });
@@ -72,5 +82,20 @@
             updateStatus("data-id", "@Url.Action("UpdateStatus", "TransitionParameters")", '#table', $(this));
         });
     });
+
+        $(".ref").on('change', function () {
+        var link = $(this);
+            $.ajax({
+                url: '@Url.Action("UpdateRef", "ReferenceParameters")',
+                type: 'GET',
+                data: { Id: link.attr("data-id"), TypeRef: link.attr("data-ref"), Ref: link.val()},
+                success: function (retorno) {
+                    if (retorno.aaData == true) {
+                        toastr.clear();
+                        toastr.success("Update successful");
+                    }
+                }
+            });
+        });
     </script>
 }

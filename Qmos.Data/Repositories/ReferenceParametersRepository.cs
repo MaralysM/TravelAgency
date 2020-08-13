@@ -34,8 +34,8 @@ namespace Qmos.Data
                         Id = (short)dr["id"],
                         id_element = (int)dr["id_element"],
                         Name = dr["cant_ref"].ToString(),
-                        ref1 = dr["ref1"].ToString() == "" ? 0 : decimal.Parse(dr["ref1"].ToString()),
-                        ref2 = dr["ref2"].ToString() == "" ? 0 : decimal.Parse(dr["ref2"].ToString()),
+                        ref1 = dr["ref1"].ToString() == "" ? "0" : (dr["ref1"].ToString()),
+                        ref2 = dr["ref2"].ToString() == "" ? "0" : (dr["ref2"].ToString()),
                         name_element = dr["element_name"].ToString()
                     }); 
                 }
@@ -43,6 +43,35 @@ namespace Qmos.Data
                 cmd.Dispose();
                 Close(con);
                 return TransitionParameters;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public bool UpdateReference(ReferenceParameters entity)
+        {
+            try
+            {
+                string _update = entity.ref1 == "0" ? $" ref2 = {entity.ref2.ToString().Replace(',', '.')} " : $" ref1 = {entity.ref1.ToString().Replace(',', '.')} ";
+                int result = 0;
+                var con = Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText =
+                    $"UPDATE  [Qmos].[reference_parameters] " +
+                    $"SET {_update}" +
+                    $"OUTPUT INSERTED.id " +
+                    $"WHERE id = {entity.Id} ";
+                result = cmd.ExecuteNonQuery();
+                Close(con);
+
+                return result > 0;
+            }
+            catch (SqlException ex) when (ex.Number == 2627)
+            {
+                throw new UniqueKeyException($"{TAG}: {ex.Message}");
             }
             catch (Exception ex)
             {

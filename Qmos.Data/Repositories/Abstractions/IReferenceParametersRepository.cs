@@ -7,6 +7,7 @@ namespace Qmos.Data
     public interface IReferenceParametersRepository
     {
         Task<IList<ReferenceParameters>> AllAsync();
+        bool UpdateReference(ReferenceParameters entity);
 
     }
 }

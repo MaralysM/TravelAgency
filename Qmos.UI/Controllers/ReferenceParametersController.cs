@@ -16,6 +16,7 @@ using Qmos.Entities;
 using Qmos.Manager.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Qmos.UI.Filters;
+using System.Globalization;
 
 namespace Qmos.UI.Controllers
 {
@@ -33,6 +34,29 @@ namespace Qmos.UI.Controllers
         {
             IList<ReferenceParameters> EntityList = new List<ReferenceParameters>();
             return View(await Manager.All());
-        }    
+        }
+        [HttpGet]
+        public ActionResult UpdateRef(short Id, short TypeRef, string Ref)
+        {
+            ReferenceParameters entity = new ReferenceParameters();
+            string RefValue = Ref.Replace(".", "");
+            entity.Id = Id;
+            if (TypeRef == 1) {
+                entity.ref1 = RefValue;
+                entity.ref2 = "0";//Unicamente como indicador
+            } else {
+                entity.ref1 = "0";////Unicamente como indicador
+                entity.ref2 = RefValue;
+            }
+
+            var Result = Manager.UpdateReference(entity);
+
+            return Json(new
+            {
+                aaData = Result
+
+            });
+        }
+
     }
 }

@@ -11,5 +11,6 @@ namespace Qmos.Manager
     public interface IReferenceParametersManager
     {
         Task<IList<ReferenceParameters>> All();
+        bool UpdateReference(ReferenceParameters entity);
     }
 }
