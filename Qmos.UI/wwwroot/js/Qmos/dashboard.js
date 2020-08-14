@@ -168,12 +168,13 @@ function GetMTDTapTempand02PPM() {
     });
 }
 
-function GetKWhPerScrapTon() {
+function GetKWhPerScrapTon(id_element, url) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/KwhPerScrapTon",
         method: "GET",
-        success: function (retorno) {
+        success: async function (retorno) {
             var myobject = JSON.parse(retorno);
+            let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvgKwhTon);
             let canvaschartKWhPerScrapTon = document.getElementById("chartKWhPerScrapTon").getContext("2d");
 
@@ -190,7 +191,14 @@ function GetKWhPerScrapTon() {
                     datalabels: {
                         color: 'yellow'
                     }
-                }, {
+                }]
+            };
+
+            $.each(Reference, async function (i, item) {
+                var _ref = [];
+                let j = 0;
+                while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
+                var constant = {
                     datalabels: {
                         labels: {
                             title: null
@@ -201,10 +209,10 @@ function GetKWhPerScrapTon() {
                     borderColor: "#676a6c",
                     borderDash: [5, 5],
                     pointRadius: 0,
-                    data: myobject.Avg
-                }]
-            };
-
+                    data: _ref
+                };
+                data.datasets.push(constant);
+            });
 
             let options = {
                 legend: {
@@ -261,12 +269,13 @@ function GetKWhPerScrapTon() {
     });
 }
 
-function GetScrapTonPerHour() {
+function GetScrapTonPerHour(id_element, url) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/ScrapTonPerHour",
         method: "GET",
-        success: function (retorno) {
+        success: async function (retorno) {
             var myobject = JSON.parse(retorno);
+            let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvgTonHourPon);
             let canvaschartScrapTonPerHour = document.getElementById("chartScrapTonPerHour").getContext("2d");
 
@@ -283,7 +292,14 @@ function GetScrapTonPerHour() {
                     datalabels: {
                         color: 'yellow'
                     }
-                }, {
+                }]
+            };
+
+            $.each(Reference, async function (i, item) {
+                var _ref = [];
+                let j = 0;
+                while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
+                var constant = {
                     datalabels: {
                         labels: {
                             title: null
@@ -294,9 +310,10 @@ function GetScrapTonPerHour() {
                     borderColor: "#676a6c",
                     borderDash: [5, 5],
                     pointRadius: 0,
-                    data: myobject.Avg
-                }]
-            };
+                    data: _ref
+                };
+                data.datasets.push(constant);
+            });
 
             let options = {
                 legend: {
