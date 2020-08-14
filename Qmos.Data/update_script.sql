@@ -294,7 +294,7 @@ END
 
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/MTDProduction'
+   SET [TX_Url] = ('Dashboard/MTDProduction?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Production')))
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Production')
 GO
 
@@ -304,7 +304,7 @@ UPDATE [Security].[SM_ELEMENT]
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/MTDTapTempandO2PPM'
+   SET [TX_Url] = ('Dashboard/MTDTapTempandO2PPM?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and O2 PPM')))
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and O2 PPM')
 GO
 
@@ -314,37 +314,37 @@ UPDATE [Security].[SM_ELEMENT]
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/MTDDelays'
+      SET [TX_Url] = ('Dashboard/MTDDelays?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Delays')))
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Delays')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/IronYield'
+      SET [TX_Url] = ('Dashboard/IronYield?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Iron Yield')))
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Iron Yield')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/TonPerHour'
+      SET [TX_Url] = ('Dashboard/TonPerHour?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Ton per Hour')))
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Ton per Hour')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/KWhPerScrapTon'
- WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'KWh per Scrap Ton')
+      SET [TX_Url] = ('Dashboard/KWhPerScrapTon?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'KWh per Ton')))
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'KWh per Ton')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/TapWtTarget'
+      SET [TX_Url] = ('Dashboard/TapWtTarget?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget')))
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/TargetTemp'
+      SET [TX_Url] = ('Dashboard/TargetTemp?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp')))
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = 'Dashboard/TargetPPM'
+      SET [TX_Url] = ('Dashboard/TargetPPM?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM')))
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM')
 GO
 
@@ -423,7 +423,7 @@ GO
 ********************************************************/
   UPDATE [Qmos].[Security].[SM_ELEMENT] 
    SET [BO_Default] = 1
- WHERE [TX_Url] = 'Dashboard/TapWtTarget'
+ WHERE TX_Name= 'TapWt - TapWtTarget'
 
 IF EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Tap Temp and 02 PPM')
 BEGIN
@@ -479,21 +479,3 @@ IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qm
 	  FOREIGN KEY (id_element) REFERENCES [Security].[SM_ELEMENT](id_element)
 	)
 GO
-
-IF NOT EXISTS (SELECT * FROM [Qmos].[reference_Parameters] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM') )
-BEGIN 
-INSERT INTO [Qmos].[reference_Parameters]([id_element],[cant_ref]) VALUES
-           ((select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM'), 2)
-END
-
-IF NOT EXISTS (SELECT * FROM [Qmos].[reference_Parameters] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp') )
-BEGIN 
-INSERT INTO [Qmos].[reference_Parameters]([id_element],[cant_ref]) VALUES
-           ((select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp'), 2)
-END
-
-IF NOT EXISTS (SELECT * FROM [Qmos].[reference_Parameters] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget') )
-BEGIN 
-INSERT INTO [Qmos].[reference_Parameters]([id_element],[cant_ref]) VALUES
-           ((select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget'), 2)
-END

@@ -18,6 +18,9 @@
                     <div class="col-lg-12">
                         <div class="form-group row text-left">
                             <div class="col-lg-12">
+                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-lg-12">
                                 <span class="text-danger"> *</span><span>
                                     Required fields
                                 </span>
@@ -105,7 +108,15 @@
         $('#table tbody').on('click', '.delete', function () {
             eliminarRegistro(".delete", "data-id", "@Url.Action("Remove", "ReferenceParameters")", '#table', $(this));
         });
-    });
+       });
+
+        $('form').submit(function () {
+            if ($('#Reference').val() == "" ||$('#idElement').val() == 0 ) {
+                toastr.error("Enter the fields marked as required");
+                return false;
+            }
+            return true;
+        });
 
         $(".ref").on('change', function () {
         var link = $(this);
