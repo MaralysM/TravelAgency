@@ -45,12 +45,13 @@ function GetMTDMissedHeats() {
     });
 }
 
-function GetMTDDelays() {
+function GetMTDDelays(id_element, url) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDDelays",
         method: "GET",
-        success: function (retorno) {
+        success: async function (retorno) {
             var myobject = JSON.parse(retorno);
+            let Reference = await ReferenceParameters(id_element, url);
             let canvaschartMTDDelays = document.getElementById("chartMTDDelays").getContext("2d");
 
             let data = {
@@ -69,6 +70,28 @@ function GetMTDDelays() {
                 data.datasets[2].data.push(this.TappingPrep);
                 //data.datasets[3].data.push(this.MTDDelays.TappingPrep);
             });
+
+            $.each(Reference, async function (i, item) {
+                var _ref = [];
+                let j = 0;
+                while (j < 4) { _ref.push(parseFloat(item.reference)); j++; }
+                var constant = {
+                    type: 'line',
+                    backgroundColor: 'transparent',
+                    data: _ref,
+                    fill: false,
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    datalabels: {
+                        labels: {
+                            title: null
+                        }
+                    }
+                };
+                data.datasets.push(constant);
+            });
+
             let options = {
                 responsive: true,
                 legend: {
@@ -104,7 +127,7 @@ function GetMTDDelays() {
     });
 }
 
-function GetMTDTapTempand02PPM() {
+function GetMTDTapTempand02PPM(id_element, url) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDTapTempAndO2PPM",
         method: "GET",
