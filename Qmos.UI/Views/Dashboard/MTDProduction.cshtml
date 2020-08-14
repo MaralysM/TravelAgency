@@ -74,7 +74,7 @@
 
     <script>
         $(document).ready(function () {
-            GetMTDProduction();
+            GetMTDProduction(@Model.IdElement,'@Url.Action("FindByIdElement","ReferenceParameters")');
             //Every X seconds (XXXX milliseconds) the refresh function will be executed
             if (@Model.TIMEMILLISECONDS > 0) {
             var milliseconds = @Model.TIMEMILLISECONDS;
