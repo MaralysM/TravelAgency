@@ -23,12 +23,12 @@ namespace Qmos.UI.Controllers
     public class DashboardController : Controller
     {
         public IDashboardManager Manager { get; }
-        public IReferenceParametersManager ReferenceParametersManager { get; }
+        public ITransitionParametersManager TransitionParametersManager { get; }
 
-        public DashboardController(IDashboardManager manager, IReferenceParametersManager referenceParametersManager)
+        public DashboardController(IDashboardManager manager, ITransitionParametersManager transitionParametersManager)
         {
             Manager = manager;
-            ReferenceParametersManager = referenceParametersManager;
+            TransitionParametersManager = transitionParametersManager;
         }
         public IActionResult Index()
         {
@@ -40,47 +40,57 @@ namespace Qmos.UI.Controllers
             return View("MTDMissedHeats", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order }) ;
         }
 
-        public IActionResult MTDDelays(int id, decimal Time = 0, short Order = 0)
+        public async Task<IActionResult> MTDDelays( decimal Time = 0, short Order = 0)
         {
-            return View("MTDDelays", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
+            var Element = await TransitionParametersManager.GetByName("MTD Delays");
+            return View("MTDDelays", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element });
         }
 
-        public IActionResult MTDTapTempandO2PPM(int id, decimal Time = 0, short Order = 0)
+        public async Task<IActionResult> MTDTapTempandO2PPM( decimal Time = 0, short Order = 0)
         {
-            return View("MTDTapTempandO2PPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
+            var Element = await TransitionParametersManager.GetByName("MTD Tap Temp and O2 PPM");
+            return View("MTDTapTempandO2PPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element });
         }
-        public IActionResult KWhPerScrapTon(int id, decimal Time = 0, short Order = 0)
+        public async Task<IActionResult> KWhPerScrapTon( decimal Time = 0, short Order = 0)
         {
-            return View("KWhPerScrapTon", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
-        }
-
-        public IActionResult TonPerHour(int id, decimal Time = 0, short Order = 0)
-        {
-            return View("TonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
+            var Element = await TransitionParametersManager.GetByName("KWh per Ton");
+            return View("KWhPerScrapTon", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element });
         }
 
-        public IActionResult IronYield(int id, decimal Time = 0, short Order = 0)
+        public async Task<IActionResult> TonPerHour( decimal Time = 0, short Order = 0)
         {
-            return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
+            var Element = await TransitionParametersManager.GetByName("Ton per Hour");
+            return View("TonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.Id });
         }
-        public IActionResult TargetPPM(int id, decimal Time = 0, short Order = 0)
-        {          
-            return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
-        }
-        public IActionResult TargetTemp(int id, decimal Time = 0, short Order = 0)
+
+        public async Task<IActionResult> IronYield( decimal Time = 0, short Order = 0)
         {
-            return View("TargetTemp", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
+            var Element = await TransitionParametersManager.GetByName("Iron Yield");
+            return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.Id });
         }
-        public IActionResult TapWtTarget(int id, decimal Time = 0, short Order = 0)
+        public async Task<IActionResult> TargetPPM( decimal Time = 0, short Order = 0)
         {
-            return View("TapWtTarget", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
+            var Element = await TransitionParametersManager.GetByName("Target PPM");
+            return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element});
         }
-        public IActionResult MTDProduction(int id, decimal Time = 0, short Order = 0)
+        public async Task<IActionResult> TargetTemp( decimal Time = 0, short Order = 0)
         {
-            return View("MTDProduction", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
+            var Element = await TransitionParametersManager.GetByName("Target Temp");
+            return View("TargetTemp", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element });
+        }
+        public async Task<IActionResult> TapWtTarget( decimal Time = 0, short Order = 0)
+        {
+            var Element = await TransitionParametersManager.GetByName("TapWtTarget");
+            return View("TapWtTarget", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element });
+        }
+        public async Task<IActionResult> MTDProduction(decimal Time = 0, short Order = 0)
+        {
+            var Element = await TransitionParametersManager.GetByName("MTD Production");
+            return View("MTDProduction", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element });
         }
         public IActionResult MTDAverage(decimal Time = 0, short Order = 0)
         {
+            var id = 0;
             return View("MTDAverage", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
 

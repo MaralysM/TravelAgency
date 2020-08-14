@@ -16,6 +16,7 @@ namespace Qmos.Data
         void RemoveDetail(short id);
         bool UpdateDetail(TransitionParametersHeader entity);
         bool UpdateHeader(TransitionParametersHeader entity);
+        Task<TransitionParametersDetails> GetByName(string name);
 
     }
 }

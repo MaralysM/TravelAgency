@@ -86,7 +86,19 @@
                 refresh("@Url.Action("Index", "AutomaticTransition")?Order="+ @Model.ORDER_TRANSITION,@Model.ORDER_TRANSITION);
             },milliseconds)
             }
-
+             // Menu colapsado
+            $('body').addClass('canvas-menu');
+            $('.sidebar-collapse').append('<a class="close-canvas-menu"><i class="fa fa-times"></i></a>');
+            $('.close-canvas-menu').on('click', function () {
+                $("body").toggleClass("mini-navbar");
+                SmoothlyMenu();
+            });
+            $('#page-wrapper').addClass('sidebar-content');
+            $('body.canvas-menu .sidebar-collapse').slimScroll({
+                height: '100%',
+                railOpacity: 0.9
+            });
+            // Fin menu colapsado
             });
     </script>
 }

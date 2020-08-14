@@ -169,5 +169,10 @@ namespace Qmos.Manager
             }
         }
 
+        public async Task<TransitionParametersDetails> GetByName(string name)
+        {
+            return await Repository.GetByName(name);
+        }
+
     }
 }

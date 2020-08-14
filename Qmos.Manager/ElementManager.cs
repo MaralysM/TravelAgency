@@ -101,6 +101,7 @@ namespace Qmos.Manager
             return ElementService.GetAllTypes();
         }
 
+
         public string[] GetElementsNotAuthorized(int ID_Role)
         {
             return ElementService.GetElementsNotAuthorized(ID_Role);

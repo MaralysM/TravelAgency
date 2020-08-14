@@ -302,5 +302,30 @@ namespace Qmos.Data
             }
         }
 
+        
+    public async Task<TransitionParametersDetails> GetByName(string name)
+        {
+            TransitionParametersDetails entity = new TransitionParametersDetails();
+            try
+            {
+                SqlConnection con = Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = $" select * from [Security].[SM_ELEMENT] WHERE TX_Name LIKE '%{name}%' ";
+                var dr = await cmd.ExecuteReaderAsync();
+                while (dr.Read())
+                {
+                    entity.id_element = int.Parse(dr["ID_Element"].ToString());
+                };
+                dr.Close();
+                cmd.Dispose();
+                Close(con);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

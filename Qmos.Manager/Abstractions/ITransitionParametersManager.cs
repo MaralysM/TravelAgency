@@ -18,7 +18,6 @@ namespace Qmos.Manager
         void RemoveDetail(short id);
         bool UpdateHeader(TransitionParametersHeader entity);
         decimal ConversionToMilliseconds(string Time);
-        //Task Save(UpdateTime updateTime);
-        //Task<UpdateTime> FindById(object id);
+        Task<TransitionParametersDetails> GetByName(string name);
     }
 }

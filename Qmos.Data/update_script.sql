@@ -294,7 +294,7 @@ END
 
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = ('Dashboard/MTDProduction?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Production')))
+   SET [TX_Url] = 'Dashboard/MTDProduction'
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Production')
 GO
 
@@ -304,7 +304,7 @@ UPDATE [Security].[SM_ELEMENT]
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-   SET [TX_Url] = ('Dashboard/MTDTapTempandO2PPM?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and O2 PPM')))
+   SET [TX_Url] = 'Dashboard/MTDTapTempandO2PPM'
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and O2 PPM')
 GO
 
@@ -314,37 +314,37 @@ UPDATE [Security].[SM_ELEMENT]
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-      SET [TX_Url] = ('Dashboard/MTDDelays?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Delays')))
+   SET [TX_Url] = 'Dashboard/MTDDelays'
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Delays')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-      SET [TX_Url] = ('Dashboard/IronYield?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Iron Yield')))
+   SET [TX_Url] = 'Dashboard/IronYield'
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Iron Yield')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-      SET [TX_Url] = ('Dashboard/TonPerHour?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Ton per Hour')))
+   SET [TX_Url] = 'Dashboard/TonPerHour'
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Ton per Hour')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-      SET [TX_Url] = ('Dashboard/KWhPerScrapTon?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'KWh per Ton')))
- WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'KWh per Ton')
+   SET [TX_Url] = 'Dashboard/KWhPerScrapTon'
+ WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'KWh per Scrap Ton')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-      SET [TX_Url] = ('Dashboard/TapWtTarget?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget')))
+   SET [TX_Url] = 'Dashboard/TapWtTarget'
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-      SET [TX_Url] = ('Dashboard/TargetTemp?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp')))
+   SET [TX_Url] = 'Dashboard/TargetTemp'
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp')
 GO
 
 UPDATE [Security].[SM_ELEMENT]
-      SET [TX_Url] = ('Dashboard/TargetPPM?id='+ Convert(varchar,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM')))
+   SET [TX_Url] = 'Dashboard/TargetPPM'
  WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM')
 GO
 
@@ -423,7 +423,7 @@ GO
 ********************************************************/
   UPDATE [Qmos].[Security].[SM_ELEMENT] 
    SET [BO_Default] = 1
- WHERE TX_Name= 'TapWt - TapWtTarget'
+ WHERE [TX_Url] = 'Dashboard/TapWtTarget'
 
 IF EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Tap Temp and 02 PPM')
 BEGIN
