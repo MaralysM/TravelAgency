@@ -369,12 +369,13 @@ function GetScrapTonPerHour(id_element, url) {
     });
 }
 
-function GetIronYield() {
+function GetIronYield(id_element, url) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/IronYield",
         method: "GET",
-        success: function (retorno) {
+        success: async function (retorno) {
             var myobject = JSON.parse(retorno);
+            let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvYield);
             let canvaschartIronYield = document.getElementById("chartIronYield").getContext("2d");
 
@@ -388,7 +389,15 @@ function GetIronYield() {
                     backgroundColor: 'transparent',
                     pointBackgroundColor: "#2791ee",
                     pointRadius: 0
-                }, {
+                }]
+            };
+
+
+            $.each(Reference, async function (i, item) {
+                var _ref = [];
+                let j = 0;
+                while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
+                var constant = {
                     datalabels: {
                         labels: {
                             title: null
@@ -399,9 +408,10 @@ function GetIronYield() {
                     borderColor: "#676a6c",
                     borderDash: [5, 5],
                     pointRadius: 0,
-                    data: myobject.Avg
-                }]
-            };
+                    data: _ref
+                };
+                data.datasets.push(constant);
+            });
 
             let options = {
                 legend: {
