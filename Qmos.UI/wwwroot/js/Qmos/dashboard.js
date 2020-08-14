@@ -131,8 +131,9 @@ function GetMTDTapTempand02PPM(id_element, url) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDTapTempAndO2PPM",
         method: "GET",
-        success: function (retorno) {
+        success:async function (retorno) {
             var myobject = JSON.parse(retorno);
+            let Reference = await ReferenceParameters(id_element, url);
             let canvaschartMTDTapTempand02PPM = document.getElementById("chartMTDTapTempand02PPM").getContext("2d");
 
             let data = {
@@ -146,6 +147,27 @@ function GetMTDTapTempand02PPM(id_element, url) {
                 data.labels.push(this.Crew);
                 data.datasets[0].data.push(this.TempInSpec);
                 data.datasets[1].data.push(this.O2InSpec);
+            });
+
+            $.each(Reference, async function (i, item) {
+                var _ref = [];
+                let j = 0;
+                while (j < 4) { _ref.push(parseFloat(item.reference)); j++; }
+                var constant = {
+                    type: 'line',
+                    backgroundColor: 'transparent',
+                    data: _ref,
+                    fill: false,
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    datalabels: {
+                        labels: {
+                            title: null
+                        }
+                    }
+                };
+                data.datasets.push(constant);
             });
 
             let options = {
@@ -1298,8 +1320,7 @@ function ChargeCarbon(retorno) {
     chart = c3.generate(opts);
 }
 
-function refresh(Url,Order) {
-    debugger
+function refresh(Url,Order) {   
     //Refresh the page
     if (Order == 0) {
         location.reload();
