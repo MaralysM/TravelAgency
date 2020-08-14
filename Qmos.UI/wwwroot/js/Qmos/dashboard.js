@@ -704,54 +704,37 @@ function GetTapWtTarget(id_element, url) {
     });
 }
 
-function GetMTDProduction() {
+function GetMTDProduction(id_element, url) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDProduction",
         method: "GET",
-        success: function (retorno) {
+        success: async function (retorno) {
             var myobject = JSON.parse(retorno);
+            let Reference = await ReferenceParameters(id_element, url);
             let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
             var barChartData = {
-                labels: [/*1,2,3,4,5,6,'Total'*/],
+                labels: [],
                 datasets: [{
                     label: 'Increase',
                     datalabels: {
                         color: 'red'
                     },
-                    data: [
-                        //[1,382.28],
-                        //[2, 1566.66666],
-                        //[2, 43334.876],
-                        //[4, 6324.6754],
-                        //[5, 743535.8866],
-                        //[3, 535.7564],
-                        //[0, 734534.56457]
-                    ],
-                    backgroundColor: [
-                        //'#269643',
-                        //'#269643',
-                        //'#269643',
-                        //'#269643',
-                        //'#269643',
-                        //'#269643',
-                        //'#148dfb'
-
-                    ],
-                    borderColor: [
-                        //'#269643',
-                        //'#269643',
-                        //'#269643',
-                        //'#269643',
-                        //'#269643',
-                        //'#269643',
-                        //'#148dfb'
-                    ],
+                    data: [ ],
+                    backgroundColor: [ ],
+                    borderColor: [ ],
                     borderWidth: 1
-                }, {
+                } ]
+            };
+
+            $.each(Reference, async function (i, item) {
+                var _ref = [];
+                let j = 0;
+                while (j < myobject.data.length) { _ref.push(parseFloat(item.reference)); j++; }
+                var constant = {
                     type: 'line',
                     label: 'Dataset 3',
                     backgroundColor: 'transparent',
-                        data: myobject.target, //[8000000, 8000000, 8000000, 8000000, 8000000, 8000000, 8000000],
+                    data: _ref,
                     fill: false,
                     borderColor: "#676a6c",
                     borderDash: [5, 5],
@@ -761,10 +744,10 @@ function GetMTDProduction() {
                             title: null
                         }
                     }
-                }
-                ]
+                };
+                barChartData.datasets.push(constant);
+            });
 
-            };
             var a = myobject.data.length;
             var i = 0;
             $.each(myobject.data, function () {
