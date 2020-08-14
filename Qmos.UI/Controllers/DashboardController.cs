@@ -42,26 +42,26 @@ namespace Qmos.UI.Controllers
 
         public IActionResult MTDDelays(int id, decimal Time = 0, short Order = 0)
         {
-            return View("MTDDelays", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+            return View("MTDDelays", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
         }
 
         public IActionResult MTDTapTempandO2PPM(int id, decimal Time = 0, short Order = 0)
         {
-            return View("MTDTapTempandO2PPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+            return View("MTDTapTempandO2PPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
         }
         public IActionResult KWhPerScrapTon(int id, decimal Time = 0, short Order = 0)
         {
-            return View("KWhPerScrapTon", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+            return View("KWhPerScrapTon", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
         }
 
         public IActionResult TonPerHour(int id, decimal Time = 0, short Order = 0)
         {
-            return View("TonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+            return View("TonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
         }
 
         public IActionResult IronYield(int id, decimal Time = 0, short Order = 0)
         {
-            return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+            return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
         }
         public IActionResult TargetPPM(int id, decimal Time = 0, short Order = 0)
         {          
@@ -69,15 +69,15 @@ namespace Qmos.UI.Controllers
         }
         public IActionResult TargetTemp(int id, decimal Time = 0, short Order = 0)
         {
-            return View("TargetTemp", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+            return View("TargetTemp", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
         }
         public IActionResult TapWtTarget(int id, decimal Time = 0, short Order = 0)
         {
-            return View("TapWtTarget", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+            return View("TapWtTarget", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
         }
         public IActionResult MTDProduction(int id, decimal Time = 0, short Order = 0)
         {
-            return View("MTDProduction", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+            return View("MTDProduction", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
         }
         public IActionResult MTDAverage(decimal Time = 0, short Order = 0)
         {
