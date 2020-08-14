@@ -442,12 +442,13 @@ function GetIronYield() {
     });
 }
 
-function GetTargetPPM(reference) {
+function GetTargetPPM(id_element, url) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/TapPPMTargetPPM",
         method: "GET",
-        success: function (retorno) {
+        success: async function (retorno) {
             var myobject = JSON.parse(retorno);
+            let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvgO2InSpec);
             let canvaschartTargetPPM = document.getElementById("chartTargetPPM").getContext("2d");
 
@@ -462,30 +463,30 @@ function GetTargetPPM(reference) {
                     pointBackgroundColor: "#2791ee",
                     pointRadius: 0,
                     pointBorderWidth: 1
-                }, {
-                    fill: false,
-                    backgroundColor: "#676a6c",
-                    borderColor: "#676a6c",
-                    borderDash: [5, 5],
-                    pointRadius: 0,
-                    data: myobject.Min
-                }, {
-                    fill: false,
-                    backgroundColor: "#676a6c",
-                    borderColor: "#676a6c",
-                    borderDash: [5, 5],
-                    pointRadius: 0,
-                    data: myobject.Max
                 }
                 ]
             };
+
+            $.each(Reference, async function (i, item) {
+                var _ref = [];
+                let j = 0;
+                while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
+                var constant = {
+                    fill: false,
+                    backgroundColor: "#676a6c",
+                    borderColor: "#676a6c",
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    data: _ref
+                };
+                data.datasets.push(constant);
+            });
 
             let options = {
                 responsive: true,
                 legend: {
                     display: false
                 },
-                //   title: { display: true, text: "02AimDiff", position: "left", fontSize: 10 },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -1296,6 +1297,20 @@ function mostrarHoras() {
     tiempo.minutos.innerHTML = contador_m;
     contador_s++;
 }
+
+async function ReferenceParameters(id_element, url) {
+    let Reference;
+    await $.ajax({
+        url: url,
+        data: { id_element: id_element },
+        method: "GET",
+        success: function (retorno) {
+            Reference = retorno.aaData;
+        }
+    });
+    return Reference;
+}
+
 
 var colorList = [];
 for (var i = 0; i < 5; i++) {
