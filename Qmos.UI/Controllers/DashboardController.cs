@@ -64,9 +64,8 @@ namespace Qmos.UI.Controllers
             return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
         public IActionResult TargetPPM(int id, decimal Time = 0, short Order = 0)
-        {
-            ReferenceParameters referenceParameters = ReferenceParametersManager.FindByIdElement(id);
-            return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, REFERENCE = referenceParameters.reference });
+        {          
+            return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
         }
         public IActionResult TargetTemp(decimal Time = 0, short Order = 0)
         {

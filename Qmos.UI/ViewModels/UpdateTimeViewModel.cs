@@ -12,6 +12,7 @@ namespace Qmos.UI.ViewModels
     public class UpdateTimeViewModel
     {
         public short Id { get; set; }
+        public int IdElement { get; set; }
         public string TIME_REFRESH { get; set; }
         public decimal TIMEMILLISECONDS{ get; set; }
         public bool ACTIVE { get; set; }

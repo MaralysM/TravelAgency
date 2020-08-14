@@ -85,6 +85,16 @@ namespace Qmos.UI.Controllers
             });
         }
 
+
+        [HttpGet]
+        public ActionResult FindByIdElement(int id_element)
+        {
+            return Json(new
+            {
+                aaData = Manager.FindByIdElement(id_element)
+
+            }); 
+        }
         public IActionResult Remove(short id)
         {
             try

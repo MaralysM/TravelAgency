@@ -58,11 +58,11 @@ namespace Qmos.Manager
             }
         }
 
-        public ReferenceParameters FindByIdElement(int id_element)
+        public List<ReferenceParameters> FindByIdElement(int id_element)
         {
             try
             {
-                ReferenceParameters resp = Repository.FindByIdElement(id_element);
+                List<ReferenceParameters> resp = Repository.FindByIdElement(id_element);
 
                 return resp;
             }

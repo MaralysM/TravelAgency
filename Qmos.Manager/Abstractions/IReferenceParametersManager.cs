@@ -12,7 +12,7 @@ namespace Qmos.Manager
     {
         Task<IList<ReferenceParameters>> All();
         bool UpdateReference(ReferenceParameters entity);
-        ReferenceParameters FindByIdElement(int id_element);
+        List<ReferenceParameters> FindByIdElement(int id_element);
         short Save(ReferenceParameters referenceParameters);
         void Remove(short id);
     }

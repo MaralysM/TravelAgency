@@ -75,9 +75,9 @@ namespace Qmos.Data
             }
         }
 
-        public ReferenceParameters FindByIdElement(int id_element)
+        public List<ReferenceParameters> FindByIdElement(int id_element)
         {
-            ReferenceParameters entity = new ReferenceParameters();
+            List<ReferenceParameters> entity = new List<ReferenceParameters>();
             try
              {
                 SqlConnection con = Open();
@@ -86,10 +86,14 @@ namespace Qmos.Data
                 var dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    entity.Id = (short)dr["id"];
-                    entity.id_element = (int)dr["id_element"];
-                    entity.reference = dr["reference"].ToString() == "" ? "0" : (dr["reference"].ToString().Replace(",","."));
+                    entity.Add(new ReferenceParameters
+                    {
+                        Id = (short)dr["id"],
+                        id_element = (int)dr["id_element"],
+                        reference = dr["reference"].ToString() == "" ? "0" : (dr["reference"].ToString().Replace(",", "."))
+                    });
                 }
+                
                 dr.Close();
                 cmd.Dispose();
                 Close(con);
