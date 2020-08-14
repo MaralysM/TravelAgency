@@ -40,26 +40,26 @@ namespace Qmos.UI.Controllers
             return View("MTDMissedHeats", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order }) ;
         }
 
-        public IActionResult MTDDelays(decimal Time = 0, short Order = 0)
+        public IActionResult MTDDelays(int id, decimal Time = 0, short Order = 0)
         {
             return View("MTDDelays", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
 
-        public IActionResult MTDTapTempandO2PPM(decimal Time = 0, short Order = 0)
+        public IActionResult MTDTapTempandO2PPM(int id, decimal Time = 0, short Order = 0)
         {
             return View("MTDTapTempandO2PPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
-        public IActionResult KWhPerScrapTon(decimal Time = 0, short Order = 0)
+        public IActionResult KWhPerScrapTon(int id, decimal Time = 0, short Order = 0)
         {
             return View("KWhPerScrapTon", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
 
-        public IActionResult TonPerHour(decimal Time = 0, short Order = 0)
+        public IActionResult TonPerHour(int id, decimal Time = 0, short Order = 0)
         {
             return View("TonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
 
-        public IActionResult IronYield(decimal Time = 0, short Order = 0)
+        public IActionResult IronYield(int id, decimal Time = 0, short Order = 0)
         {
             return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
@@ -67,15 +67,15 @@ namespace Qmos.UI.Controllers
         {          
             return View("TargetPPM", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = id });
         }
-        public IActionResult TargetTemp(decimal Time = 0, short Order = 0)
+        public IActionResult TargetTemp(int id, decimal Time = 0, short Order = 0)
         {
             return View("TargetTemp", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
-        public IActionResult TapWtTarget(decimal Time = 0, short Order = 0)
+        public IActionResult TapWtTarget(int id, decimal Time = 0, short Order = 0)
         {
             return View("TapWtTarget", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
-        public IActionResult MTDProduction(decimal Time = 0, short Order = 0)
+        public IActionResult MTDProduction(int id, decimal Time = 0, short Order = 0)
         {
             return View("MTDProduction", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
         }
