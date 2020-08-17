@@ -510,6 +510,9 @@ function GetIronYield(id_element, url) {
 
             barChartIronYield = new Chart(canvaschartIronYield,
                 { type: 'line', data: data, options: options });
+        },
+        error: function (response) {
+            alert(response.responseText);
         }
     });
 }
@@ -518,9 +521,9 @@ function GetTargetPPM(id_element, url) {
     $.ajax({
         url: "http://sapwebbeap03:8002/api/TapPPMTargetPPM",
         method: "GET",
-        success: async function (retorno) {
+        success:  function (retorno) {
             var myobject = JSON.parse(retorno);
-            let Reference = await ReferenceParameters(id_element, url);
+           // let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvgO2InSpec);
             let canvaschartTargetPPM = document.getElementById("chartTargetPPM").getContext("2d");
 
@@ -539,20 +542,20 @@ function GetTargetPPM(id_element, url) {
                 ]
             };
 
-            $.each(Reference, async function (i, item) {
-                var _ref = [];
-                let j = 0;
-                while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
-                var constant = {
-                    fill: false,
-                    backgroundColor: "#676a6c",
-                    borderColor: "#676a6c",
-                    borderDash: [5, 5],
-                    pointRadius: 0,
-                    data: _ref
-                };
-                data.datasets.push(constant);
-            });
+            //$.each(Reference, async function (i, item) {
+            //    var _ref = [];
+            //    let j = 0;
+            //    while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
+            //    var constant = {
+            //        fill: false,
+            //        backgroundColor: "#676a6c",
+            //        borderColor: "#676a6c",
+            //        borderDash: [5, 5],
+            //        pointRadius: 0,
+            //        data: _ref
+            //    };
+            //    data.datasets.push(constant);
+            //});
 
             let options = {
                 responsive: true,
@@ -589,6 +592,9 @@ function GetTargetPPM(id_element, url) {
 
             barChartTargetPPM = new Chart(canvaschartTargetPPM,
                 { type: 'line', data: data, options: options });
+        },
+        error: function (response) {
+            alert(response.responseText);
         }
     });
 
