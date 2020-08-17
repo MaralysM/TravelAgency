@@ -517,13 +517,13 @@ function GetIronYield(id_element, url) {
     });
 }
 
-function GetTargetPPM(id_element, url) {
-    $.ajax({
+async function  GetTargetPPM(id_element, url) {
+    await   $.ajax({
         url: "http://sapwebbeap03:8002/api/TapPPMTargetPPM",
         method: "GET",
-        success:  function (retorno) {
+        success: async function (retorno) {
             var myobject = JSON.parse(retorno);
-            let Reference =  ReferenceParameters(id_element, url);
+            let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvgO2InSpec);
             let canvaschartTargetPPM = document.getElementById("chartTargetPPM").getContext("2d");
 
@@ -542,7 +542,7 @@ function GetTargetPPM(id_element, url) {
                 ]
             };
 
-            $.each(Reference, function (i, item) {
+            $.each(Reference, async function (i, item) {
                 var _ref = [];
                 let j = 0;
                 while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
@@ -592,9 +592,6 @@ function GetTargetPPM(id_element, url) {
 
             barChartTargetPPM = new Chart(canvaschartTargetPPM,
                 { type: 'line', data: data, options: options });
-        },
-        error: function (response) {
-            alert(response.responseText);
         }
     });
 
