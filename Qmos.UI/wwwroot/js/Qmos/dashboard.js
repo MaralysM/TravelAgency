@@ -45,13 +45,13 @@ function GetMTDMissedHeats() {
     });
 }
 
-function GetMTDDelays(id_element, url) {
+async function GetMTDDelays(id_element, url) {
+    let Reference = await ReferenceParameters(id_element, url);
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDDelays",
         method: "GET",
-        success: async function (retorno) {
+        success:  function (retorno) {
             var myobject = JSON.parse(retorno);
-            let Reference = await ReferenceParameters(id_element, url);
             let canvaschartMTDDelays = document.getElementById("chartMTDDelays").getContext("2d");
 
             let data = {
@@ -71,7 +71,7 @@ function GetMTDDelays(id_element, url) {
                 //data.datasets[3].data.push(this.MTDDelays.TappingPrep);
             });
 
-            $.each(Reference, async function (i, item) {
+            $.each(Reference, function (i, item) {
                 var _ref = [];
                 let j = 0;
                 while (j < 4) { _ref.push(parseFloat(item.reference)); j++; }
@@ -127,13 +127,13 @@ function GetMTDDelays(id_element, url) {
     });
 }
 
-function GetMTDTapTempand02PPM(id_element, url) {
+async function GetMTDTapTempand02PPM(id_element, url) {
+    let Reference = await ReferenceParameters(id_element, url);
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDTapTempAndO2PPM",
         method: "GET",
-        success:async function (retorno) {
+        success: function (retorno) {
             var myobject = JSON.parse(retorno);
-            let Reference = await ReferenceParameters(id_element, url);
             let canvaschartMTDTapTempand02PPM = document.getElementById("chartMTDTapTempand02PPM").getContext("2d");
 
             let data = {
@@ -149,7 +149,7 @@ function GetMTDTapTempand02PPM(id_element, url) {
                 data.datasets[1].data.push(this.O2InSpec);
             });
 
-            $.each(Reference, async function (i, item) {
+            $.each(Reference, function (i, item) {
                 var _ref = [];
                 let j = 0;
                 while (j < 4) { _ref.push(parseFloat(item.reference)); j++; }
@@ -213,13 +213,13 @@ function GetMTDTapTempand02PPM(id_element, url) {
     });
 }
 
-function GetKWhPerScrapTon(id_element, url) {
+async function GetKWhPerScrapTon(id_element, url) {
+    let Reference = await ReferenceParameters(id_element, url);
     $.ajax({
         url: "http://sapwebbeap03:8002/api/KwhPerScrapTon",
         method: "GET",
-        success: async function (retorno) {
+        success: function (retorno) {
             var myobject = JSON.parse(retorno);
-            let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvgKwhTon);
             let canvaschartKWhPerScrapTon = document.getElementById("chartKWhPerScrapTon").getContext("2d");
 
@@ -239,7 +239,7 @@ function GetKWhPerScrapTon(id_element, url) {
                 }]
             };
 
-            $.each(Reference, async function (i, item) {
+            $.each(Reference, function (i, item) {
                 var _ref = [];
                 let j = 0;
                 while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
@@ -314,13 +314,13 @@ function GetKWhPerScrapTon(id_element, url) {
     });
 }
 
-function GetScrapTonPerHour(id_element, url) {
+async function GetScrapTonPerHour(id_element, url) {
+    let Reference = await ReferenceParameters(id_element, url);
     $.ajax({
         url: "http://sapwebbeap03:8002/api/ScrapTonPerHour",
         method: "GET",
-        success: async function (retorno) {
+        success: function (retorno) {
             var myobject = JSON.parse(retorno);
-            let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvgTonHourPon);
             let canvaschartScrapTonPerHour = document.getElementById("chartScrapTonPerHour").getContext("2d");
 
@@ -340,7 +340,7 @@ function GetScrapTonPerHour(id_element, url) {
                 }]
             };
 
-            $.each(Reference, async function (i, item) {
+            $.each(Reference, function (i, item) {
                 var _ref = [];
                 let j = 0;
                 while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
@@ -414,13 +414,13 @@ function GetScrapTonPerHour(id_element, url) {
     });
 }
 
-function GetIronYield(id_element, url) {
+async function GetIronYield(id_element, url) {
+    let Reference = await ReferenceParameters(id_element, url);
     $.ajax({
         url: "http://sapwebbeap03:8002/api/IronYield",
         method: "GET",
-        success: async function (retorno) {
+        success: function (retorno) {
             var myobject = JSON.parse(retorno);
-            let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvYield);
             let canvaschartIronYield = document.getElementById("chartIronYield").getContext("2d");
 
@@ -438,7 +438,7 @@ function GetIronYield(id_element, url) {
             };
 
 
-            $.each(Reference, async function (i, item) {
+            $.each(Reference, function (i, item) {
                 var _ref = [];
                 let j = 0;
                 while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
@@ -520,8 +520,6 @@ function GetIronYield(id_element, url) {
 async function GetTargetPPM(id_element, url) {
 
     let Reference = await ReferenceParameters(id_element, url);
-
-    debugger
       $.ajax({
         url: "http://sapwebbeap03:8002/api/TapPPMTargetPPM",
         method: "GET",
@@ -600,13 +598,13 @@ async function GetTargetPPM(id_element, url) {
 
 }
 
-function GetTargetTemp(id_element, url) {
+async function GetTargetTemp(id_element, url) {
+    let Reference = await ReferenceParameters(id_element, url);
     $.ajax({
         url: "http://sapwebbeap03:8002/api/TapTempTargetTemp",
         method: "GET",
-        success: async function (retorno) {
+        success:  function (retorno) {
             var myobject = JSON.parse(retorno);
-            let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvgTempInSpec);
             let canvaschartTargetTemp = document.getElementById("chartTargetTemp").getContext("2d");
 
@@ -625,7 +623,7 @@ function GetTargetTemp(id_element, url) {
                 ]
             };
 
-            $.each(Reference, async function (i, item) {
+            $.each(Reference, function (i, item) {
                 var _ref = [];
                 let j = 0;
                 while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
@@ -680,13 +678,13 @@ function GetTargetTemp(id_element, url) {
     });
 }
 
-function GetTapWtTarget(id_element, url) {
+async function GetTapWtTarget(id_element, url) {
+    let Reference = await ReferenceParameters(id_element, url);
     $.ajax({
         url: "http://sapwebbeap03:8002/api/TapWtTapWtTarget",
         method: "GET",
-        success: async function (retorno) {
+        success:  function (retorno) {
             var myobject = JSON.parse(retorno);
-            let Reference = await ReferenceParameters(id_element, url);
             $('#Average').html(myobject.AvgTapWtDiff);
             let canvaschartTapWtTarget = document.getElementById("chartTapWtTarget").getContext("2d");
 
@@ -703,7 +701,7 @@ function GetTapWtTarget(id_element, url) {
                     pointBorderWidth: 1
                 }]
             };
-            $.each(Reference, async function (i, item) {
+            $.each(Reference, function (i, item) {
                 var _ref = [];
                 let j = 0;
                 while (j < myobject.AxeX.length) { _ref.push(parseFloat(item.reference)); j++; }
@@ -755,13 +753,13 @@ function GetTapWtTarget(id_element, url) {
     });
 }
 
-function GetMTDProduction(id_element, url) {
+async function GetMTDProduction(id_element, url) {
+    let Reference = await ReferenceParameters(id_element, url);
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDProduction",
         method: "GET",
-        success: async function (retorno) {
+        success: function (retorno) {
             var myobject = JSON.parse(retorno);
-            let Reference = await ReferenceParameters(id_element, url);
             let canvaschartMTDProduction = document.getElementById("chartMTDProduction").getContext("2d");
             var barChartData = {
                 labels: [],
@@ -777,7 +775,7 @@ function GetMTDProduction(id_element, url) {
                 } ]
             };
 
-            $.each(Reference, async function (i, item) {
+            $.each(Reference, function (i, item) {
                 var _ref = [];
                 let j = 0;
                 while (j < myobject.data.length) { _ref.push(parseFloat(item.reference)); j++; }
