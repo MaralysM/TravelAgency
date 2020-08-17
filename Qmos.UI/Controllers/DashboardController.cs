@@ -60,13 +60,13 @@ namespace Qmos.UI.Controllers
         public async Task<IActionResult> TonPerHour( decimal Time = 0, short Order = 0)
         {
             var Element = await TransitionParametersManager.GetByName("Ton per Hour");
-            return View("TonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.Id });
+            return View("TonPerHour", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element });
         }
 
         public async Task<IActionResult> IronYield( decimal Time = 0, short Order = 0)
         {
             var Element = await TransitionParametersManager.GetByName("Iron Yield");
-            return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.Id });
+            return View("IronYield", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element });
         }
         public async Task<IActionResult> TargetPPM( decimal Time = 0, short Order = 0)
         {
