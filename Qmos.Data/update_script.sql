@@ -493,8 +493,10 @@ GO
 
    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'reference_parameters' 
 AND COLUMN_NAME = 'id_child')
+begin
 	ALTER TABLE [Qmos].[reference_parameters] ADD id_child SMALLINT NULL 
 	ALTER TABLE [Qmos].[reference_parameters] ADD CONSTRAINT FK_child_element FOREIGN KEY (id_child) REFERENCES [Qmos].[child_element](id);
+    end
 GO
 
 
