@@ -9,7 +9,7 @@ namespace Qmos.Data
         Task<IList<ReferenceParameters>> AllAsync();
         bool UpdateReference(ReferenceParameters entity);
         List<ReferenceParameters> FindByIdElement(int id_element);
-        short Save(ReferenceParameters entity);
+        short Save(ReferenceParameters entity, int id_average);
         void Remove(short id);
         Task<IList<ChildElement>> AllChildElement();
     }

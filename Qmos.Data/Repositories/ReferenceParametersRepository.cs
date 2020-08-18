@@ -141,12 +141,12 @@ namespace Qmos.Data
             }
         }
 
-        public short Save(ReferenceParameters entity)
+        public short Save(ReferenceParameters entity, int id_average)
         {
             try
             {
-                string campos = entity.id_element == 16 ? ", [id_child], [ref_min], [ref_max]" : "";
-                string values = entity.id_element == 16 ? $", {entity.id_child}, {entity.refmin.ToString().Replace(',', '.')}, {entity.refmax.ToString().Replace(',', '.')}" : "";
+                string campos = entity.id_element == id_average ? ", [id_child], [ref_min], [ref_max]" : "";
+                string values = entity.id_element == id_average ? $", {entity.id_child}, {entity.refmin.ToString().Replace(',', '.')}, {entity.refmax.ToString().Replace(',', '.')}" : "";
                 var con = Open();
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandText = $" INSERT INTO {TABLE}([id_element],[reference] {campos})" +

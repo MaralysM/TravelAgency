@@ -51,15 +51,15 @@ namespace Qmos.UI.Controllers
                 }
 
                 var entity = new ReferenceParameters
-                {
+                {                   
                     id_element= viewModel.idElement,
                     reference = viewModel.Reference.Replace(".", ""),  
                     id_child = viewModel.idChild,
                     refmax = viewModel.RefMax.Replace(".", ""),
                     refmin = viewModel.RefMin.Replace(".", "")
                 };
-
-                long result = Manager.Save(entity);
+                int id_average = viewModel.idAverage = TransitionParametersManager.GetByName("MTD Average").Result.id_element;
+                long result = Manager.Save(entity, id_average);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

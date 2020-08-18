@@ -89,11 +89,11 @@ namespace Qmos.Manager
             }
         }
 
-        public short Save(ReferenceParameters referenceParameters)
+        public short Save(ReferenceParameters referenceParameters, int id_average)
         {
             try
             {
-                short resp = Repository.Save(referenceParameters);
+                short resp = Repository.Save(referenceParameters, id_average);
 
                 return resp;
             }
