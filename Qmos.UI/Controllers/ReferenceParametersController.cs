@@ -55,8 +55,8 @@ namespace Qmos.UI.Controllers
                     id_element= viewModel.idElement,
                     reference = viewModel.Reference.Replace(".", ""),  
                     id_child = viewModel.idChild,
-                    refmax = viewModel.RefMax.Replace(".", ""),
-                    refmin = viewModel.RefMin.Replace(".", "")
+                    refmax = viewModel.RefMax ==null ? "" : viewModel.RefMax.Replace(".", ""),
+                    refmin = viewModel.RefMin == null ? "" : viewModel.RefMin.Replace(".", "")
                 };
                 int id_average = viewModel.idAverage = TransitionParametersManager.GetByName("MTD Average").Result.id_element;
                 long result = Manager.Save(entity, id_average);
