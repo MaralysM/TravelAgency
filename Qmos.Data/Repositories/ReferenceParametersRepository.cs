@@ -108,6 +108,59 @@ namespace Qmos.Data
             }
         }
 
+        public bool UpdateReferenceMin(ReferenceParameters entity)
+        {
+            try
+            {
+                int result = 0;
+                var con = Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText =
+                    $"UPDATE  [Qmos].[reference_parameters] " +
+                    $"SET  ref_min = {entity.refmin.ToString().Replace(',', '.')}" +
+                    $"OUTPUT INSERTED.id " +
+                    $"WHERE id = {entity.Id} ";
+                result = cmd.ExecuteNonQuery();
+                Close(con);
+
+                return result > 0;
+            }
+            catch (SqlException ex) when (ex.Number == 2627)
+            {
+                throw new UniqueKeyException($"{TAG}: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public bool UpdateReferenceMax(ReferenceParameters entity)
+        {
+            try
+            {
+                int result = 0;
+                var con = Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText =
+                    $"UPDATE  [Qmos].[reference_parameters] " +
+                    $"SET  ref_max = {entity.refmax.ToString().Replace(',', '.')}" +
+                    $"OUTPUT INSERTED.id " +
+                    $"WHERE id = {entity.Id} ";
+                result = cmd.ExecuteNonQuery();
+                Close(con);
+
+                return result > 0;
+            }
+            catch (SqlException ex) when (ex.Number == 2627)
+            {
+                throw new UniqueKeyException($"{TAG}: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<ReferenceParameters> FindByIdElement(int id_element)
         {
             List<ReferenceParameters> entity = new List<ReferenceParameters>();

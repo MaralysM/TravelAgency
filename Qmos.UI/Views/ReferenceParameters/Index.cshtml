@@ -42,15 +42,15 @@
                                 </div>
                                 <div class="col-lg-2 form-group" hidden id="min">
                                     <label>Ref Min</label><span class="text-danger"> *</span>
-                                    <input type="text" placeholder="Ref" class="form-control ref inputNumber" asp-for="RefMin">
+                                    <input type="text" placeholder="Ref" class="form-control  inputNumber" asp-for="RefMin">
                                 </div>
                                 <div class="col-lg-2 form-group" hidden id="max">
                                     <label>Ref Max</label><span class="text-danger"> *</span>
-                                    <input type="text" placeholder="Ref" class="form-control ref inputNumber" asp-for="RefMax">
+                                    <input type="text" placeholder="Ref" class="form-control  inputNumber" asp-for="RefMax">
                                 </div>
                                 <div class="col-lg-2 form-group">
                                     <label>Reference</label><span class="text-danger"> *</span>
-                                    <input type="text" placeholder="Ref" class="form-control ref inputNumber" asp-for="Reference">
+                                    <input type="text" placeholder="Ref" class="form-control  inputNumber" asp-for="Reference">
                                 </div>
                             </div>
                             <div class="form-group row text-center">
@@ -78,7 +78,7 @@
                                             @item.name_element
                                         </td>
                                         <td>
-                                            @if (item.id_element == 16)
+                                            @if (item.id_element == Model.idAverage)
                                             {
                                                 @(string.Concat(item.name_element, " (", item.childElement.Name, ")"));
                                             }
@@ -88,12 +88,12 @@
                                             }
                                         </td>
                                         <td width=300>
-                                            @if (item.id_element == 16)
+                                            @if (item.id_element == Model.idAverage)
                                             {
                                                 <span>Min</span>
-                                                <input type="text" value="@item.refmin" style="width:70px" class="form-control ref inputNumber" id="@item.Id" data-id="@item.Id">
+                                                <input type="text" value="@item.refmin" style="width:70px" class="form-control refmin inputNumber" id="@item.Id" data-id="@item.Id">
                                                 <span>Max</span>
-                                                <input type="text" value="@item.refmax" style="width:70px" class="form-control ref inputNumber" id="@item.Id" data-id="@item.Id">
+                                                <input type="text" value="@item.refmax" style="width:70px" class="form-control refmax inputNumber" id="@item.Id" data-id="@item.Id">
                                                 <span>Ref</span>
                                                 <input type="text" value="@item.reference" style="width:70px" class="form-control ref inputNumber" id="@item.Id" data-id="@item.Id">
                                             }
@@ -161,6 +161,34 @@
         var link = $(this);
             $.ajax({
                 url: '@Url.Action("UpdateRef", "ReferenceParameters")',
+                type: 'GET',
+                data: { Id: link.attr("data-id"), Ref: link.val()},
+                success: function (retorno) {
+                    if (retorno.aaData == true) {
+                        toastr.clear();
+                        toastr.success("Update successful");
+                    }
+                }
+            });
+        });
+                $(".refmin").on('change', function () {
+        var link = $(this);
+            $.ajax({
+                url: '@Url.Action("UpdateRefmin", "ReferenceParameters")',
+                type: 'GET',
+                data: { Id: link.attr("data-id"), Ref: link.val()},
+                success: function (retorno) {
+                    if (retorno.aaData == true) {
+                        toastr.clear();
+                        toastr.success("Update successful");
+                    }
+                }
+            });
+                });
+     $(".refmax").on('change', function () {
+        var link = $(this);
+            $.ajax({
+                url: '@Url.Action("UpdateRefmax", "ReferenceParameters")',
                 type: 'GET',
                 data: { Id: link.attr("data-id"), TypeRef: link.attr("data-ref"), Ref: link.val()},
                 success: function (retorno) {

@@ -101,7 +101,36 @@ namespace Qmos.UI.Controllers
 
             });
         }
+        [HttpGet]
+        public ActionResult UpdateRefmin(short Id, string Ref)
+        {
+            ReferenceParameters entity = new ReferenceParameters();
+            string RefValue = Ref.Replace(".", "");
+            entity.Id = Id;
+            entity.refmin = RefValue;
+            var Result = Manager.UpdateReferenceMin(entity);
 
+            return Json(new
+            {
+                aaData = Result
+
+            });
+        }
+        [HttpGet]
+        public ActionResult UpdateRefmax(short Id, string Ref)
+        {
+            ReferenceParameters entity = new ReferenceParameters();
+            string RefValue = Ref.Replace(".", "");
+            entity.Id = Id;
+            entity.refmax = RefValue;
+            var Result = Manager.UpdateReferenceMax(entity);
+
+            return Json(new
+            {
+                aaData = Result
+
+            });
+        }
 
         [HttpGet]
         public ActionResult FindByIdElement(int id_element)

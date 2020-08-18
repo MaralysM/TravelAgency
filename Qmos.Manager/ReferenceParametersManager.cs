@@ -70,6 +70,40 @@ namespace Qmos.Manager
                 throw new Exception("Cannot add a register");
             }
         }
+        public bool UpdateReferenceMin(ReferenceParameters entity)
+        {
+            try
+            {
+                bool resp = Repository.UpdateReferenceMin(entity);
+
+                return resp;
+            }
+            catch (UniqueKeyException ex)
+            {
+                throw new Exception("Cannot insert or update a value duplicate");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cannot add a register");
+            }
+        }
+        public bool UpdateReferenceMax(ReferenceParameters entity)
+        {
+            try
+            {
+                bool resp = Repository.UpdateReferenceMax(entity);
+
+                return resp;
+            }
+            catch (UniqueKeyException ex)
+            {
+                throw new Exception("Cannot insert or update a value duplicate");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cannot add a register");
+            }
+        }
 
         public List<ReferenceParameters> FindByIdElement(int id_element)
         {

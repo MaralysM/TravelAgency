@@ -16,5 +16,7 @@ namespace Qmos.Manager
         short Save(ReferenceParameters referenceParameters, int id_average);
         void Remove(short id);
         Task<IList<ChildElement>> AllChildElement();
+        bool UpdateReferenceMin(ReferenceParameters entity);
+        bool UpdateReferenceMax(ReferenceParameters entity);
     }
 }
