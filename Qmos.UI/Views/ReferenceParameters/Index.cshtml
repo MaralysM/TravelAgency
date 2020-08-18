@@ -63,9 +63,10 @@
                     <table class="table table-striped table-bordered table-hover dataTables" id="table">
                         <thead>
                             <tr>
+                                <th hidden>Name</th>
                                 <th>Name</th>
                                 <th>Parameters</th>
-                                <th hidden>Ref</th>
+                                <th hidden>Reference</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -73,10 +74,13 @@
                             @{ foreach (var item in Model.List)
                                 {
                                     <tr>
+                                        <td hidden>
+                                            @item.name_element
+                                        </td>
                                         <td>
                                             @if (item.id_element == 16)
                                             {
-                                                @(string.Concat(item.name_element, " (", item.childElement.Name,")"));
+                                                @(string.Concat(item.name_element, " (", item.childElement.Name, ")"));
                                             }
                                             else
                                             {
@@ -138,7 +142,7 @@
                 'placeholder': '0',
               });
 
-        formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 2,4], null);
+        formatearDataTableOriginal("#table", "@ViewData["Title"]", [0,3], null);
         $('#table tbody').on('click', '.delete', function () {
             eliminarRegistro(".delete", "data-id", "@Url.Action("Remove", "ReferenceParameters")", '#table', $(this));
         });
