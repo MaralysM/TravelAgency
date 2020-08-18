@@ -85,7 +85,7 @@
     <script src="~/js/Qmos/dashboard.js"></script>
     <script>
         $(document).ready(function () {
-           GetMTDAverage();
+           GetMTDAverage(@Model.IdElement,'@Url.Action("FindByIdElement","ReferenceParameters")');
             //Every X seconds (XXXX milliseconds) the refresh function will be executeicond
             if (@Model.TIMEMILLISECONDS > 0) {
             var milliseconds = @Model.TIMEMILLISECONDS;

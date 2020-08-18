@@ -88,10 +88,10 @@ namespace Qmos.UI.Controllers
             var Element = await TransitionParametersManager.GetByName("MTD Production");
             return View("MTDProduction", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element });
         }
-        public IActionResult MTDAverage(decimal Time = 0, short Order = 0)
+        public async Task<IActionResult> MTDAverage(decimal Time = 0, short Order = 0)
         {
-            var id = 0;
-            return View("MTDAverage", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order });
+            var Element = await TransitionParametersManager.GetByName("MTD Average");
+            return View("MTDAverage", new UpdateTimeViewModel { TIMEMILLISECONDS = Time == 0 ? Manager.ConversionToMilliseconds().Result : Time, ORDER_TRANSITION = Order, IdElement = Element.id_element });
         }
 
     }

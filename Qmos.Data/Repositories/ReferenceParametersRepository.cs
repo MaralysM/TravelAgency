@@ -123,7 +123,10 @@ namespace Qmos.Data
                     {
                         Id = (short)dr["id"],
                         id_element = (int)dr["id_element"],
-                        reference = dr["reference"].ToString() == "" ? "0" : (dr["reference"].ToString().Replace(",", "."))
+                        reference = dr["reference"].ToString() == "" ? "0" : (dr["reference"].ToString().Replace(",", ".")),
+                        id_child = dr["id_child"].ToString() == "" ? (short)0 : (short)dr["id_child"],
+                        refmax = dr["ref_max"].ToString() == "" ? "0" : (dr["ref_max"].ToString()),
+                        refmin = dr["ref_min"].ToString() == "" ? "0" : (dr["ref_min"].ToString())
                     });
                 }
                 

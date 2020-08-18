@@ -863,13 +863,16 @@ async function GetMTDProduction(id_element, url) {
     });
 }
 
-function GetMTDAverage() {
+async function GetMTDAverage(id_element, url) {
+    let Reference = await ReferenceParameters(id_element, url);
+
+
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDAverage",
         method: "GET",
         success: function (retorno) {
             var myobject = JSON.parse(retorno);
-            EafKWht(myobject);
+            EafKWht(myobject, Reference);
             EafLrfKwht(myobject);
             TonPerHour(myobject);
             IronYield(myobject);
@@ -883,6 +886,9 @@ function GetMTDAverage() {
 
 function EafKWht(retorno) {
 
+    var filteredReference = retorno.filter(function (obj) {
+        return obj.id_child === 1;
+    });
     var thresholdOpts = {
         boxSize: 8,
         boxFill: false,
@@ -906,8 +912,8 @@ function EafKWht(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: retorno.EAFkWhMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.EAFkWhMax // 100 is default
+            min: filteredReference.ref_min, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: filteredReference.ref_max // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -923,7 +929,7 @@ function EafKWht(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, retorno.EAFkWhMax, ".DrawChart1", retorno.EAFkWhTarget);
+            drawThresholds(this, thresholdOpts, opts, filteredReference.reference, ".DrawChart1", retorno.EAFkWhTarget);
         }
     };
 
