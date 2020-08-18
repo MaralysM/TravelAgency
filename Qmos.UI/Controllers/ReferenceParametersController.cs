@@ -25,10 +25,12 @@ namespace Qmos.UI.Controllers
     {
         public IReferenceParametersManager Manager { get; }
         public IElementManager ElementManager { get; }
-        public ReferenceParametersController(IReferenceParametersManager manager, IElementManager elementManager)
+        public ITransitionParametersManager TransitionParametersManager { get; }
+        public ReferenceParametersController(IReferenceParametersManager manager, IElementManager elementManager, ITransitionParametersManager transitionParametersManager)
         {
             Manager = manager;
             ElementManager = elementManager;
+            TransitionParametersManager = transitionParametersManager;
         }
         public IActionResult Index()
         {
@@ -41,9 +43,11 @@ namespace Qmos.UI.Controllers
             InitializeViewModel(viewModel);
             try
             {
+                ValidateViewModel(viewModel);
                 if (!ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    viewModel.idElement = 0;
+                    return View("Index", viewModel);
                 }
 
                 var entity = new ReferenceParameters
@@ -51,8 +55,8 @@ namespace Qmos.UI.Controllers
                     id_element= viewModel.idElement,
                     reference = viewModel.Reference.Replace(".", ""),  
                     id_child = viewModel.idChild,
-                    refmax = viewModel.RefMax,
-                    refmin = viewModel.RefMin
+                    refmax = viewModel.RefMax.Replace(".", ""),
+                    refmin = viewModel.RefMin.Replace(".", "")
                 };
 
                 long result = Manager.Save(entity);
@@ -65,9 +69,17 @@ namespace Qmos.UI.Controllers
             }
         }
 
-
+        private void ValidateViewModel(ReferenceParametersViewModel viewModel)
+        {
+            var data = Manager.All().Result;
+            if (data.Any(x => x.id_element == viewModel.idElement && x.id_child == viewModel.idChild))
+            {
+                ModelState.AddModelError("Error", "There is a record for the selected graph");
+            }
+        }
         private void InitializeViewModel(ReferenceParametersViewModel viewModel)
         {
+            viewModel.idAverage = TransitionParametersManager.GetByName("MTD Average").Result.id_element;
             List<KCI_SecureModuleCL.Models.SM_ELEMENT> EntityElement = ElementManager.All().Result.ToList();
             List<ChildElement> EntityChildElement = Manager.AllChildElement().Result.ToList();
             viewModel.ElementList = SelectListItemHelper.ToSelectList(EntityElement.Where(x => x.ID_ElementParent == EntityElement.Where(y => y.TX_Name == "Dashboards").FirstOrDefault().ID_Element).ToList(), "ID_Element", "TX_Name", "Code");

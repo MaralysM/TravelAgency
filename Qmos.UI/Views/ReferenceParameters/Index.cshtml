@@ -131,6 +131,7 @@
     <script>
     $(document).ready(function ()
     {
+        ValidityState();
           $('.inputNumber').inputmask("decimal",
             {
                 'alias': 'numeric',
@@ -149,7 +150,7 @@
        });
 
         $('form').submit(function () {
-            if ($('#idElement').val() == 16 ? ($('#Reference').val() == "" || $('#idElement').val() == 0 || $('#idChild').val() == 0 || $('#RefMin').val() == "" || $('#RefMax').val() == "" ) : ($('#Reference').val() == "" || $('#idElement').val() == 0 )) {
+            if ($('#idElement').val() ==  @Model.idAverage ? ($('#Reference').val() == "" || $('#idElement').val() == 0 || $('#idChild').val() == 0 || $('#RefMin').val() == "" || $('#RefMax').val() == "" ) : ($('#Reference').val() == "" || $('#idElement').val() == 0 )) {
                 toastr.error("Enter the fields marked as required");
                 return false;
             }
@@ -171,7 +172,10 @@
             });
         });
         $("#idElement").on('change', function () {
-            if ($("#idElement").val() == 16) {
+        ValidityState()
+        });
+        function ValidityState() { 
+            if ($("#idElement").val() == @Model.idAverage) {
                 $("#child").show();
                 $("#min").show();
                 $("#max").show();
@@ -179,8 +183,8 @@
                 $("#child").hide();
                 $("#min").hide();
                 $("#max").hide();
+            };
             }
-        });
 
     </script>
 }

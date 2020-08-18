@@ -11,6 +11,7 @@ namespace Qmos.UI.ViewModels
         public string Reference{ get; set; }
         public string RefMin{ get; set; }
         public string RefMax{ get; set; }
+        public int idAverage { get; set; }
         public IEnumerable<SelectListItem> ElementList { get; set; }
         public IEnumerable<SelectListItem> ChildList { get; set; }
         public IList<ReferenceParameters> List { get; set; }
