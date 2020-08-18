@@ -49,7 +49,10 @@ namespace Qmos.UI.Controllers
                 var entity = new ReferenceParameters
                 {
                     id_element= viewModel.idElement,
-                    reference = viewModel.Reference.Replace(".", ""),
+                    reference = viewModel.Reference.Replace(".", ""),  
+                    id_child = viewModel.idChild,
+                    refmax = viewModel.RefMax,
+                    refmin = viewModel.RefMin
                 };
 
                 long result = Manager.Save(entity);
@@ -66,7 +69,9 @@ namespace Qmos.UI.Controllers
         private void InitializeViewModel(ReferenceParametersViewModel viewModel)
         {
             List<KCI_SecureModuleCL.Models.SM_ELEMENT> EntityElement = ElementManager.All().Result.ToList();
+            List<ChildElement> EntityChildElement = Manager.AllChildElement().Result.ToList();
             viewModel.ElementList = SelectListItemHelper.ToSelectList(EntityElement.Where(x => x.ID_ElementParent == EntityElement.Where(y => y.TX_Name == "Dashboards").FirstOrDefault().ID_Element).ToList(), "ID_Element", "TX_Name", "Code");
+            viewModel.ChildList = SelectListItemHelper.ToSelectList(EntityChildElement, "Id", "Name", "Code");
             viewModel.List =  Manager.All().Result;
         }
         [HttpGet]

@@ -25,7 +25,7 @@ namespace Qmos.Data
             {
                 SqlConnection con = await OpenAsync();
                 SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = $"select E.TX_Name element_name, * from {TABLE} TP INNER JOIN [Security].[SM_ELEMENT] E ON TP.id_element =E.ID_Element";
+                cmd.CommandText = $"select E.TX_Name element_name, CE.name child_name, * from {TABLE} TP INNER JOIN [Security].[SM_ELEMENT] E ON TP.id_element = E.ID_Element LEFT JOIN [Qmos].[child_element] CE ON TP.id_child = CE.id";
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
@@ -34,13 +34,46 @@ namespace Qmos.Data
                         Id = (short)dr["id"],
                         id_element = (int)dr["id_element"],
                         reference = dr["reference"].ToString() == "" ? "0" : (dr["reference"].ToString()),
-                        name_element = dr["element_name"].ToString()
+                        name_element = dr["element_name"].ToString(),
+                        id_child = dr["id_child"].ToString() == "" ? (short)0 : (short)dr["id_child"],
+                        refmax = dr["ref_max"].ToString() == "" ? "0" : (dr["ref_max"].ToString()),
+                        refmin = dr["ref_min"].ToString() == "" ? "0" : (dr["ref_min"].ToString()),
+                        childElement = new ChildElement() {Name = dr["child_name"].ToString() }
                     }); 
                 }
                 dr.Close();
                 cmd.Dispose();
                 Close(con);
                 return TransitionParameters;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IList<ChildElement>> AllChildElement()
+        {
+            List<ChildElement> ChildElement = new List<ChildElement>();
+            try
+            {
+                SqlConnection con = await OpenAsync();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = $"select * from [Qmos].[child_element]";
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    ChildElement.Add(new ChildElement
+                    {
+                        Id = (short)dr["id"],
+                        id_element = (int)dr["id_element"],
+                        Name = dr["name"].ToString()
+                    });
+                }
+                dr.Close();
+                cmd.Dispose();
+                Close(con);
+                return ChildElement;
             }
             catch (Exception ex)
             {
@@ -109,11 +142,13 @@ namespace Qmos.Data
         {
             try
             {
+                string campos = entity.id_element == 16 ? ", [id_child], [ref_min], [ref_max]" : "";
+                string values = entity.id_element == 16 ? $", {entity.id_child}, {entity.refmin.ToString().Replace(',', '.')}, {entity.refmax.ToString().Replace(',', '.')}" : "";
                 var con = Open();
                 SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = $" INSERT INTO {TABLE}([id_element],[reference])" +
+                cmd.CommandText = $" INSERT INTO {TABLE}([id_element],[reference] {campos})" +
                     $"OUTPUT INSERTED.id " +
-                    $" VALUES({entity.id_element}, {entity.reference.ToString().Replace(',', '.')});";
+                    $" VALUES({entity.id_element}, {entity.reference.ToString().Replace(',', '.')} {values});";
                 var result = cmd.ExecuteScalar();
                 Close(con);
                 return (short)result;

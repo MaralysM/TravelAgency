@@ -40,6 +40,19 @@ namespace Qmos.Manager
             }
         }
 
+        public async Task<IList<ChildElement>> AllChildElement()
+        {
+            try
+            {
+                IList<ChildElement> list = await Repository.AllChildElement();
+
+                return list.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Have ocurred an error to get to list");
+            }
+        }
         public bool UpdateReference(ReferenceParameters entity)
         {
             try

@@ -469,7 +469,7 @@ INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
            (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Reference Parameters'))
 END
 
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'reference_Parameters')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'reference_parameters')
  CREATE TABLE [Qmos].[reference_parameters]
 	(
 	  id SMALLINT NOT NULL IDENTITY(1,1),
@@ -479,3 +479,87 @@ IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qm
 	  FOREIGN KEY (id_element) REFERENCES [Security].[SM_ELEMENT](id_element)
 	)
 GO
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'child_element')
+ CREATE TABLE [Qmos].[child_element]
+	(
+	  id SMALLINT NOT NULL IDENTITY(1,1),
+	  name VARCHAR(100) NOT NULL,
+	  id_element  INT NOT NULL,
+	  PRIMARY KEY(id),
+	  FOREIGN KEY (id_element) REFERENCES [Security].[SM_ELEMENT](id_element)
+	)
+GO
+
+   IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'reference_parameters' 
+AND COLUMN_NAME = 'id_child')
+	ALTER TABLE [Qmos].[reference_parameters] ADD id_child SMALLINT NULL 
+	ALTER TABLE [Qmos].[reference_parameters] ADD CONSTRAINT FK_child_element FOREIGN KEY (id_child) REFERENCES [Qmos].[child_element](id);
+GO
+
+
+ IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'reference_parameters' 
+AND COLUMN_NAME = 'ref_min')
+	ALTER TABLE [Qmos].[reference_parameters] ADD ref_min DECIMAL(18,2) NULL 
+GO
+
+ IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'Qmos' AND TABLE_NAME = 'reference_parameters' 
+AND COLUMN_NAME = 'ref_max')
+	ALTER TABLE [Qmos].[reference_parameters] ADD ref_max DECIMAL(18,2) NULL 
+GO
+
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[child_element] WHERE name = 'EAF KWht')
+BEGIN
+INSERT INTO [Qmos].[child_element]([name],[id_element])
+ VALUES('EAF KWht', (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average'))
+ END
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[child_element] WHERE name = 'Eaf + LRF KwhT')
+BEGIN
+INSERT INTO [Qmos].[child_element]([name],[id_element])
+VALUES('Eaf + LRF KwhT', (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average'))
+END
+
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[child_element] WHERE name = 'Ton per Hour (POn)')
+BEGIN
+INSERT INTO [Qmos].[child_element]([name],[id_element])
+VALUES('Ton per Hour (POn)', (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average'))
+END
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[child_element] WHERE name = 'Iron Yield')
+BEGIN
+INSERT INTO [Qmos].[child_element]([name],[id_element])
+VALUES('Iron Yield', (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average'))
+END
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[child_element] WHERE name = 'Foamy Carbon')
+BEGIN
+INSERT INTO [Qmos].[child_element]([name],[id_element])
+VALUES('Foamy Carbon', (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average'))
+END
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[child_element] WHERE name = 'NG')
+BEGIN
+INSERT INTO [Qmos].[child_element]([name],[id_element])
+VALUES('NG', (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average'))
+END
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[child_element] WHERE name = 'Aluminum')
+BEGIN
+INSERT INTO [Qmos].[child_element]([name],[id_element])
+VALUES('Aluminum', (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average'))
+END
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[child_element] WHERE name = 'Aluminum')
+BEGIN
+INSERT INTO [Qmos].[child_element]([name],[id_element])
+VALUES('Aluminum', (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average'))
+END
+
+IF NOT EXISTS (SELECT * FROM [Qmos].[child_element] WHERE name = 'Charge Carbon')
+BEGIN
+INSERT INTO [Qmos].[child_element]([name],[id_element])
+VALUES('Charge Carbon', (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average'))
+END

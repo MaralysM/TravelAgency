@@ -11,7 +11,7 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-        <div class="col-lg-offset-2 col-lg-8">
+        <div class="col-lg-12">
             <div class="ibox">
                 <div class="ibox-content  p-md">
 
@@ -28,16 +28,29 @@
                         </div>
                         <form asp-action="Post" role="form" method="post">
                             <div class="row">
-                                <div class="col-lg-4 form-group">
+                                <div class="col-lg-3 form-group">
                                     <label>Chart</label><span class="text-danger"> *</span>
                                     <select class="form-control m-b chosen-select" asp-for="idElement" asp-items="@(Model.ElementList)">
                                         <option value="0">Select One Option</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-4 form-group">
+                                <div class="col-lg-3 form-group" hidden id="child">
+                                    <label>Chart</label><span class="text-danger"> *</span>
+                                    <select class="form-control m-b chosen-select" asp-for="idChild" asp-items="@(Model.ChildList)">
+                                        <option value="0">Select One Option</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 form-group" hidden id="min">
+                                    <label>Ref Min</label><span class="text-danger"> *</span>
+                                    <input type="text" placeholder="Ref" class="form-control ref inputNumber" asp-for="RefMin">
+                                </div>
+                                <div class="col-lg-2 form-group" hidden id="max">
+                                    <label>Ref Max</label><span class="text-danger"> *</span>
+                                    <input type="text" placeholder="Ref" class="form-control ref inputNumber" asp-for="RefMax">
+                                </div>
+                                <div class="col-lg-2 form-group">
                                     <label>Reference</label><span class="text-danger"> *</span>
                                     <input type="text" placeholder="Ref" class="form-control ref inputNumber" asp-for="Reference">
-
                                 </div>
                             </div>
                             <div class="form-group row text-center">
@@ -51,8 +64,8 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Reference</th>
-                                <th hidden>Ref 1</th>
+                                <th>Parameters</th>
+                                <th hidden>Ref</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -61,14 +74,34 @@
                                 {
                                     <tr>
                                         <td>
-                                            @item.name_element
+                                            @if (item.id_element == 16)
+                                            {
+                                                @(string.Concat(item.name_element, " (", item.childElement.Name,")"));
+                                            }
+                                            else
+                                            {
+                                                @item.name_element
+                                            }
                                         </td>
-                                        <td width=400>
-                                            <input type="text" placeholder="Ref 1" value="@item.reference" style="width:400px"class="form-control ref inputNumber" id="@item.Id" data-id="@item.Id" data-ref="1">
+                                        <td width=300>
+                                            @if (item.id_element == 16)
+                                            {
+                                                <span>Min</span>
+                                                <input type="text" value="@item.refmin" style="width:70px" class="form-control ref inputNumber" id="@item.Id" data-id="@item.Id">
+                                                <span>Max</span>
+                                                <input type="text" value="@item.refmax" style="width:70px" class="form-control ref inputNumber" id="@item.Id" data-id="@item.Id">
+                                                <span>Ref</span>
+                                                <input type="text" value="@item.reference" style="width:70px" class="form-control ref inputNumber" id="@item.Id" data-id="@item.Id">
+                                            }
+                                            else
+                                            {
+                                                <span>Ref</span>
+                                                <input type="text" value="@item.reference" style="width:270px" class="form-control ref inputNumber" id="@item.Id" data-id="@item.Id">
+                                            }
                                         </td>
                                         <td hidden>
                                             @string.Format("{0:N}", decimal.Parse(item.reference))
-                                        </td>                                        
+                                        </td>
                                         <td class="text-center">
                                             <a data-id="@item.Id" class="btn btn-danger delete">
                                                 <i class="fa fa-trash"></i> Remove
@@ -103,7 +136,8 @@
                 'digits': 2,
                 'digitsOptional': false,
                 'placeholder': '0',
-            });
+              });
+
         formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 2,4], null);
         $('#table tbody').on('click', '.delete', function () {
             eliminarRegistro(".delete", "data-id", "@Url.Action("Remove", "ReferenceParameters")", '#table', $(this));
@@ -111,7 +145,7 @@
        });
 
         $('form').submit(function () {
-            if ($('#Reference').val() == "" ||$('#idElement').val() == 0 ) {
+            if ($('#idElement').val() == 16 ? ($('#Reference').val() == "" || $('#idElement').val() == 0 || $('#idChild').val() == 0 || $('#RefMin').val() == "" || $('#RefMax').val() == "" ) : ($('#Reference').val() == "" || $('#idElement').val() == 0 )) {
                 toastr.error("Enter the fields marked as required");
                 return false;
             }
@@ -132,5 +166,17 @@
                 }
             });
         });
+        $("#idElement").on('change', function () {
+            if ($("#idElement").val() == 16) {
+                $("#child").show();
+                $("#min").show();
+                $("#max").show();
+            } else {
+                $("#child").hide();
+                $("#min").hide();
+                $("#max").hide();
+            }
+        });
+
     </script>
 }

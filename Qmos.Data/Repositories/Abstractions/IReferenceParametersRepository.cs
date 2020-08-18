@@ -11,5 +11,6 @@ namespace Qmos.Data
         List<ReferenceParameters> FindByIdElement(int id_element);
         short Save(ReferenceParameters entity);
         void Remove(short id);
+        Task<IList<ChildElement>> AllChildElement();
     }
 }
