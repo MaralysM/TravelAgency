@@ -72,7 +72,7 @@ namespace Qmos.UI.Controllers
         private void ValidateViewModel(ReferenceParametersViewModel viewModel)
         {
             var data = Manager.All().Result;
-            if (data.Any(x => x.id_element == viewModel.idElement && x.id_child == viewModel.idChild))
+            if (data.Any(x => x.id_element == viewModel.idAverage && x.id_child == viewModel.idChild))
             {
                 ModelState.AddModelError("Error", "There is a record for the selected graph");
             }
