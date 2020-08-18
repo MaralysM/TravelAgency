@@ -865,30 +865,32 @@ async function GetMTDProduction(id_element, url) {
 
 async function GetMTDAverage(id_element, url) {
     let Reference = await ReferenceParameters(id_element, url);
-
-
+    let _min = 0; let _max = 100; let _ref = 0;
     $.ajax({
         url: "http://sapwebbeap03:8002/api/MTDAverage",
         method: "GET",
         success: function (retorno) {
             var myobject = JSON.parse(retorno);
-            EafKWht(myobject, Reference);
-            EafLrfKwht(myobject);
-            TonPerHour(myobject);
-            IronYield(myobject);
-            FoamyCarbon(myobject);
-            NG(myobject);
-            Aluminum(myobject);
-            ChargeCarbon(myobject);
+            EafKWht(myobject, Reference,_min,_max,_ref);
+            EafLrfKwht(myobject, Reference, _min, _max, _ref);
+            TonPerHour(myobject, Reference, _min, _max, _ref);
+            IronYield(myobject, Reference, _min, _max, _ref);
+            FoamyCarbon(myobject, Reference, _min, _max, _ref);
+            NG(myobject, Reference, _min, _max, _ref);
+            Aluminum(myobject, Reference, _min, _max, _ref);
+            ChargeCarbon(myobject, Reference, _min, _max, _ref);
         }
     });
 }
 
-function EafKWht(retorno) {
+function EafKWht(retorno, reference, _min, _max, _ref) {
 
-    var filteredReference = retorno.filter(function (obj) {
+    var filteredReference = reference.filter(function (obj) {
         return obj.id_child === 1;
     });
+
+    if (filteredReference.length > 0) { _min = parseFloat(filteredReference[0].refmin); _max = parseFloat(filteredReference[0].refmax); _ref = parseFloat(filteredReference[0].reference); }
+
     var thresholdOpts = {
         boxSize: 8,
         boxFill: false,
@@ -912,8 +914,8 @@ function EafKWht(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: filteredReference.ref_min, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: filteredReference.ref_max // 100 is default
+            min: _min, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: _max // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -929,7 +931,7 @@ function EafKWht(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, filteredReference.reference, ".DrawChart1", retorno.EAFkWhTarget);
+            drawThresholds(this, thresholdOpts, opts, _max, ".DrawChart1", _ref);
         }
     };
 
@@ -937,7 +939,13 @@ function EafKWht(retorno) {
 
 }
 
-function EafLrfKwht(retorno) {
+function EafLrfKwht(retorno, reference, _min, _max, _ref) {
+    var filteredReference = reference.filter(function (obj) {
+        return obj.id_child === 2;
+    });
+
+    if (filteredReference.length > 0) { _min = parseFloat(filteredReference[0].refmin); _max = parseFloat(filteredReference[0].refmax); _ref = parseFloat(filteredReference[0].reference); }
+
     var thresholdOpts = {
         boxSize: 8,
         boxFill: false,
@@ -962,8 +970,8 @@ function EafLrfKwht(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: retorno.EAFLRFKWhMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.EAFLRFKWhnMax // 100 is default
+            min: _min, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: _max // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -979,7 +987,7 @@ function EafLrfKwht(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, retorno.EAFLRFKWhnMax, ".DrawChart2", retorno.EAFLRFKWhTarget);
+            drawThresholds(this, thresholdOpts, opts, _max, ".DrawChart2", _ref);
         }
     };
     chart = c3.generate(opts);
@@ -1042,7 +1050,13 @@ function measure(text, classname, chart) {
     };
 }
 
-function TonPerHour(retorno) {
+function TonPerHour(retorno, reference, _min, _max, _ref) {
+    var filteredReference = reference.filter(function (obj) {
+        return obj.id_child === 3;
+    });
+
+    if (filteredReference.length > 0) { _min = parseFloat(filteredReference[0].refmin); _max = parseFloat(filteredReference[0].refmax); _ref = parseFloat(filteredReference[0].reference); }
+
     var thresholdOpts = {
         boxSize: 8,
         boxFill: false,
@@ -1066,8 +1080,8 @@ function TonPerHour(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: retorno.TonHourPonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.TonHourPonMax // 100 is default
+            min: _min, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: _max // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -1083,14 +1097,20 @@ function TonPerHour(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, retorno.TonHourPonMax, ".DrawChart3", retorno.TonHourPonTarget);
+            drawThresholds(this, thresholdOpts, opts, _max, ".DrawChart3", _ref);
         }
     };
 
     chart = c3.generate(opts);
 }
 
-function IronYield(retorno) {
+function IronYield(retorno, reference, _min, _max, _ref) {
+    var filteredReference = reference.filter(function (obj) {
+        return obj.id_child === 4;
+    });
+
+    if (filteredReference.length > 0) { _min = parseFloat(filteredReference[0].refmin); _max = parseFloat(filteredReference[0].refmax); _ref = parseFloat(filteredReference[0].reference); }
+
     var thresholdOpts = {
         boxSize: 8,
         boxFill: false,
@@ -1114,8 +1134,8 @@ function IronYield(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: retorno.IronYieldMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.IronYieldMax // 100 is default
+            min: _min, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: _max // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -1131,14 +1151,19 @@ function IronYield(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, retorno.IronYieldMax, ".DrawChart4", retorno.IronYieldTarget);
+            drawThresholds(this, thresholdOpts, opts, _max, ".DrawChart4", _ref);
         }
     };
 
     chart = c3.generate(opts);
 }
 
-function FoamyCarbon(retorno) {
+function FoamyCarbon(retorno, reference, _min, _max, _ref) {
+    var filteredReference = reference.filter(function (obj) {
+        return obj.id_child === 5;
+    });
+
+    if (filteredReference.length > 0) { _min = parseFloat(filteredReference[0].refmin); _max = parseFloat(filteredReference[0].refmax); _ref = parseFloat(filteredReference[0].reference); }
     var thresholdOpts = {
         boxSize: 8,
         boxFill: false,
@@ -1162,8 +1187,8 @@ function FoamyCarbon(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: retorno.CarbonTonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.CarbonTonnMax // 100 is default
+            min: _min, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: _max // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -1179,14 +1204,20 @@ function FoamyCarbon(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, retorno.CarbonTonnMax, ".DrawChart5", retorno.CarbonTonTarget);
+            drawThresholds(this, thresholdOpts, opts, _max, ".DrawChart5", _ref);
         }
     };
 
     chart = c3.generate(opts);
 }
 
-function NG(retorno) {
+function NG(retorno, reference, _min, _max, _ref) {
+    var filteredReference = reference.filter(function (obj) {
+        return obj.id_child === 6;
+    });
+
+    if (filteredReference.length > 0) { _min = parseFloat(filteredReference[0].refmin); _max = parseFloat(filteredReference[0].refmax); _ref = parseFloat(filteredReference[0].reference); }
+
     var thresholdOpts = {
         boxSize: 8,
         boxFill: false,
@@ -1210,8 +1241,8 @@ function NG(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: retorno.NGTonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.NGTonMax // 100 is default
+            min: _min, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: _max // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -1227,14 +1258,20 @@ function NG(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, retorno.NGTonMax, ".DrawChart6", retorno.NGTonTarget);
+            drawThresholds(this, thresholdOpts, opts, _max, ".DrawChart6", _ref);
         }
     };
 
     chart = c3.generate(opts);
 }
 
-function Aluminum(retorno) {
+function Aluminum(retorno, reference, _min, _max, _ref) {
+    var filteredReference = reference.filter(function (obj) {
+        return obj.id_child === 7;
+    });
+
+    if (filteredReference.length > 0) { _min = parseFloat(filteredReference[0].refmin); _max = parseFloat(filteredReference[0].refmax); _ref = parseFloat(filteredReference[0].reference); }
+
     var thresholdOpts = {
         boxSize: 8,
         boxFill: false,
@@ -1258,8 +1295,8 @@ function Aluminum(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: retorno.AluminiumMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.AluminiumMax // 100 is default
+            min: _min, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: _max // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -1275,14 +1312,20 @@ function Aluminum(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, retorno.AluminiumMax, ".DrawChart7", retorno.AluminiumTarget);
+            drawThresholds(this, thresholdOpts, opts, _max, ".DrawChart7", _ref);
         }
     };
 
     chart = c3.generate(opts);
 }
 
-function ChargeCarbon(retorno) {
+function ChargeCarbon(retorno, reference, _min, _max, _ref) {
+    var filteredReference = reference.filter(function (obj) {
+        return obj.id_child === 8;
+    });
+
+    if (filteredReference.length > 0) { _min = parseFloat(filteredReference[0].refmin); _max = parseFloat(filteredReference[0].refmax); _ref = parseFloat(filteredReference[0].reference); }
+
     var thresholdOpts = {
         boxSize: 8,
         boxFill: false,
@@ -1306,8 +1349,8 @@ function ChargeCarbon(retorno) {
                 },
                 show: true // to turn off the min/max labels.                       
             },
-            min: retorno.ChargeCarbonMin, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            max: retorno.ChargeCarbonMax // 100 is default
+            min: _min, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: _max // 100 is default
             //    units: ' %',
             //    width: 39 // for adjusting arc thickness
         },
@@ -1323,7 +1366,7 @@ function ChargeCarbon(retorno) {
             height: 180
         },
         onrendered: function () {
-            drawThresholds(this, thresholdOpts, opts, retorno.ChargeCarbonMax, ".DrawChart8", retorno.ChargeCarbonTarget);
+            drawThresholds(this, thresholdOpts, opts, _max, ".DrawChart8", _ref);
         }
     };
 
