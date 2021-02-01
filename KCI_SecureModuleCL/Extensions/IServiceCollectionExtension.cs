@@ -24,8 +24,7 @@ namespace KCI_SecureModuleCL.Extensions
             );
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<IElementService, ElementService>();
+
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);

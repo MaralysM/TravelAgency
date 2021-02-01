@@ -1,0 +1,12 @@
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\bin\Debug\netcoreapp3.1\TravelAgency.Data.deps.json
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\bin\Debug\netcoreapp3.1\TravelAgency.Data.dll
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\bin\Debug\netcoreapp3.1\TravelAgency.Data.pdb
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\bin\Debug\netcoreapp3.1\TravelAgency.Entities.dll
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\bin\Debug\netcoreapp3.1\TravelAgency.Entities.pdb
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\obj\Debug\netcoreapp3.1\TravelAgency.Data.csprojAssemblyReference.cache
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\obj\Debug\netcoreapp3.1\TravelAgency.Data.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\obj\Debug\netcoreapp3.1\TravelAgency.Data.AssemblyInfo.cs
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\obj\Debug\netcoreapp3.1\TravelAgency.Data.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\obj\Debug\netcoreapp3.1\TravelAgency.Data.csproj.CopyComplete
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\obj\Debug\netcoreapp3.1\TravelAgency.Data.dll
+C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Data\obj\Debug\netcoreapp3.1\TravelAgency.Data.pdb

@@ -1,9 +1,9 @@
-CREATE DATABASE QMOS1
+CREATE DATABASE TravelAgency
 GO
 
 --DROP SCHEMA IF EXISTS [Security] 
 --GO
-USE [QMOS1]
+USE [TravelAgency]
 GO
 CREATE SCHEMA [Security]
 GO
@@ -137,7 +137,6 @@ CREATE TABLE [Security].[SM_USER](
 	[ID_User] [int] IDENTITY(1,1) NOT NULL,
 	[TX_Email] [varchar](255) NULL,
 	[TX_Password] [varchar](255) NOT NULL,
-	[BO_Active] [bit] NOT NULL,
 	[BO_PasswordExpired] [bit] NOT NULL,
 	[TX_Link] [varchar](255) NULL,
 	[TX_FirstName] [varchar](20) NOT NULL,
@@ -218,30 +217,28 @@ BEGIN
      VALUES('Item')
 END
 
-
-
 /*******************************************************
            Insert   [Security].[SM_USER]
 ********************************************************/
-IF NOT EXISTS (SELECT * FROM [Security].[SM_USER] WHERE TX_Email = 'ronner.velazquez@key-core.com')
+IF NOT EXISTS (SELECT * FROM [Security].[SM_USER] WHERE TX_Email = 'cliente@Travel-Agency.com')
 BEGIN
-    INSERT INTO [Security].[SM_USER] ([TX_Email],[TX_Password],[BO_Active],[BO_PasswordExpired],[TX_Link],[TX_FirstName],[TX_SecondName],[TX_LastName],[TX_SecondLastName],[TX_Phone],[ID_PriceList],[DT_ValidDatePasswordRecoveryLink])
-     VALUES('ronner.velazquez@key-core.com','B2B0EBU0FJNECAMF1A2D66F63597D68DBDE933A0CC81694B0E8C6B798CAF0E3740A82A26A1B05E4F5F87502EA31610CB8348DA0920',1,0,123,'Ronner','','Velazquez','',435365365,1,NULL)
+    INSERT INTO [Security].[SM_USER] ([TX_Email],[TX_Password],[BO_PasswordExpired],[TX_Link],[TX_FirstName],[TX_SecondName],[TX_LastName],[TX_SecondLastName],[TX_Phone],[ID_PriceList],[DT_ValidDatePasswordRecoveryLink])
+     VALUES('cliente@Travel-Agency.com','B2B0EBU0FJNECAMF1A2D66F63597D68DBDE933A0CC81694B0E8C6B798CAF0E3740A82A26A1B05E4F5F87502EA31610CB8348DA0920',0,123,'Usuario','','Administrador','',435365365,1,NULL)
 END
 
 /*******************************************************
            Insert   [Security].[SM_ELEMENT] 
 ********************************************************/
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Qmos')
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'TravelAgency')
 BEGIN
     INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
-     VALUES('Qmos','fas fa-money-bill-alt','https://localhost:44344/' ,0,1 ,0)
+     VALUES('TravelAgency','fas fa-money-bill-alt','https://localhost:44344/' ,0,1 ,0)
 END
 
 IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Management')
 BEGIN
     INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
-     VALUES('Management','fas fa-cogs','#' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Qmos'),2 ,0)
+     VALUES('Management','fas fa-cogs','#' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TravelAgency'),2 ,0)
 END
 
 IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Roles')
@@ -265,79 +262,17 @@ END
 
 
 
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Dashboards')
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Operaciones')
 BEGIN
 INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('Dashboards','fas fa-tachometer-alt','Dashboard' ,1,2 ,0)
+ VALUES('Operaciones','fas fa-tachometer-alt','Operaciones' ,1,2 ,0)
  END
 
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Tap PPM -  Target PPM')
+IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Viajes')
 BEGIN
 INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('Tap PPM -  Target PPM','','Dashboard' , (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
+ VALUES('Viajes','','Travel' , (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Operaciones'),2 ,0)
 END
-
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Tap Temp -  Target Temp')
-BEGIN
- INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('Tap Temp -  Target Temp','','Dashboard' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
- END
-
- IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'TapWt - TapWtTarget')
-BEGIN
-  INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('TapWt - TapWtTarget','','Dashboard' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
-END
-
- IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'KWh per Scrap Ton')
-BEGIN
-   INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('KWh per Scrap Ton','','Dashboard/KWhPerScrapTon' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
- END
-
-  IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Scrap Ton per Hour')
-BEGIN
-    INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('Scrap Ton per Hour','','Dashboard' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
-  END
-
-    IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'Iron Yield')
-BEGIN
-     INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('Iron Yield','','Dashboard' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
-  END
-
-    IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Delays')
-BEGIN
-      INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('MTD Delays','','Dashboard/MTDDelays' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
-   END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Missed Heats')
-BEGIN
-INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('MTD Missed Heats','','Dashboard/MTDMissedHeats' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
-  END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Tap Temp and 02 PPM')
-BEGIN
- INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('MTD Tap Temp and 02 PPM','','Dashboard/MTDTapTempand02PPM' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
-END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Average')
-BEGIN
-  INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('MTD Average','','Dashboard' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
- END
-
- IF NOT EXISTS (SELECT * FROM [Security].[SM_ELEMENT] WHERE TX_Name = 'MTD Production')
-BEGIN
-   INSERT INTO [Security].[SM_ELEMENT]([TX_Name],[TX_Icon],[TX_Url],[ID_ElementParent] ,[ID_Type] ,[BO_Default])
- VALUES('MTD Production','','Dashboard' ,(select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'),2 ,0)
-  END
-
 
   /*******************************************************
            Insert   [Security].[SM_ROLE]
@@ -383,76 +318,8 @@ INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
            (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Menu & Elements'))
 END
 
- IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards') AND ID_Role =1)
+ IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Viajes') AND ID_Role =1)
 BEGIN  
 INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Dashboards'))
+           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Viajes'))
 END
-
- IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM') AND ID_Role =1)
-BEGIN  
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap PPM -  Target PPM'))
-END
-
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp') AND ID_Role =1)
-BEGIN  
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Tap Temp -  Target Temp'))
-END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget') AND ID_Role =1)
-BEGIN 
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'TapWt - TapWtTarget'))
-END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'KWh per Scrap Ton') AND ID_Role =1)
-BEGIN 
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'KWh per Scrap Ton'))
-END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Scrap Ton per Hour') AND ID_Role =1)
-BEGIN 
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Scrap Ton per Hour'))
-END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Iron Yield') AND ID_Role =1)
-BEGIN 
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'Iron Yield'))
-END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Delays') AND ID_Role =1)
-BEGIN 
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Delays'))
-END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Missed Heats') AND ID_Role =1)
-BEGIN 
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Missed Heats'))
-END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and 02 PPM') AND ID_Role =1)
-BEGIN 
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Tap Temp and 02 PPM'))
-END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average') AND ID_Role =1)
-BEGIN 
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Average'))
-END
-
-IF NOT EXISTS (SELECT * FROM [Security].[SM_ROLE_ELEMENT] WHERE ID_Element = (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Production') AND ID_Role =1)
-BEGIN 
-INSERT INTO [Security].[SM_ROLE_ELEMENT]([ID_Role],[ID_Element]) VALUES
-           (1, (select top 1 ID_Element from [Security].[SM_ELEMENT] where  TX_Name= 'MTD Production'))
-END
-

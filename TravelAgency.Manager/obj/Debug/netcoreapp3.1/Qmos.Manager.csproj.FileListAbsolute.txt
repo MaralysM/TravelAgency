@@ -1,0 +1,16 @@
+C:\Users\User\source\repos\Qmos\Qmos.Manager\bin\Debug\netcoreapp3.1\Qmos.Manager.deps.json
+C:\Users\User\source\repos\Qmos\Qmos.Manager\bin\Debug\netcoreapp3.1\Qmos.Manager.dll
+C:\Users\User\source\repos\Qmos\Qmos.Manager\bin\Debug\netcoreapp3.1\Qmos.Manager.pdb
+C:\Users\User\source\repos\Qmos\Qmos.Manager\bin\Debug\netcoreapp3.1\KCI_ApiRequester.dll
+C:\Users\User\source\repos\Qmos\Qmos.Manager\bin\Debug\netcoreapp3.1\KCI_SecureModuleCL.dll
+C:\Users\User\source\repos\Qmos\Qmos.Manager\bin\Debug\netcoreapp3.1\Qmos.Data.dll
+C:\Users\User\source\repos\Qmos\Qmos.Manager\bin\Debug\netcoreapp3.1\Qmos.Entities.dll
+C:\Users\User\source\repos\Qmos\Qmos.Manager\bin\Debug\netcoreapp3.1\KCI_SecureModuleCL.pdb
+C:\Users\User\source\repos\Qmos\Qmos.Manager\bin\Debug\netcoreapp3.1\Qmos.Data.pdb
+C:\Users\User\source\repos\Qmos\Qmos.Manager\bin\Debug\netcoreapp3.1\Qmos.Entities.pdb
+C:\Users\User\source\repos\Qmos\Qmos.Manager\obj\Debug\netcoreapp3.1\Qmos.Manager.csprojAssemblyReference.cache
+C:\Users\User\source\repos\Qmos\Qmos.Manager\obj\Debug\netcoreapp3.1\Qmos.Manager.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\Qmos\Qmos.Manager\obj\Debug\netcoreapp3.1\Qmos.Manager.AssemblyInfo.cs
+C:\Users\User\source\repos\Qmos\Qmos.Manager\obj\Debug\netcoreapp3.1\Qmos.Manager.csproj.CopyComplete
+C:\Users\User\source\repos\Qmos\Qmos.Manager\obj\Debug\netcoreapp3.1\Qmos.Manager.dll
+C:\Users\User\source\repos\Qmos\Qmos.Manager\obj\Debug\netcoreapp3.1\Qmos.Manager.pdb

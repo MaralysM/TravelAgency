@@ -1,0 +1,88 @@
+﻿
+@{
+    @model TravelAgency.UI.ViewModels.TravelsViewModel
+    ViewData["Title"] = "Lista de Viajes" + ViewData["Customer"];
+    ViewData["Root"] = "Viajes ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert.css">
+<link rel="stylesheet" href="~/css/plugins/dataTables/datatables.min.css" />
+<link rel="stylesheet" href="~/css/plugins/toastr/toastr.min.css" />
+<partial name="_HeaderDetailPartial" view-data="ViewData" />
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content text-center p-md">
+                    <div class="row">
+                        <div class="col-lg-offset-10">
+                            <a asp-controller="Travels" asp-action="Get" class="btn btn-success"><i class="fa fa-user-plus"></i> Nuevo</a>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-bordered table-hover dataTables" id="table">
+                        <thead>
+                            <tr>
+                                <th>Código de viaje</th>
+                                <th>Número de plaza</th>
+                                <th>Origen</th>
+                                <th>Destino</th>
+                                <th>Precio</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ foreach (var item in Model.Travels)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.NU_TravelCode
+                                        </td>
+                                        <td>
+                                            @item.NU_NumberOfPlace
+                                        </td>
+                                        <td>
+                                            @item.TX_Origin
+                                        </td>
+                                        <td>
+                                            @item.TX_Destination
+                                        </td>
+                                        <td>
+                                            @string.Format("{0:n}", item.NU_Price)
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a asp-controller="Travels" asp-action="GetUpdate" asp-route-id="@item.ID_Travels" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                <a data-id="@item.ID_Travels" class="btn btn-danger delete"><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="~/js/plugins/dataTables/dataTablesCustom.js"></script>
+    <script src="~/js/plugins/toastr/toastr.min.js"></script>
+
+    <script>
+    $(document).ready(function ()
+    {
+        formatearDataTableOriginal("#table", "@ViewData["Title"]", [0, 1,2,3,4,5], null);
+        $('#table tbody').on('click', '.delete', function () {
+            eliminarRegistro(".delete", "data-id", "@Url.Action("Delete", "Travels")", '#table', $(this));
+        });
+
+    });
+    </script>
+}

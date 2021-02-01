@@ -1,0 +1,8 @@
+C:\Users\User\source\repos\Qmos\Qmos.Entities\bin\Debug\netcoreapp3.1\Qmos.Entities.deps.json
+C:\Users\User\source\repos\Qmos\Qmos.Entities\bin\Debug\netcoreapp3.1\Qmos.Entities.dll
+C:\Users\User\source\repos\Qmos\Qmos.Entities\bin\Debug\netcoreapp3.1\Qmos.Entities.pdb
+C:\Users\User\source\repos\Qmos\Qmos.Entities\obj\Debug\netcoreapp3.1\Qmos.Entities.csprojAssemblyReference.cache
+C:\Users\User\source\repos\Qmos\Qmos.Entities\obj\Debug\netcoreapp3.1\Qmos.Entities.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\Qmos\Qmos.Entities\obj\Debug\netcoreapp3.1\Qmos.Entities.AssemblyInfo.cs
+C:\Users\User\source\repos\Qmos\Qmos.Entities\obj\Debug\netcoreapp3.1\Qmos.Entities.dll
+C:\Users\User\source\repos\Qmos\Qmos.Entities\obj\Debug\netcoreapp3.1\Qmos.Entities.pdb

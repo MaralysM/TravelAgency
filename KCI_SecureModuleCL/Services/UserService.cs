@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TokenHandler = KCI_SecureModuleCL.Utilities.TokenHandler;
 
 namespace KCI_SecureModuleCL.Services
 {
@@ -24,9 +23,6 @@ namespace KCI_SecureModuleCL.Services
         bool Edit(SM_USER user);
 
         bool Delete(int id);
-        void AddRoleToUser(SM_ROLE_USER userRole);
-        IEnumerable<SM_ROLE_USER> GetAllRolesByUser(int ID_User);
-        bool DeleteRoleByUser(int iD_UserRoleAplication);
         bool CheckUserEmail(string useremail);
 
     }
@@ -44,38 +40,17 @@ namespace KCI_SecureModuleCL.Services
             DB = _DB;
         }
 
-        private SM_ROLE GetRoleByUserIdAndApplication(int ID_User, int ID_Application = 0)
-        {
-            if (ID_Application == 0)
-                ID_Application = DB.SM_ELEMENT.SingleOrDefault(a => a.ID_ElementParent == 0).ID_Element;
-
-            var Rol = from roles in DB.SM_ROLE
-                      join usuarios_roles in DB.SM_ROLE_USER on roles.ID_Role equals usuarios_roles.ID_Role
-                      join usuarios in DB.SM_USER on usuarios_roles.ID_User equals usuarios.ID_User
-                      where roles.ID_Element == ID_Application && usuarios.ID_User == ID_User
-                      select new SM_ROLE { ID_Role = roles.ID_Role, ID_Element = roles.ID_Element, TX_Description = roles.TX_Description, TX_Role = roles.TX_Role }; ;
-
-
-
-            return Rol.First();
-        }
-
         private SM_USER AuthenticateWithUserAndPassword(string useremail, string password, int application)
         {
             try
             {
                 var user = DB.SM_USER.SingleOrDefault(x => x.TX_Email.Equals(useremail));
 
-                // return null if user not found
                 if (user == null)
                     return null;
 
                 if (!HashHandler.Validate(password, user.TX_Password))
                     return null;
-
-                user.CurrentRole = GetRoleByUserIdAndApplication(user.ID_User, application);
-
-                user.Token = TokenHandler.GenerateToken(user.ID_User.ToString(), user.CurrentRole.TX_Role, _appSettings.Secret);
 
                 return user.WithoutPassword();
 
@@ -129,10 +104,6 @@ namespace KCI_SecureModuleCL.Services
                 editedUser.TX_LastName = user.TX_LastName;
                 editedUser.TX_SecondLastName = user.TX_SecondLastName;
                 editedUser.TX_Phone = user.TX_Phone;
-                editedUser.BO_Active = user.BO_Active;
-
-                if (user.DT_ValidDatePasswordRecoveryLink != null)
-                    editedUser.DT_ValidDatePasswordRecoveryLink = user.DT_ValidDatePasswordRecoveryLink;
 
                 if (user.PasswordChanged)
                     editedUser.TX_Password = HashHandler.CreateHash(user.TX_Password);
@@ -152,10 +123,6 @@ namespace KCI_SecureModuleCL.Services
         {
             try
             {
-                var roles = DB.SM_ROLE_USER.Where(u => u.ID_User == id);
-                DB.SM_ROLE_USER.RemoveRange(roles);
-                DB.SaveChanges();
-
                 var user = DB.SM_USER.FirstOrDefault(x => x.ID_User == id);
                 DB.SM_USER.Remove(user);
                 DB.SaveChanges();
@@ -167,32 +134,6 @@ namespace KCI_SecureModuleCL.Services
             }
 
 
-        }
-
-        public void AddRoleToUser(SM_ROLE_USER userRole)
-        {
-            var UserRole = DB.SM_ROLE_USER.SingleOrDefault(x => x.ID_User == userRole.ID_User && x.ID_Role == userRole.ID_Role);
-            if (UserRole == null)
-            {
-                DB.SM_ROLE_USER.Add(userRole);
-                DB.SaveChanges();
-            }
-        }
-
-        public IEnumerable<SM_ROLE_USER> GetAllRolesByUser(int ID_User)
-        {
-            return DB.SM_ROLE_USER.Where(r => r.ID_User == ID_User).Include(x => x.ID_RoleNavigation).Include(x => x.ID_RoleNavigation.ID_ElementNavigation);
-        }
-
-        public bool DeleteRoleByUser(int iD_UserRoleAplication)
-        {
-            var RoleUser = DB.SM_ROLE_USER.SingleOrDefault(x => x.ID_UserRoleApplication == iD_UserRoleAplication);
-            if (RoleUser != null)
-            {
-                DB.SM_ROLE_USER.Remove(RoleUser);
-                DB.SaveChanges();
-            }
-            return true;
         }
 
         public SM_USER Authenticate(string useremail, string password, int application, string link)
