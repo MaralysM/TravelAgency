@@ -15,3 +15,20 @@ C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Manager\bin\Debug\netco
 C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Manager\obj\Debug\netcoreapp3.1\TravelAgency.Manager.csproj.CopyComplete
 C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Manager\obj\Debug\netcoreapp3.1\TravelAgency.Manager.dll
 C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Manager\obj\Debug\netcoreapp3.1\TravelAgency.Manager.pdb
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\bin\Debug\netcoreapp3.1\TravelAgency.Manager.deps.json
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\bin\Debug\netcoreapp3.1\TravelAgency.Manager.dll
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\bin\Debug\netcoreapp3.1\TravelAgency.Manager.pdb
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\bin\Debug\netcoreapp3.1\KCI_ApiRequester.dll
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\bin\Debug\netcoreapp3.1\KCI_SecureModuleCL.dll
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\bin\Debug\netcoreapp3.1\TravelAgency.Data.dll
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\bin\Debug\netcoreapp3.1\TravelAgency.Entities.dll
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\bin\Debug\netcoreapp3.1\KCI_SecureModuleCL.pdb
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\bin\Debug\netcoreapp3.1\TravelAgency.Data.pdb
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\bin\Debug\netcoreapp3.1\TravelAgency.Entities.pdb
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\obj\Debug\netcoreapp3.1\TravelAgency.Manager.csprojAssemblyReference.cache
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\obj\Debug\netcoreapp3.1\TravelAgency.Manager.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\obj\Debug\netcoreapp3.1\TravelAgency.Manager.AssemblyInfo.cs
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\obj\Debug\netcoreapp3.1\TravelAgency.Manager.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\obj\Debug\netcoreapp3.1\TravelAgency.Manager.csproj.CopyComplete
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\obj\Debug\netcoreapp3.1\TravelAgency.Manager.dll
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Manager\obj\Debug\netcoreapp3.1\TravelAgency.Manager.pdb

@@ -7,3 +7,12 @@ C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Entities\obj\Debug\netc
 C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Entities\obj\Debug\netcoreapp3.1\TravelAgency.Entities.csproj.CoreCompileInputs.cache
 C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Entities\obj\Debug\netcoreapp3.1\TravelAgency.Entities.dll
 C:\Users\User\source\repos\AgenciaDe Viajes\TravelAgency.Entities\obj\Debug\netcoreapp3.1\TravelAgency.Entities.pdb
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Entities\bin\Debug\netcoreapp3.1\TravelAgency.Entities.deps.json
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Entities\bin\Debug\netcoreapp3.1\TravelAgency.Entities.dll
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Entities\bin\Debug\netcoreapp3.1\TravelAgency.Entities.pdb
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Entities\obj\Debug\netcoreapp3.1\TravelAgency.Entities.csprojAssemblyReference.cache
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Entities\obj\Debug\netcoreapp3.1\TravelAgency.Entities.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Entities\obj\Debug\netcoreapp3.1\TravelAgency.Entities.AssemblyInfo.cs
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Entities\obj\Debug\netcoreapp3.1\TravelAgency.Entities.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Entities\obj\Debug\netcoreapp3.1\TravelAgency.Entities.dll
+C:\Users\User\source\repos\TravelAgency\TravelAgency.Entities\obj\Debug\netcoreapp3.1\TravelAgency.Entities.pdb

@@ -20,3 +20,15 @@ C:\Users\User\source\repos\AgenciaDe Viajes\KCI_SecureModuleCL\obj\Debug\netcore
 C:\Users\User\source\repos\AgenciaDe Viajes\KCI_SecureModuleCL\obj\Debug\netcoreapp3.1\KCI_SecureModuleCL.dll
 C:\Users\User\source\repos\AgenciaDe Viajes\KCI_SecureModuleCL\obj\Debug\netcoreapp3.1\KCI_SecureModuleCL.pdb
 C:\Users\User\source\repos\AgenciaDe Viajes\KCI_SecureModuleCL\obj\Debug\netcoreapp3.1\KCI_SecureModuleCL.genruntimeconfig.cache
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\bin\Debug\netcoreapp3.1\KCI_SecureModuleCL.deps.json
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\bin\Debug\netcoreapp3.1\KCI_SecureModuleCL.runtimeconfig.json
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\bin\Debug\netcoreapp3.1\KCI_SecureModuleCL.runtimeconfig.dev.json
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\bin\Debug\netcoreapp3.1\KCI_SecureModuleCL.dll
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\bin\Debug\netcoreapp3.1\KCI_SecureModuleCL.pdb
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\obj\Debug\netcoreapp3.1\KCI_SecureModuleCL.csprojAssemblyReference.cache
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\obj\Debug\netcoreapp3.1\KCI_SecureModuleCL.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\obj\Debug\netcoreapp3.1\KCI_SecureModuleCL.AssemblyInfo.cs
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\obj\Debug\netcoreapp3.1\KCI_SecureModuleCL.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\obj\Debug\netcoreapp3.1\KCI_SecureModuleCL.dll
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\obj\Debug\netcoreapp3.1\KCI_SecureModuleCL.pdb
+C:\Users\User\source\repos\TravelAgency\KCI_SecureModuleCL\obj\Debug\netcoreapp3.1\KCI_SecureModuleCL.genruntimeconfig.cache
